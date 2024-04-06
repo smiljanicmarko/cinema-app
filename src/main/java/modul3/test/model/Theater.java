@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Theater {
@@ -19,6 +22,10 @@ public class Theater {
 		private String name;
 		
 		private List<ProjectionType>types = new ArrayList<ProjectionType>();
+		@OneToMany(mappedBy = "theater", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		private List<Seat> seats = new ArrayList<Seat>();
+		@OneToMany(mappedBy = "theater", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		private List<Projection>projections = new ArrayList<Projection>();
 
 		public Long getId() {
 			return id;
@@ -42,6 +49,14 @@ public class Theater {
 
 		public void setTypes(List<ProjectionType> types) {
 			this.types = types;
+		}		
+		
+		public List<Seat> getSeats() {
+			return seats;
+		}
+
+		public void setSeats(List<Seat> seats) {
+			this.seats = seats;
 		}
 
 		@Override
