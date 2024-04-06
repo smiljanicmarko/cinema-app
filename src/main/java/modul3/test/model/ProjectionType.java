@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import modul3.test.enumeration.ProjectionTypeEnum;
+
 @Entity
 public class ProjectionType {
 
@@ -16,18 +18,9 @@ public class ProjectionType {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private ProjectionType type;
-
-	public ProjectionType() {
-		super();
-	}
-
-	public ProjectionType(Long id, ProjectionType type) {
-		super();
-		this.id = id;
-		this.type = type;
-	}
-
+    private ProjectionTypeEnum type;
+    
+    
 	public Long getId() {
 		return id;
 	}
@@ -36,11 +29,11 @@ public class ProjectionType {
 		this.id = id;
 	}
 
-	public ProjectionType getType() {
+	public ProjectionTypeEnum getType() {
 		return type;
 	}
 
-	public void setType(ProjectionType type) {
+	public void setType(ProjectionTypeEnum type) {
 		this.type = type;
 	}
 
@@ -61,10 +54,7 @@ public class ProjectionType {
 		return Objects.equals(id, other.id);
 	}
 
-	@Override
-	public String toString() {
-		return "ProjectionType [id=" + id + ", type=" + type + "]";
-	}
+	
 
 	
 	

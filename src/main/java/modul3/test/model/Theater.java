@@ -10,6 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -21,7 +24,14 @@ public class Theater {
 	 
 		private String name;
 		
+		 @ManyToMany
+		    @JoinTable(name = "projection_projection_type",
+		               joinColumns = @JoinColumn(name = "projection_id"),
+		               inverseJoinColumns = @JoinColumn(name = "projection_type_id"))		
 		private List<ProjectionType>types = new ArrayList<ProjectionType>();
+		 
+		 
+		
 		@OneToMany(mappedBy = "theater", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		private List<Seat> seats = new ArrayList<Seat>();
 		@OneToMany(mappedBy = "theater", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

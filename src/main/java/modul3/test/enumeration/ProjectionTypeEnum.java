@@ -1,6 +1,6 @@
 package modul3.test.enumeration;
 
-public enum ProjectionType {
+public enum ProjectionTypeEnum {
 	_2D, 
     _3D, 
     _4D
