@@ -22,6 +22,29 @@ INSERT INTO theater_projection_type VALUES (2, 1);
 INSERT INTO theater_projection_type VALUES (3, 2);
 INSERT INTO theater_projection_type VALUES (3, 3);
 
+INSERT INTO seat (theater_id) VALUES ( 1);
+INSERT INTO seat (theater_id) VALUES ( 1);
+INSERT INTO seat (theater_id) VALUES ( 1);
+INSERT INTO seat (theater_id) VALUES ( 1);
+INSERT INTO seat (theater_id) VALUES ( 1);
+
+
+INSERT INTO seat (theater_id) VALUES ( 2);
+INSERT INTO seat (theater_id) VALUES ( 2);
+INSERT INTO seat (theater_id) VALUES ( 2);
+
+
+INSERT INTO seat (theater_id) VALUES ( 3);
+INSERT INTO seat (theater_id) VALUES ( 3);
+INSERT INTO seat (theater_id) VALUES ( 3);
+INSERT INTO seat (theater_id) VALUES ( 3);
+INSERT INTO seat (theater_id) VALUES ( 3);
+
+INSERT INTO movie (id, name, director, actors, genres, duration, distributor, country, year, description) VALUES (1, "Maratonci", "Slobodan Sijan", 
+"Bogdan Diklic, Bata Stojkovic, Pavle Vujisic", "Komedija, Drama", 92, "Yugo-film", "Jugoslavija", 1982, "The Topalovic family has been in the burial business for generations. When the old (150 yrs old) Pantelija dies, five generations of his heirs start to fight for the inheritance.");
+
+
+
 --'2020-06-21 20:00'
 --'2020-07-22 21:00'
 --'2020-06-22 20:00'
