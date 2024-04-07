@@ -1,0 +1,11 @@
+const getGenresStringFromList = (list) = {
+        return list.map(element = element.naziv).join(',');
+    }
+===================== ARRAY TO STRING ===========================
+  if (Array.isArray(res.data) && res.data.length > 0) {
+            // Create a string that lists players' names
+            const igraciString = res.data.map(igrac => `${igrac.ime} ${igrac.prezime}`).join(', ');
+            alert(`Najbolji strelci: ${igraciString}`);
+====================== STATE ASINHRONIZACIJA =====================
+Nekada se state ne ucita odmah, pa ako ti treba vrednost iz state u objektu params,
+nekad je bolje odmah koristiti e.target.value unutar paramsa, a ne set state, pa koristiti state.

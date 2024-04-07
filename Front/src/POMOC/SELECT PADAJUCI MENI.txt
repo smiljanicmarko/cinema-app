@@ -1,0 +1,40 @@
+ const [rezultat, setRezultat] = useState([]) // STATE ZA SELECT OPCIJU
+
+// ======================== DOBAVLJANJE PODATAKA ZA SELECT================================
+    const getZadaci = useCallback(() => {
+        TestAxios.get("/zadaci")
+            .then(res => {
+                // handle success
+                console.log(res);
+                setRezultat(res.data)               
+            })
+            .catch(error => {
+                // handle error
+                console.log(error);
+                alert('Doslo je do greske, molimo pokusajte ponovo!');
+            });
+    }, []);
+
+
+    useEffect(() => {
+        getZadaci();
+    }, []);
+
+
+// ====================================== U RETURN FUNKCIJU ===================
+ {/*===================================== S E L E C T  /   PADAJUCI MENI =========================================== */} 
+                      <FormGroup>
+                        <FormLabel htmlFor=''>SELECT</FormLabel>
+                        <Form.Control as='select'>
+                        <option value=''>Izaberi opciju</option>
+                        {
+                            rezultat.map((zadatak, index) =>{
+                                return (
+                                    <option key={zadatak.id} value={zadatak.id}> {zadatak.ime} </option>
+                                )
+                            })
+                        }
+                        </Form.Control>
+                      </FormGroup>
+  {/*===================================== S E L E C T  /   PADAJUCI MENI =========================================== */} 
+

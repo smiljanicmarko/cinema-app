@@ -1,0 +1,26 @@
+
+==========================================MNOGO BOLJA VERZIJA=======================
+const valueInputChanged = (e) => {
+        //const { name, value } = e.target;
+        let input = e.target;
+        let name = input.name;
+        let value = input.value;
+    
+        setUpdateMovie((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+============================================VARIJANTA KAD IMAMO I CHECKBOX ======================
+
+const valueInputChanged = (e) => {
+        const { name, value, type, checked } = e.target;      
+    
+        setObjekat((prevState) => ({
+            ...prevState,
+           // [name]: value,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+===================================================
+datetime-local - input za datum i vreme

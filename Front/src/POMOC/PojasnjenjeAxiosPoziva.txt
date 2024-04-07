@@ -1,0 +1,22 @@
+		KONFIGURACIJA AXIOS POZIVA
+1. GET i DELETE : axios.delete(url[, config])
+2. POST i PUT   : axios.put(url[, data[, config]]) - imaju DATA (objekte) na drugom mestu
+	u okviru config je params: 
+
+
+ 		SLANJE PARAMETARA I OBJEKATA
+u axiosu mozemo slati 3 stvari:
+
+1: Path variable - njih lepimo na url
+
+2: QueryParams params: , null, { <==== obrati paznju da je na drugom mestu NULL, tako funkcionise PUT!!!
+	params: {}
+}
+To se lepi na URL, i koristi se kod pretrage. Moze i za manje izmene, kad nam treba samo par 
+izolovanih parametara (Festivali - izmena mesta). U tom slucaju, kontroler se mora izmeniti, izbrisati
+consumes JSON, i staviti @RequestParam. 
+
+
+3: cele objekte. 
+Paramsi su za pretragu uglavnom, a objekti za post , put. 
+Moze samo zarez i ceo objekat da se navede, ili druga opcija var params {bla: bla}, pa ukljuciti params.

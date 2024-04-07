@@ -1,0 +1,41 @@
+
+    {!isAdmin?( (!klasa.brojKarata || new Date(klasa.datumZavrsetka) >= new Date())? <td><Button disabled={!klasa.brojKarata} className='btn btn-success' onClick={() => goToRezervacija (klasa.id, klasa.cena)}>Kupi kartu</Button></td>:<td></td>) : <></> }
+		da se dugme sakrije od admina, ako nema karata, i ako je prosao datum zavrsetka!
+
+{!isAdmin?( (klasa.brojKarata <= 0 || new Date(klasa.datumZavrsetka) < new Date())? <td></td>:<td><Button disabled={!klasa.brojKarata} className='btn btn-success' onClick={() => goToRezervacija (klasa.id, klasa.cena)}>Kupi kartu</Button></td>) : <></> }
+===============================================FORMAT DATUMA ========================================
+function formatDate(input) {
+    // Attempt to convert input to a Date object if it's not already one
+    let date = input instanceof Date ? input : new Date(input);
+    
+    // Check if the date conversion was successful
+    if (isNaN(date.getTime())) {
+      throw new Error('Invalid input: Cannot convert to a Date object.');
+    }
+  
+    let day = date.getDate();
+    let month = date.getMonth() + 1; // Months are 0-indexed in JavaScript
+    let year = date.getFullYear();
+  
+    // Ensuring day and month are in 'dd' and 'MM' formats respectively
+    day = day < 10 ? '0' + day : day.toString();
+    month = month < 10 ? '0' + month : month.toString();
+  
+    // Construct and return the formatted date string
+    return `${day}.${month}.${year}.`;
+  }
+
+==============================================NJIHOVA FUNKCIJA, NEKAD NECE DA RADI ===========================
+
+ const formatCurrentDate = (date) => {
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    return year + "-" + month + "-" + day;
+}
+
+datetime-local - input za datum i vreme

@@ -1,0 +1,32 @@
+// 1. importovati React i ReactDOM biblioteke
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+// 2. kreiratati React komponentu
+const App = function() {
+    return <div>Hello world!</div>;
+};
+
+/**
+ * const App = () => {
+    return <div>Hello world!</div>;
+};
+ */
+// 3. prikazati komponentu na ekranu
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+
+root.render(
+    <App/>,
+);
+
+=============================
+Instalacije za aplikaciju:
+=============================
+npm install - za sve dependencije
+npm install react - router-dom - za rutiranje
+npm install axios - Aksios pozivi
+npm install bootstrap
+npm install react-bootstrap
+npm install jwd-decode

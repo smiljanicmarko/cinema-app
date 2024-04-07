@@ -1,0 +1,78 @@
+=========================================== A X I O S  P O Z I V I================================================
+
+=============== GET ====================
+const getMovieById = useCallback((movieId) => {
+        CinemaAxios.get('/filmovi/' + movieId)
+        .then(res => {
+            // handle success
+            console.log(res);
+            setUpdateMovie({ movieId: res.data.id, movieName: res.data.naziv, movieDuration: res.data.trajanje});
+        })
+        .catch(error => {
+            // handle error
+            console.log(error);
+            alert('Error occured please try again!');
+         });
+    }, []);
+
+
+=============== POST ===================
+ const create = () => {
+        var params = {
+            'naziv': newMovie.name,
+            'trajanje': newMovie.duration
+        };
+
+        CinemaAxios.post('/filmovi', params)
+        .then(res => {
+            // handle success
+            console.log(res);
+           
+            alert('Movie was added successfully!');
+            navigate('/movies'); 
+        })
+        .catch(error => {
+            // handle error
+            console.log(error);
+            alert('Error occured please try again!');
+         });
+    }
+
+
+=============== PUT ====================
+const edit = () => {
+        var params = {
+            'id': updateMovie.movieId,
+            'naziv': updateMovie.movieName,
+            'trajanje': updateMovie.movieDuration
+        };
+
+        CinemaAxios.put('/filmovi/' + updateMovie.movieId, params)
+        .then(res => {
+            // handle success
+            console.log(res);
+            alert('Movie was edited successfully!');
+            navigate('/movies');
+        })
+        .catch(error => {
+            // handle error
+            console.log(error);
+            alert('Error occured please try again!');
+         });
+    }
+
+=============== DELETE =================
+
+ CinemaAxios.delete('/filmovi/' + movieId)
+        .then(res => {
+            // handle success
+            console.log(res);
+            alert('Movie was deleted successfully!');
+            //window.location.reload();
+ 		setTabela(tabela.filter(el => el.id !==id))
+        })
+        .catch(error => {
+            // handle error
+            console.log(error);
+            alert('Error occured please try again!');
+         });

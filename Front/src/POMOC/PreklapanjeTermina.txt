@@ -1,0 +1,14 @@
+public boolean isOverlapping(Appointment newAppointment, List<Appointment> existingAppointments) {
+    for (Appointment existingAppointment : existingAppointments) {
+        if (newAppointment.getStart().isBefore(existingAppointment.getEnd()) &&
+            newAppointment.getEnd().isAfter(existingAppointment.getStart())) {
+            return true;  // Collision detected
+        }
+    }
+    return false;  // No collision
+}
+==============================skraceno===============================
+if (newAppointment.getStart().isBefore(existingAppointment.getEnd()) &&
+    newAppointment.getEnd().isAfter(existingAppointment.getStart())) {
+  	return true;  // Collision detected
+     }

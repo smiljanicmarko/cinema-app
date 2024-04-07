@@ -1,0 +1,9 @@
+IZMENA U REACTU
+
+U INDEX.JS
+
+ 	<Route path='/izmena/:id' element={<Izmena/>}/>
+
+U ZADACI.js DUGME
+
+ 	 <td> <Button className='btn btn-warning' onClick={()=>{navigate("/izmena/" +klasa.id)}}>Izmeni</Button></td>

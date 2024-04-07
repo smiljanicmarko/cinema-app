@@ -1,0 +1,64 @@
+import { useState } from "react"
+import { Button, Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
+
+const Pretraga = () => {
+    //state za vrh komponente
+    const [prikaziFormu, setPrikaziFormu] = useState(false);
+
+    const formaHandler = () => {
+        setPrikaziFormu(!prikaziFormu);
+    };
+
+    const renderFormu = () => {
+        return (
+            <div>
+            <Form>
+              <Row className="align-items-end"> {/* Use this to align the button with the form fields */}
+                <Col md={2}>
+                  <FormGroup>
+                    <FormLabel>Tekstualni input</FormLabel>
+                    <Form.Control type='text'></Form.Control>
+                  </FormGroup>
+                </Col>
+                <Col md={2}>
+                  <FormGroup>
+                    <FormLabel>Broj</FormLabel>
+                    <Form.Control type='number'></Form.Control>
+                  </FormGroup>
+                </Col>
+                <Col md={2}>
+                  <FormGroup>
+                    <FormLabel>Datum</FormLabel>
+                    <Form.Control type='date'></Form.Control>
+                  </FormGroup>
+                </Col>
+                <Col md={3}>
+                  <FormGroup>
+                    <FormLabel>SELECT</FormLabel>
+                    <Form.Control as='select'>
+                      <option value=''>Izaberi opciju</option>
+                      {/* Options can be mapped here */}
+                    </Form.Control>
+                  </FormGroup>
+                </Col>
+                <Col md={3}>
+                  <Button type="button">Pretrazi</Button>
+                </Col>
+              </Row>
+            </Form>
+          </div>
+          
+        )
+    }
+
+    return (
+       /*  OVAJ DIV IZNAD TABELE  */
+        <div>            
+            <Form.Check type="checkbox"  label="Prikazi meni za pretragu" onChange={formaHandler} />
+            {prikaziFormu && renderFormu()}
+            <br/>
+        </div>
+    )
+}
+
+export default Pretraga

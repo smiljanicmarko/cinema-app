@@ -1,0 +1,42 @@
+const ExampleComponent = () => {
+  const [radioValue, setRadioValue] = React.useState('');
+
+  const handleRadioChange = (e) => {
+    setRadioValue(e.target.value);
+  };
+
+  return (
+    <Form>
+      <Form.Group>
+        <Form.Label>Select an option:</Form.Label>
+        <Form.Check
+          type="radio"
+          label="Option 1"
+          name="formHorizontalRadios"
+          id="formHorizontalRadios1"
+          value="option1"
+          onChange={handleRadioChange}
+          checked={radioValue === 'option1'}
+        />
+        <Form.Check
+          type="radio"
+          label="Option 2"
+          name="formHorizontalRadios"
+          id="formHorizontalRadios2"
+          value="option2"
+          onChange={handleRadioChange}
+          checked={radioValue === 'option2'}
+        />
+        <Form.Check
+          type="radio"
+          label="Option 3"
+          name="formHorizontalRadios"
+          id="formHorizontalRadios3"
+          value="option3"
+          onChange={handleRadioChange}
+          checked={radioValue === 'option3'}
+        />
+      </Form.Group>
+    </Form>
+  );
+};

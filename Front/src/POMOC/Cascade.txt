@@ -1,0 +1,21 @@
+CASCADE
+
+Kad stavis cascadeALL na @ManyToOne (u klasi Igrac imas private Klub klub)
+on brise obe strane. Kad probas izbrisati igraca, on izbrise i klub!!!
+
+
+ @OneToMany(mappedBy = "film", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Projekcija> projekcije = new ArrayList<>();
+
+kad se izbrise film brisu se i projekcije, a projekciju kad brises, rucno je razvezes od filma: 
+
+ @Override
+    public Projekcija delete(Long id) {
+        Projekcija projekcija = findOne(id);
+        if(projekcija != null){
+            projekcija.getFilm().getProjekcije().remove(projekcija);
+            projekcijaRepository.delete(projekcija);
+            return projekcija;
+        }
+        return null;
+    }
