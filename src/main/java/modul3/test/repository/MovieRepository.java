@@ -32,7 +32,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 			
 			+ "(:yearFrom IS NULL OR p.year >= :yearFrom) AND"
 			+ "(:yearTo IS NULL OR p.year <= :yearTo)")
-	Page<Movie> pretraga(
+	Page<Movie> searchMovies (
 			@Param("name")String name, 			
 			@Param("distributor")String distributor, 
 			@Param("country")String country, 
