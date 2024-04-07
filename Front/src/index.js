@@ -9,6 +9,7 @@ import { logout } from './services/auth';
 import Zadaci from './Entitet/Zadaci';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dodavanje from './Entitet/Dodavanje';
+import Movies from './Entitet/Movies';
 
 
 const App = () => {
@@ -19,11 +20,11 @@ const App = () => {
                 <Router>
                     <Navbar expand bg="dark" variant="dark">
                         <Navbar.Brand as={Link} to="/">
-                            JWD
+                            Cinema
                         </Navbar.Brand>
                         <Nav>
-                        <Nav.Link as={Link} to="/zadaci">
-                            Zadaci
+                        <Nav.Link as={Link} to="/movies">
+                            Movies
                         </Nav.Link>  
                                          
                         <Button  onClick={logout}>Logout</Button>
@@ -34,7 +35,7 @@ const App = () => {
                 <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Navigate replace to = "/" />} />
-                        <Route path="/zadaci" element={<Zadaci />} />
+                        <Route path="/movies" element={<Movies />} />
                         <Route path='/dodavanje' element={<Dodavanje/>}/>                       
                         <Route path="*" element={<NotFound />} />
                     </Routes>
