@@ -1,5 +1,8 @@
 package modul3.test.web.dto;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MovieDTO {
 
 	private Long id;
@@ -10,7 +13,7 @@ public class MovieDTO {
 	
 	private String actors;
 
-	private String genres;
+	private Map<Long, String>genres = new HashMap<Long, String>();
 	
 	private Integer duration;
 	
@@ -54,11 +57,13 @@ public class MovieDTO {
 		this.actors = actors;
 	}
 
-	public String getGenres() {
+
+
+	public Map<Long, String> getGenres() {
 		return genres;
 	}
 
-	public void setGenres(String genres) {
+	public void setGenres(Map<Long, String> genres) {
 		this.genres = genres;
 	}
 
