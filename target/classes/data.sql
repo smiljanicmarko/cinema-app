@@ -41,7 +41,13 @@ INSERT INTO seat (theater_id) VALUES ( 3);
 INSERT INTO seat (theater_id) VALUES ( 3);
 
 INSERT INTO movie (id, name, director, actors, genres, duration, distributor, country, year, description) VALUES (1, "Maratonci", "Slobodan Sijan", 
-"Bogdan Diklic, Bata Stojkovic, Pavle Vujisic", "Komedija, Drama", 92, "Yugo-film", "Jugoslavija", 1982, "The Topalovic family has been in the burial business for generations. When the old (150 yrs old) Pantelija dies, five generations of his heirs start to fight for the inheritance.");
+"Bogdan Diklic, Bata Stojkovic, Pavle Vujisic", "Comedy, Drama", 92, "Yugo-film", "Jugoslavija", 1982, "The Topalovic family has been in the burial business for generations. When the old (150 yrs old) Pantelija dies, five generations of his heirs start to fight for the inheritance.");
+
+INSERT INTO movie (id, name, director, actors, genres, duration, distributor, country, year, description) VALUES (2, "Into the wild", "Sean Penn", 
+"Emilie Hirsch, Vince Vaughn, Catherine Keener", "Adventure, Biography, Drama", 148, "Paramount Vantage", "USA", 2007, "After graduating from Emory University, top student and athlete Christopher McCandless abandons his possessions and esaceps to Alaska");
+
+INSERT INTO movie (id, name, director, actors, genres, duration, distributor, country, year, description) VALUES (3, "Rocky", "John G. Avildsen", 
+"Sylvester Stallone, Talia Shire", "Drama, Sport", 120, "United Artists", "USA", 1976, "A small-time Philadelphia boxer gets a supremely rare chance to fight the world heavyweight champion in a bout in which he strives to go the distance for his self-respect.");
 
 
 
