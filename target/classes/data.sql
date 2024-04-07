@@ -15,7 +15,6 @@ INSERT INTO theater (name) VALUES ("Theater 3");
 
 INSERT INTO theater_projection_type VALUES (1, 1);
 INSERT INTO theater_projection_type VALUES (1, 2);
-INSERT INTO theater_projection_type VALUES (1, 3);
 
 INSERT INTO theater_projection_type VALUES (2, 1);
 
@@ -49,6 +48,23 @@ INSERT INTO movie (id, name, director, actors, genres, duration, distributor, co
 INSERT INTO movie (id, name, director, actors, genres, duration, distributor, country, year, description) VALUES (3, "Rocky", "John G. Avildsen", 
 "Sylvester Stallone, Talia Shire", "Drama, Sport", 120, "United Artists", "USA", 1976, "A small-time Philadelphia boxer gets a supremely rare chance to fight the world heavyweight champion in a bout in which he strives to go the distance for his self-respect.");
 
+
+INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
+VALUES (1, 1, 1, '2024-06-01 20:00', 500, 1 );
+INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
+VALUES (1, 1, 2, '2024-06-01 21:00', 500, 1 );
+
+INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
+VALUES (2, 1, 2, '2024-06-02 20:00', 500, 1 );
+INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
+VALUES (2, 1, 1, '2024-06-03 20:00', 500, 1 );
+
+INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
+VALUES (3, 2, 1, '2024-06-21 20:00', 600, 1 );
+INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
+VALUES (3, 3, 3, '2024-06-03 20:00', 700, 1 );
+INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
+VALUES (3, 3, 3, '2024-06-04 20:00', 700, 1 );
 
 
 --'2020-06-21 20:00'

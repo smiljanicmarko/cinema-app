@@ -34,11 +34,10 @@ public class Theater {
 		 
 		
 		@OneToMany(mappedBy = "theater", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-		private Set<Seat> seats = new HashSet<Seat>();
+		private Set<Seat> seats = new HashSet<Seat>();		 
 		 
-		 
-//		@OneToMany(mappedBy = "theater", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//		private List<Projection>projections = new ArrayList<Projection>();
+		@OneToMany(mappedBy = "theater", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		private List<Projection>projections = new ArrayList<Projection>();
 
 	
 		
