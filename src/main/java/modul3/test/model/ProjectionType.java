@@ -1,5 +1,6 @@
 package modul3.test.model;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import modul3.test.enumeration.ProjectionTypeEnum;
 
@@ -20,6 +22,8 @@ public class ProjectionType {
     @Enumerated(EnumType.STRING)
     private ProjectionTypeEnum type;
     
+    @ManyToMany(mappedBy = "projectionTypes")
+    private Set<Theater> theaters;
     
 	public Long getId() {
 		return id;
