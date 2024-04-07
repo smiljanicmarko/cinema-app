@@ -68,20 +68,20 @@ VALUES (3, 3, 3, '2024-06-04 20:00', 700, 1 );
 
 
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
-VALUE (1, 1, '2024-04-01 20:00', 2);
+VALUE (1, 1, '2024-04-01 14:00', 2);
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
-VALUE (1, 2, '2024-04-03 20:00', 3);
+VALUE (1, 2, '2024-04-03 17:00', 3);
 
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
 VALUE (2, 1, '2024-04-01 20:00', 2);
 
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
-VALUE (3, 6, '2024-04-03 20:00', 3);
+VALUE (3, 6, '2024-04-03 18:00', 3);
 
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
 VALUE (4, 2, '2024-04-01 20:00', 2);
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
-VALUE (5, 3, '2024-04-03 20:00', 3);
+VALUE (5, 3, '2024-04-03 19:00', 3);
 
 
 --'2020-06-21 20:00'
