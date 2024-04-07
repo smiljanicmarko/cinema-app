@@ -15,7 +15,7 @@
 	</parent>
 
 	<groupId>modul3</groupId>
-	<artifactId>ZavrsniTest</artifactId>
+	<artifactId>Cinema</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<!-- lookup parent from repository -->
 	<!-- jar je predefinisana vrednost, ako se želi postavit war vrednost onda 
@@ -128,7 +128,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>ZavrsniTest</finalName>
+		<finalName>Cinema</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
