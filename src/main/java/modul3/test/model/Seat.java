@@ -19,5 +19,6 @@ public class Seat {
 	    @JoinColumn(nullable = false) 	
 	 	private Theater theater;
 
-	
+	 	
+	 	
 }

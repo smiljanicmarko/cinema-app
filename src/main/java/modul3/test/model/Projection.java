@@ -1,7 +1,10 @@
 package modul3.test.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 @Entity
 public class Projection {	
 	
@@ -33,11 +37,11 @@ public class Projection {
 		private Double price;
 		
 		@ManyToOne(fetch = FetchType.EAGER)
-	    @JoinColumn(nullable = false) 	
+	    @JoinColumn(nullable = false, name = "admin_id") 	
 		private Korisnik admin;
 		
-//		@OneToMany(mappedBy = "projection", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//		private List<Ticket>tickets = new ArrayList<Ticket>();
+		@OneToMany(mappedBy = "projection", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		private List<Ticket>tickets = new ArrayList<Ticket>();
 
 		
 		
