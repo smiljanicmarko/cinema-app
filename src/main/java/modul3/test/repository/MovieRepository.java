@@ -19,14 +19,29 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
 	
 
-//	@Query("SELECT p FROM Linija p WHERE "
-//			+ "(:destinacija IS NULL OR p.destinacija like %:destinacija%) AND "       
-//			+ "(:prevoznikId IS NULL OR p.prevoznik.id = :prevoznikId) AND "
-//			+ "(:cenaKarteDo IS NULL OR p.cenaKarte < :cenaKarteDo)")
-//	Page<Linija> pretraga(
-//			@Param("destinacija")String destinacija , 
-//			@Param("prevoznikId") Long prevoznikId,
-//			@Param("cenaKarteDo") Double cenaKarteDo, Pageable pageable);
+	@Query(
+			"SELECT p FROM Movie p " +
+		       "JOIN p.genres g " +
+		       "WHERE " 			
+			+ "(:name IS NULL OR p.name like %:name%) AND " 			
+			+ "(:distributor IS NULL OR p.distributor like %:distributor%) AND " 
+			+ "(:country IS NULL OR p.country like %:country%) AND " 
+			+ "(:genreId IS NULL OR g.id = :genreId) AND"
+			+ "(:durationFrom IS NULL OR p.duration >= :durationFrom) AND"
+			+ "(:durationTo IS NULL OR p.duration <= :durationTo) AND"
+			
+			+ "(:yearFrom IS NULL OR p.year >= :yearFrom) AND"
+			+ "(:yearTo IS NULL OR p.year <= :yearTo)")
+	Page<Movie> pretraga(
+			@Param("name")String name, 			
+			@Param("distributor")String distributor, 
+			@Param("country")String country, 
+			@Param("genreId") Long genreId,
+			@Param("durationFrom")Integer durationFrom,
+			@Param("durationTo")Integer durationTo,
+			@Param("yearFrom")Integer yearFrom,
+			@Param("yearTo")Integer yearTo
+			, Pageable pageable);
 
 
 

@@ -39,14 +39,32 @@ INSERT INTO seat (theater_id) VALUES ( 3);
 INSERT INTO seat (theater_id) VALUES ( 3);
 INSERT INTO seat (theater_id) VALUES ( 3);
 
-INSERT INTO movie (id, name, director, actors, genres, duration, distributor, country, year, description) VALUES (1, "Maratonci", "Slobodan Sijan", 
-"Bogdan Diklic, Bata Stojkovic, Pavle Vujisic", "Comedy, Drama", 92, "Yugo-film", "Jugoslavija", 1982, "The Topalovic family has been in the burial business for generations. When the old (150 yrs old) Pantelija dies, five generations of his heirs start to fight for the inheritance.");
+INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description) VALUES (1, "Maratonci", "Slobodan Sijan", 
+"Bogdan Diklic, Bata Stojkovic, Pavle Vujisic", 92, "Yugo-film", "Jugoslavija", 1982, "The Topalovic family has been in the burial business for generations. When the old (150 yrs old) Pantelija dies, five generations of his heirs start to fight for the inheritance.");
 
-INSERT INTO movie (id, name, director, actors, genres, duration, distributor, country, year, description) VALUES (2, "Into the wild", "Sean Penn", 
-"Emilie Hirsch, Vince Vaughn, Catherine Keener", "Adventure, Biography, Drama", 148, "Paramount Vantage", "USA", 2007, "After graduating from Emory University, top student and athlete Christopher McCandless abandons his possessions and esaceps to Alaska");
+INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description) VALUES (2, "Into the wild", "Sean Penn", 
+"Emilie Hirsch, Vince Vaughn, Catherine Keener", 148, "Paramount Vantage", "USA", 2007, "After graduating from Emory University, top student and athlete Christopher McCandless abandons his possessions and esaceps to Alaska");
 
-INSERT INTO movie (id, name, director, actors, genres, duration, distributor, country, year, description) VALUES (3, "Rocky", "John G. Avildsen", 
-"Sylvester Stallone, Talia Shire", "Drama, Sport", 120, "United Artists", "USA", 1976, "A small-time Philadelphia boxer gets a supremely rare chance to fight the world heavyweight champion in a bout in which he strives to go the distance for his self-respect.");
+INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description) VALUES (3, "Rocky", "John G. Avildsen", 
+"Sylvester Stallone, Talia Shire", 120, "United Artists", "USA", 1976, "A small-time Philadelphia boxer gets a supremely rare chance to fight the world heavyweight champion in a bout in which he strives to go the distance for his self-respect.");
+
+INSERT INTO genre (id, name) VALUES (1, "Comedy");
+INSERT INTO genre (id, name) VALUES (2, "Drama");
+INSERT INTO genre (id, name) VALUES (3, "Sport");
+INSERT INTO genre (id, name) VALUES (4, "Adventure");
+INSERT INTO genre (id, name) VALUES (5, "Action");
+INSERT INTO genre (id, name) VALUES (6, "Mystery");
+
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (1, 1);
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (1, 2);
+
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (2, 4);
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (2, 6);
+
+
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (3, 2);
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (3, 3);
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (3, 5);
 
 
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
