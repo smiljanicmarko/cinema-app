@@ -10,6 +10,7 @@ import Zadaci from './Entitet/Zadaci';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dodavanje from './Entitet/Dodavanje';
 import Movies from './Entitet/Movies';
+import OneMovie from './Entitet/OneMovie';
 
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Navigate replace to = "/" />} />
                         <Route path="/movies" element={<Movies />} />
+                        <Route path='/movies/:id' element={<OneMovie/>} />
                         <Route path='/dodavanje' element={<Dodavanje/>}/>                       
                         <Route path="*" element={<NotFound />} />
                     </Routes>
@@ -64,7 +66,8 @@ const App = () => {
                 <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />   
-                        <Route path="/movies" element={<Movies />} />                     
+                        <Route path="/movies" element={<Movies />} />    
+                        <Route path="/movies/:id" element={<OneMovie/>} />                 
                         <Route path="*" element={<Navigate replace to = "/login" />} />
                     </Routes>
                 </Container>

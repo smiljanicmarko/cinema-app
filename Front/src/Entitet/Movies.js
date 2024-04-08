@@ -10,7 +10,7 @@ const Movies = () => {
     const token = localStorage.getItem("jwt");
     const decoded = token ? jwtDecode(token) : null;
     const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
-
+    const isKorisnik = decoded?.role?.authority === "ROLE_KORISNIK";
     //========================== OBJEKAT PRETRAGE ==================================
     var pretragaObjekat = {
         name: '',
@@ -140,7 +140,7 @@ const Movies = () => {
                     <td>{klasa.distributor}</td>
                     {/* === DUGMICI ===*/}
                     {isAdmin? <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td>: <td></td>}
-                   
+                    <td> <Button onClick={() => navigate("/movies/" + klasa.id)}>Details</Button> </td>
                 </tr>
             )
         })
@@ -255,7 +255,7 @@ const Movies = () => {
                 <br />
             </div>
 
-
+            
 
 
 
@@ -286,6 +286,8 @@ const Movies = () => {
                             <th>Country</th>
                             <th>Year</th>
                             <th>Distributor</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     {/* ================================== TELO TABELE  ================= */}
