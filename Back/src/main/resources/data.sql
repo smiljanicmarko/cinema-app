@@ -48,12 +48,24 @@ INSERT INTO movie (id, name, director, actors, duration, distributor, country, y
 INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description) VALUES (3, "Rocky", "John G. Avildsen", 
 "Sylvester Stallone, Talia Shire", 120, "United Artists", "USA", 1976, "A small-time Philadelphia boxer gets a supremely rare chance to fight the world heavyweight champion in a bout in which he strives to go the distance for his self-respect.");
 
+INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description) VALUES (4, "Dune, part one", "Denis Villeneuve",
+"Timothée Chalamet, Rebecca Ferguson, Zendaya", 155, "Warner-Bros", "USA", 2021, "A noble family becomes embroiled in a war for control over the galaxy's most valuable asset while its heir becomes troubled by visions of a dark future.");
+INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description) VALUES (5, "Kad porastem bicu Kengur", "Radivoje Andric",
+"Sergej Trifunovic, Marija Karan, Nebojsa Glogovac", 92, "Yodi Movie Craftsman", "Srbija", 2004, "During one peculiar night, the lives of several interconnected people are changed, as they rapidly experience love, disappointment, joy, greed and remorse.");
+
+INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description) VALUES (6, "Oppenheimer", "Christopher Nolan", 
+"Cillian Murphy, Emily Blunt, Matt Damon", 180, "Universal Pictures", "USA", 2023, "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.");
+
+
+
 INSERT INTO genre (id, name) VALUES (1, "Comedy");
 INSERT INTO genre (id, name) VALUES (2, "Drama");
 INSERT INTO genre (id, name) VALUES (3, "Sport");
 INSERT INTO genre (id, name) VALUES (4, "Adventure");
 INSERT INTO genre (id, name) VALUES (5, "Action");
 INSERT INTO genre (id, name) VALUES (6, "Mystery");
+INSERT INTO genre (id, name) VALUES (7, "Biography");
+INSERT INTO genre (id, name) VALUES (8, "History");
 
 INSERT INTO movie_genre (movie_id, genre_id) VALUES (1, 1);
 INSERT INTO movie_genre (movie_id, genre_id) VALUES (1, 2);
@@ -66,6 +78,15 @@ INSERT INTO movie_genre (movie_id, genre_id) VALUES (3, 2);
 INSERT INTO movie_genre (movie_id, genre_id) VALUES (3, 3);
 INSERT INTO movie_genre (movie_id, genre_id) VALUES (3, 5);
 
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (4, 2);
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (4, 4);
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (4, 5);
+
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (5, 1);
+
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (6, 2);
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (6, 7);
+INSERT INTO movie_genre (movie_id, genre_id) VALUES (6, 8);
 
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
 VALUES (1, 1, 1, '2024-06-01 20:00', 500, 1 );
