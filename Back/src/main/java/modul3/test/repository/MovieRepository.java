@@ -20,7 +20,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	
 
 	@Query(
-			"SELECT p FROM Movie p " +
+			"SELECT DISTINCT  p FROM Movie p " +
 		       "JOIN p.genres g " +
 		       "WHERE " 			
 			+ "(:name IS NULL OR p.name like %:name%) AND " 			
