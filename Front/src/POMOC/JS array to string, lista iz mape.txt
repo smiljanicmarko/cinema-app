@@ -6,6 +6,14 @@ const getGenresStringFromList = (list) = {
             // Create a string that lists players' names
             const igraciString = res.data.map(igrac => `${igrac.ime} ${igrac.prezime}`).join(', ');
             alert(`Najbolji strelci: ${igraciString}`);
+
+===================== MAP TO ARRAY ===========================
+             const getGenresStringFromMap = (genresMap) => {
+        if (!genresMap || typeof genresMap !== 'object') {
+            return '';
+        }
+        return Object.values(genresMap).join(', ');
+    };
 ====================== STATE ASINHRONIZACIJA =====================
 Nekada se state ne ucita odmah, pa ako ti treba vrednost iz state u objektu params,
 nekad je bolje odmah koristiti e.target.value unutar paramsa, a ne set state, pa koristiti state.
