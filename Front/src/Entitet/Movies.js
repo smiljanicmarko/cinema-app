@@ -29,13 +29,16 @@ const Movies = () => {
     const [totalPages, setTotalPages] = useState(0)
     const [prikaziFormu, setPrikaziFormu] = useState(false);
     const [pretraga, setPretraga] = useState(pretragaObjekat)
-    const [genres, setGenres] = useState('')
+    const [genres, setGenres] = useState([])
     // /////////////////////////////////////////////////////// J A V A  S C R I P T  F U N K C I J E \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //======================== USE EFFECT ============================================
     useEffect(() => {
         getZadaci();
     }, [pageNo]);
     
+    useEffect(()=>{
+        getGenres();
+    },[])
     
    
     // ======================== DOBAVLJANJE PODATAKA ================================
@@ -60,6 +63,19 @@ const Movies = () => {
                 alert('Error occured please try again!');
             });
     }, [pageNo, pretraga]);
+
+
+    const getGenres = useCallback(() => {
+        TestAxios.get('/genres')
+            .then(res => {
+                console.log(res);
+                setGenres(res.data)         
+            })
+            .catch(error => {
+                console.log(error);
+                alert('Error occured please try again!');
+            });
+    }, []);
      //======================== NAVIGATE ============================================
      var navigate = useNavigate()
 
@@ -154,6 +170,24 @@ const renderFormu = () => {
                 <Form.Control type='text' name="country" id="country" onChange={valueInputChanged}></Form.Control>
               </FormGroup>
             </Col>
+
+            <Col md={2}>
+                  <FormGroup>
+                    <FormLabel htmlFor="genreId">Genre</FormLabel>
+                    <Form.Control as='select' name="genreId" id="genreId" onChange={valueInputChanged}>
+                      <option value=''>Choose genre</option>
+                       {
+                            genres.map((obj, index) =>{
+                                return (
+                                    <option key={obj.id} value={obj.id}> {obj.name} </option>
+                                )
+                            })
+                        }                       
+                    </Form.Control>
+                  </FormGroup>
+                </Col>
+
+
             </Row>
 
 
