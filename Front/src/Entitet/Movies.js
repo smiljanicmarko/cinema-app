@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Button, Col, Form, Row, Table } from 'react-bootstrap';
+import { Button, Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import TestAxios from '../apis/TestAxios';
 import { jwtDecode } from 'jwt-decode';
@@ -12,13 +12,24 @@ const Movies = () => {
      const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
 
     //========================== OBJEKAT PRETRAGE ==================================
-
+    var pretragaObjekat = {
+        name: '',
+            distributor: '',
+            country: '',			
+            genreId: '',
+            durationFrom: '',
+            durationTo: '',
+            yearFrom: '',
+            yearTo: ''
+      }
 
     // ========================== STATE ============================================
     const [tabela, setTabela] = useState([])
     const [pageNo, setPageNo] = useState(0)
     const [totalPages, setTotalPages] = useState(0)
-
+    const [prikaziFormu, setPrikaziFormu] = useState(false);
+    const [pretraga, setPretraga] = useState(pretragaObjekat)
+    const [genres, setGenres] = useState('')
     // /////////////////////////////////////////////////////// J A V A  S C R I P T  F U N K C I J E \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //======================== USE EFFECT ============================================
     useEffect(() => {
@@ -34,7 +45,11 @@ const Movies = () => {
     // Ako mora na dugme, onda f-ja pretragaClickHandler, useEffect ostaje samo pageNo, a u getZadaci pageNo i pretraga. 
 
     const getZadaci = useCallback(() => {
-        TestAxios.get(`/movies?pageNo=${pageNo}`)
+        TestAxios.get(`/movies?pageNo=${pageNo}`,{
+            params:{
+                ...pretraga
+            }
+        })
             .then(res => {
                 console.log(res);
                 setTabela(res.data)
@@ -44,7 +59,7 @@ const Movies = () => {
                 console.log(error);
                 alert('Error occured please try again!');
             });
-    }, [pageNo]);
+    }, [pageNo, pretraga]);
      //======================== NAVIGATE ============================================
      var navigate = useNavigate()
 
@@ -72,9 +87,22 @@ const Movies = () => {
     }
 
     //============================================ HANDLERI ZA FORME I VALUE INPUT CHANGED ===============================
+    const formaHandler = () => {
+        setPrikaziFormu(!prikaziFormu);
+    };
 
+    const valueInputChanged = (e) => {
+      const { name, value } = e.target;
+      setPretraga((prevState) => ({
+           ...prevState,
+           [name]: value,
+       }));
+   };
 
-
+   const pretragaClickHandler = () =>{
+    setPageNo(0); 
+    getZadaci();
+   }
 
     const getGenresStringFromMap = (genresMap) => {
         if (!genresMap || typeof genresMap !== 'object') {
@@ -103,7 +131,83 @@ const Movies = () => {
 
 //========================================== RENDER FORME ZA PRETRAGU====================================================
 //=======================================================================================================================
+const renderFormu = () => {
+    return (
+        <div>
+        <Form>
+          <Row className="align-items-end"> 
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="name">Name</FormLabel>
+                <Form.Control type='text' name="name" id="name" onChange={valueInputChanged}></Form.Control>
+              </FormGroup>
+            </Col>
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="distributor">Distributor</FormLabel>
+                <Form.Control type='text' name="distributor" id="distributor" onChange={valueInputChanged}></Form.Control>
+              </FormGroup>
+            </Col>
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="country">Country</FormLabel>
+                <Form.Control type='text' name="country" id="country" onChange={valueInputChanged}></Form.Control>
+              </FormGroup>
+            </Col>
+            </Row>
 
+
+
+
+
+
+
+
+        <Row>
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="durationFrom">Duration from</FormLabel>
+                <Form.Control type='number' name="durationFrom" id="durationFrom" onChange={valueInputChanged}></Form.Control>
+              </FormGroup>
+            </Col>
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="durationTo">Duration to</FormLabel>
+                <Form.Control type='number' name="durationTo" id="durationTo" onChange={valueInputChanged}></Form.Control>
+              </FormGroup>
+            </Col>
+
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="yearFrom">Year from</FormLabel>
+                <Form.Control type='number' name="yearFrom" id="yearFrom" onChange={valueInputChanged}></Form.Control>
+              </FormGroup>
+            </Col>
+
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="yearTo">Year to</FormLabel>
+                <Form.Control type='number' name="yearTo" id="yearTo" onChange={valueInputChanged}></Form.Control>
+              </FormGroup>
+            </Col>
+            </Row>
+
+{/*============== S E L E C T  /   PADAJUCI MENI ======= onChange NIKAKO U LABEL!!! =========== */} 
+<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Row>
+            <Col md={3}>
+              <Button type="button" onClick={pretragaClickHandler}>Search</Button>
+            </Col>
+           
+{/*============== S E L E C T  /   PADAJUCI MENI ======= onChange NIKAKO U LABEL!!! =========== */} 
+                                                              
+          </Row>
+          </div>
+        </Form>
+      </div>
+      
+    )
+}
 
 
 
@@ -120,7 +224,11 @@ const Movies = () => {
             <h1>Movies</h1>
             {/* ================================== PRETRAGA meni================= */}
 
-
+            <div>            
+            <Form.Check type="checkbox"  label="Show search" onChange={formaHandler} />
+            {prikaziFormu && renderFormu()}
+            <br/>
+        </div>
 
 
 
