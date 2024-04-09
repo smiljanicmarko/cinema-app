@@ -2,7 +2,14 @@ import { useCallback, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import TestAxios from "../apis/TestAxios"
 import { Button,Card,  Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
+import { jwtDecode } from "jwt-decode";
 const OneMovie = () => {
+
+      //=================================== AUTORIZACIJA =========================================
+      const token = localStorage.getItem("jwt");
+      const decoded = token ? jwtDecode(token) : null;
+      const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
+      const isKorisnik = decoded?.role?.authority === "ROLE_KORISNIK";
 
     const urlParams = useParams()
     const movieId = urlParams.id
@@ -32,6 +39,8 @@ const OneMovie = () => {
         return Object.values(genresMap).join(', ');
     };
 
+ //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+ //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     return (
         <div>
 
@@ -83,6 +92,21 @@ const OneMovie = () => {
                     </Card>
                 </Col>
                 </Row>
+                {
+                    isAdmin? 
+                    <Row>
+                        <Col>
+                        <Button className="btn btn-warning" style={{ marginRight: '10px' }}>Edit movie</Button>
+                        <Button className="btn btn-danger" >Delete</Button>
+                        </Col>                        
+                    </Row> :
+                    <Row>
+                        <Col>
+                         <Button className="btn btn-success" >Buy tickets</Button>
+                         </Col>
+                    </Row>
+                }
+              
 
             </div>
 
