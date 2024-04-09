@@ -80,7 +80,7 @@ const Movies = () => {
     var navigate = useNavigate()
 
     const goToAdd = () => {
-        navigate("/dodavanje");
+        navigate("/new-movie");
     }
 
 
@@ -261,7 +261,7 @@ const Movies = () => {
 
             {/* ================================== ADD + PAGINACIJA IZNAD TABELE ================= */}
            
-           {isAdmin?<Button className="btn btn-primary" onClick={goToAdd} >New movie</Button> : <></> }
+           {isAdmin?<Button className="btn btn-success" onClick={goToAdd} >New movie</Button> : <></> }
             
 
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>

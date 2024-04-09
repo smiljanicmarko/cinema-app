@@ -3,6 +3,8 @@ package modul3.test.web.dto;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.constraints.Min;
+
 public class MovieDTO {
 
 	private Long id;
@@ -15,12 +17,13 @@ public class MovieDTO {
 
 	private Map<Long, String>genres = new HashMap<Long, String>();
 	
+	@Min(0)
 	private Integer duration;
 	
 	private String distributor;
 	
 	private String country;
-	
+	@Min(0)
 	private Integer year;
 
 	private String description;
