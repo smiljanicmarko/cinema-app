@@ -12,6 +12,7 @@ import Dodavanje from './Entitet/Dodavanje';
 import Movies from './Entitet/Movies';
 import OneMovie from './Entitet/OneMovie';
 import AddMovie from './Entitet/AddMovie';
+import EditMovie from './Entitet/EditMovie';
 
 
 const App = () => {
@@ -39,7 +40,8 @@ const App = () => {
                         <Route path="/login" element={<Navigate replace to = "/" />} />
                         <Route path="/movies" element={<Movies />} />
                         <Route path='/movies/:id' element={<OneMovie/>} />
-                        <Route path='/new-movie' element={<AddMovie/>}/>                       
+                        <Route path='/new-movie' element={<AddMovie/>}/>  
+                        <Route path="/edit-movie/:id" element={<EditMovie/>} />                     
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Container>

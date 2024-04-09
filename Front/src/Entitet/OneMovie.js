@@ -11,6 +11,8 @@ const OneMovie = () => {
       const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
       const isKorisnik = decoded?.role?.authority === "ROLE_KORISNIK";
 
+    const navigate = useNavigate()
+
     const urlParams = useParams()
     const movieId = urlParams.id
 
@@ -38,6 +40,10 @@ const OneMovie = () => {
         }
         return Object.values(genresMap).join(', ');
     };
+
+   const goToEditMovie = (id) =>{
+        navigate("/edit-movie/" +id)
+    }
 
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -96,7 +102,8 @@ const OneMovie = () => {
                     isAdmin? 
                     <Row>
                         <Col>
-                        <Button className="btn btn-warning" style={{ marginRight: '10px' }}>Edit movie</Button>
+                        <Button className="btn btn-warning" style={{ marginRight: '10px' }}
+                         onClick={()=>{goToEditMovie(movieId)}}>Edit movie</Button>
                         <Button className="btn btn-danger" >Delete</Button>
                         </Col>                        
                     </Row> :

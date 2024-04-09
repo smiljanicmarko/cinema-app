@@ -95,7 +95,8 @@ const AddMovie = () => {
                 <Col xs="12" sm="10" md="4">
 
                     <Form>
-
+                        <Row>
+                     <Col>
                         <FormGroup>
                             <FormLabel htmlFor='name'>Movie title</FormLabel>
                             <Form.Control type='text' id='name' name='name' onChange={valueInputChanged}></Form.Control>
@@ -108,7 +109,7 @@ const AddMovie = () => {
 
                         <FormGroup>
                             <FormLabel htmlFor='actors'>Actors</FormLabel>
-                            <Form.Control type='text' id='actors' name='actors' onChange={valueInputChanged}></Form.Control>
+                            <Form.Control as ='textarea' id='actors' name='actors' onChange={valueInputChanged}></Form.Control>
                         </FormGroup>
                         <FormGroup>
                             <FormLabel htmlFor='country'>Country</FormLabel>
@@ -119,13 +120,9 @@ const AddMovie = () => {
                             <FormLabel htmlFor='distributor'>Distributor</FormLabel>
                             <Form.Control type='text' id='distributor' name='distributor' onChange={valueInputChanged}></Form.Control>
                         </FormGroup>
-
-                        <FormGroup>
-                            <FormLabel htmlFor='description'>Description</FormLabel>
-                            <Form.Control as ='textarea' id='description' name='description' onChange={valueInputChanged}></Form.Control>
-                        </FormGroup>
-
-                       
+                        </Col>
+                        <Col>
+                                        
 
                         <FormGroup>
                             <FormLabel htmlFor='duration'>Duration</FormLabel>
@@ -139,6 +136,11 @@ const AddMovie = () => {
 
                        
                       
+                        
+                        <FormGroup>
+                            <FormLabel htmlFor='description'>Description</FormLabel>
+                            <Form.Control as ='textarea' id='description' name='description' onChange={valueInputChanged}></Form.Control>
+                        </FormGroup>     
                         <FormGroup>
                             <FormLabel htmlFor=''>Genres</FormLabel>
                             <Multiselect
@@ -148,12 +150,17 @@ const AddMovie = () => {
                                 onRemove={(selectedList) => setObjekat(prevState => ({ ...prevState, genres: selectedList.map(item => item.id) }))}
                                 placeholder="Select genres"
                             />
-                        </FormGroup>
-                
+                        </FormGroup>   
+                        
+                        </Col>
+                        </Row>
 
+                        <Row>
+                        <Col className="text-right">
+                            <Button type="button" className="btn btn-success" style={{ float: 'right' }} onClick={() => create()}>Add movie</Button>
+                        </Col>
+                    </Row>
 
-
-                        <Button type="button"  onClick={() => create()} >Add</Button>
                     </Form>
                 </Col>
                 <Col></Col>
