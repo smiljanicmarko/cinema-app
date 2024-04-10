@@ -18,7 +18,7 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 	Projection findOneById(Long id);
 
 	@Query("SELECT p FROM Projection p WHERE "
-			+ "(:movie IS NULL OR p.movie like %:movie%) AND "       
+			+ "(:movie IS NULL OR p.movie.name like %:movie%) AND "       
 			+ "(:projectionTypeId IS NULL OR p.projectionType.id = :projectionTypeId) AND "
 			+ "(:priceFrom IS NULL OR p.price >= :priceFrom) AND"
 			+ "(:priceTo IS NULL OR p.price <= :priceTo) AND"

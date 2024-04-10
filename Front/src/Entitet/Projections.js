@@ -46,7 +46,11 @@ const Projections = () => {
     // Ako mora na dugme, onda f-ja pretragaClickHandler, useEffect ostaje samo pageNo, a u getZadaci pageNo i pretraga. 
 
     const getZadaci = useCallback(() => {
-        TestAxios.get(`/projections?pageNo=${pageNo}`)
+        TestAxios.get(`/projections?pageNo=${pageNo}`,{
+            params:{
+                ...pretraga
+            }
+        })
             .then(res => {
                 console.log(res);
                 setTabela(res.data)
@@ -54,21 +58,25 @@ const Projections = () => {
             })
             .catch(error => {
                 console.log(error);
-                alert('Error occured please try again!');
+                alert('1');
             });
-    }, [pageNo]);
+    }, [pageNo, pretraga]);
 
     const getTheatres = useCallback(() => {
         TestAxios.get('/theatres')
             .then(res => {
                 console.log(res);
-                
+                setTheatres(res.data)
             })
             .catch(error => {
                 console.log(error);
-                alert('Error occured please try again!');
+                alert('2');
             });
     }, []);
+
+    useEffect(()=>{
+        getTheatres()
+    }, [])
      //======================== NAVIGATE ============================================
      var navigate = useNavigate()
 
@@ -90,7 +98,10 @@ const Projections = () => {
            [name]: value,
        }));
    };
-
+   const pretragaClickHandler = () =>{
+    setPageNo(0); 
+    getZadaci();
+  }
 
 
 
@@ -122,35 +133,35 @@ const renderFormu = () => {
             <Col md={2}>
               <FormGroup>
                 <FormLabel htmlFor="movie">Movie name</FormLabel>
-                <Form.Control type='text' name="movie" id="movie"></Form.Control>
+                <Form.Control type='text' name="movie" id="movie" onChange={valueInputChanged}></Form.Control>
               </FormGroup>
             </Col>
 
           <Col md={2}>
               <FormGroup>
                 <FormLabel htmlFor="timeFrom">Time from</FormLabel>
-                <Form.Control type='datetime-local' name="timeFrom" id="timeFrom"></Form.Control>
+                <Form.Control type='datetime-local' name="timeFrom" id="timeFrom" onChange={valueInputChanged}></Form.Control>
               </FormGroup>
             </Col>
             <Col md={2}>
               <FormGroup>
                 <FormLabel htmlFor="timeTo">Time to</FormLabel>
-                <Form.Control type='datetime-local' name="timeTo" id="timeTo"></Form.Control>
+                <Form.Control type='datetime-local' name="timeTo" id="timeTo" onChange={valueInputChanged}></Form.Control>
               </FormGroup>
             </Col>
            
             <Col md={3}>
               <FormGroup>
-                <FormLabel htmlFor="theater">Theater</FormLabel>
-                <Form.Control as='select' name="theater" id="theater" /*onChange={}*/>
+                <FormLabel htmlFor="theaterId">Theater</FormLabel>
+                <Form.Control as='select' name="theaterId" id="theaterId" onChange={valueInputChanged}>
                   <option value=''>Izaberi opciju</option>
-{/*<= KOMENTAR     {
-                        nazivListe.map((obj, index) =>{
+    {
+                        theatres.map((obj, index) =>{
                             return (
-                                <option key={obj.id} value={obj.id}> {obj.ime} </option>
+                                <option key={obj.id} value={obj.id}> {obj.name} </option>
                             )
                         })
-                    }                        KOMENTAR =>*/}
+                    }                       
                 </Form.Control>
               </FormGroup>
             </Col>
@@ -160,7 +171,7 @@ const renderFormu = () => {
             <Col md={2}>
               <FormGroup>
                 <FormLabel htmlFor="projectionType">Projection type</FormLabel>
-                <Form.Control as='select' name="projectionType" id="projectionType" /*onChange={}*/>
+                <Form.Control as='select' name="projectionType" id="projectionType" onChange={valueInputChanged}>
                   <option value=''>Choose option</option>
                   <option value='1'>2D</option> 
                   <option value='2'>3D</option>  
@@ -175,13 +186,13 @@ const renderFormu = () => {
             <Col md={2}>
               <FormGroup>
                 <FormLabel htmlFor="priceFrom">Price from</FormLabel>
-                <Form.Control type='number' name="priceFrom" id="priceFrom"></Form.Control>
+                <Form.Control type='number' name="priceFrom" id="priceFrom" onChange={valueInputChanged}></Form.Control>
               </FormGroup>
             </Col>
             <Col md={2}>
               <FormGroup>
                 <FormLabel htmlFor="priceTo">Price to</FormLabel>
-                <Form.Control type='number' name="priceTo" id="priceTo"></Form.Control>
+                <Form.Control type='number' name="priceTo" id="priceTo" onChange={valueInputChanged}></Form.Control>
               </FormGroup>
             </Col>                                                             
           </Row>
@@ -189,7 +200,7 @@ const renderFormu = () => {
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Row>
             <Col md={3}>
-              <Button type="button">Pretrazi</Button>
+              <Button type="button" onClick={pretragaClickHandler}>Search</Button>
             </Col>
           </Row>
           </div>
