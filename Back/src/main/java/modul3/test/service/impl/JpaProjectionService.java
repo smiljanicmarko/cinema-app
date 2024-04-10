@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import modul3.test.model.Projection;
 import modul3.test.repository.ProjectionRepository;
 import modul3.test.service.ProjectionService;
 
+@Service
 public class JpaProjectionService implements ProjectionService {
 
 	@Autowired

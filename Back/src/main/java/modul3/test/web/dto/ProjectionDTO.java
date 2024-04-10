@@ -20,7 +20,7 @@ public class ProjectionDTO {
 	
 	private Double price;	
 
-	private Long adminId;
+	private String username;
 
 	public Long getId() {
 		return id;
@@ -94,13 +94,15 @@ public class ProjectionDTO {
 		this.price = price;
 	}
 
-	public Long getAdminId() {
-		return adminId;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setAdminId(Long adminId) {
-		this.adminId = adminId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
+
+	
 	
 	
 	
