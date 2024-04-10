@@ -3,11 +3,13 @@ package modul3.test.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import modul3.test.model.Theater;
 import modul3.test.repository.TheaterRepository;
 import modul3.test.service.TheaterService;
 
+@Service
 public class JpaTheaterService implements TheaterService {
 
 	@Autowired
