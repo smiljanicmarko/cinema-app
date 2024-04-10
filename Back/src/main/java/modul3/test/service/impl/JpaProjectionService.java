@@ -54,7 +54,9 @@ public class JpaProjectionService implements ProjectionService {
 	@Override
 	public Page<Projection> searchProjections(String movie, LocalDateTime timeFrom, LocalDateTime timeTo,
 			Long projectionTypeId, Long theaterId, Double priceFrom, Double priceTo, int pageNo) {
-				
+		
+		System.out.println("vremeOd =" + timeFrom);
+		System.out.println("vremeDo =" + timeTo);
 		
 		return r.searchProjections(movie, projectionTypeId, theaterId, priceFrom, priceTo, timeFrom, timeTo, PageRequest.of(pageNo, 5));
 	}

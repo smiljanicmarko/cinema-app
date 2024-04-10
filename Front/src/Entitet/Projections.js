@@ -170,8 +170,8 @@ const renderFormu = () => {
 
             <Col md={2}>
               <FormGroup>
-                <FormLabel htmlFor="projectionType">Projection type</FormLabel>
-                <Form.Control as='select' name="projectionType" id="projectionType" onChange={valueInputChanged}>
+                <FormLabel htmlFor="projectionTypeId">Projection type</FormLabel>
+                <Form.Control as='select' name="projectionTypeId" id="projectionTypeId" onChange={valueInputChanged}>
                   <option value=''>Choose option</option>
                   <option value='1'>2D</option> 
                   <option value='2'>3D</option>  

@@ -56,7 +56,10 @@ public class ProjectionController {
 			@RequestParam(required=false) Double priceTo,
 			
 			@RequestParam(defaultValue="0") int pageNo) {
-
+		System.out.println("vremeOd =" + timeFrom);
+		System.out.println("vremeDo =" + timeTo);
+		
+		
 		Page<Projection> stranice = projectionService.searchProjections(movie, timeFrom, timeTo, projectionTypeId, theaterId, priceFrom, priceTo, pageNo);
 
 		HttpHeaders responseHeaders = new HttpHeaders();
