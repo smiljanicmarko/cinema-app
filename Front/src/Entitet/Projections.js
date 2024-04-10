@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Button, Col, Form, Row, Table } from 'react-bootstrap';
+import { Button, Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import TestAxios from '../apis/TestAxios';
 import { jwtDecode } from 'jwt-decode';
 import { formatDate } from '../services/formatDate';
+
 
 const Projections = () => {
 
@@ -13,13 +14,23 @@ const Projections = () => {
      const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
 
     //========================== OBJEKAT PRETRAGE ==================================
-
+    var pretragaObjekat = {
+        movie: '',
+        projectionTypeId: '',
+        theaterId: '',
+        timeFrom: '',
+        timeTo: '',
+        priceFrom: '',
+        priceTo: ''
+      }
 
     // ========================== STATE ============================================
     const [tabela, setTabela] = useState([])
     const [pageNo, setPageNo] = useState(0)
     const [totalPages, setTotalPages] = useState(0)
-
+    const [prikaziFormu, setPrikaziFormu] = useState(false);
+    const [pretraga, setPretraga] = useState(pretragaObjekat)
+    const [theatres, setTheatres] = useState ([])
     // /////////////////////////////////////////////////////// J A V A  S C R I P T  F U N K C I J E \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //======================== USE EFFECT ============================================
     useEffect(() => {
@@ -46,6 +57,18 @@ const Projections = () => {
                 alert('Error occured please try again!');
             });
     }, [pageNo]);
+
+    const getTheatres = useCallback(() => {
+        TestAxios.get('/theatres')
+            .then(res => {
+                console.log(res);
+                
+            })
+            .catch(error => {
+                console.log(error);
+                alert('Error occured please try again!');
+            });
+    }, []);
      //======================== NAVIGATE ============================================
      var navigate = useNavigate()
 
@@ -54,26 +77,19 @@ const Projections = () => {
      }
  
 
-    // ======================== BRISANJE ===========================================
-    const izbrisi = (id) => {
-        TestAxios.delete('/projections/' + id)
-            .then(res => {
-                // handle success
-                console.log(res);
-                alert('Brisanje je uspesno izvrseno!');
-                setTabela(tabela.filter(el => el.id !==id))
-               // window.location.reload();
-
-            })
-            .catch(error => {
-                // handle error
-                console.log(error);
-                alert('Doslo je do greske, molimo pokusajte ponovo!');
-            });
-    }
-
+   
     //============================================ HANDLERI ZA FORME I VALUE INPUT CHANGED ===============================
+    const formaHandler = () => {
+        setPrikaziFormu(!prikaziFormu);
+    };
 
+    const valueInputChanged = (e) => {
+      const { name, value } = e.target;
+      setPretraga((prevState) => ({
+           ...prevState,
+           [name]: value,
+       }));
+   };
 
 
 
@@ -98,7 +114,90 @@ const Projections = () => {
 
 //========================================== RENDER FORME ZA PRETRAGU====================================================
 //=======================================================================================================================
+const renderFormu = () => {
+    return (
+        <div>
+        <Form>
+          <Row className="align-items-end"> 
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="movie">Movie name</FormLabel>
+                <Form.Control type='text' name="movie" id="movie"></Form.Control>
+              </FormGroup>
+            </Col>
 
+          <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="timeFrom">Time from</FormLabel>
+                <Form.Control type='datetime-local' name="timeFrom" id="timeFrom"></Form.Control>
+              </FormGroup>
+            </Col>
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="timeTo">Time to</FormLabel>
+                <Form.Control type='datetime-local' name="timeTo" id="timeTo"></Form.Control>
+              </FormGroup>
+            </Col>
+           
+            <Col md={3}>
+              <FormGroup>
+                <FormLabel htmlFor="theater">Theater</FormLabel>
+                <Form.Control as='select' name="theater" id="theater" /*onChange={}*/>
+                  <option value=''>Izaberi opciju</option>
+{/*<= KOMENTAR     {
+                        nazivListe.map((obj, index) =>{
+                            return (
+                                <option key={obj.id} value={obj.id}> {obj.ime} </option>
+                            )
+                        })
+                    }                        KOMENTAR =>*/}
+                </Form.Control>
+              </FormGroup>
+            </Col>
+            </Row>
+            <Row>
+
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="projectionType">Projection type</FormLabel>
+                <Form.Control as='select' name="projectionType" id="projectionType" /*onChange={}*/>
+                  <option value=''>Choose option</option>
+                  <option value='1'>2D</option> 
+                  <option value='2'>3D</option>  
+                  <option value='3'>4D</option>         
+                </Form.Control>
+              </FormGroup>
+            </Col>
+           
+
+
+
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="priceFrom">Price from</FormLabel>
+                <Form.Control type='number' name="priceFrom" id="priceFrom"></Form.Control>
+              </FormGroup>
+            </Col>
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="priceTo">Price to</FormLabel>
+                <Form.Control type='number' name="priceTo" id="priceTo"></Form.Control>
+              </FormGroup>
+            </Col>                                                             
+          </Row>
+
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Row>
+            <Col md={3}>
+              <Button type="button">Pretrazi</Button>
+            </Col>
+          </Row>
+          </div>
+        </Form>
+      </div>
+      
+    )
+}
 
 
 
@@ -114,7 +213,11 @@ const Projections = () => {
         <div>
             <h1>All projections</h1>
             {/* ================================== PRETRAGA meni================= */}
-
+            <div>            
+            <Form.Check type="checkbox"  label="Show search" onChange={formaHandler} />
+            {prikaziFormu && renderFormu()}
+            <br/>
+        </div>
 
 
 
