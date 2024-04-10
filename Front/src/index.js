@@ -13,6 +13,8 @@ import Movies from './Entitet/Movies';
 import OneMovie from './Entitet/OneMovie';
 import AddMovie from './Entitet/AddMovie';
 import EditMovie from './Entitet/EditMovie';
+import Projections from './Entitet/Projections';
+
 
 
 const App = () => {
@@ -29,7 +31,9 @@ const App = () => {
                         <Nav.Link as={Link} to="/movies">
                             Movies
                         </Nav.Link>  
-                                         
+                        <Nav.Link as={Link} to="/projections">
+                            All Projections
+                        </Nav.Link>  
                         <Button  onClick={logout}>Logout</Button>
                        
                         </Nav>
@@ -41,7 +45,8 @@ const App = () => {
                         <Route path="/movies" element={<Movies />} />
                         <Route path='/movies/:id' element={<OneMovie/>} />
                         <Route path='/new-movie' element={<AddMovie/>}/>  
-                        <Route path="/edit-movie/:id" element={<EditMovie/>} />                     
+                        <Route path="/edit-movie/:id" element={<EditMovie/>} />  
+                        <Route path='/projections' element={<Projections/>} />                   
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Container>
