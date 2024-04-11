@@ -21,6 +21,16 @@ public class ProjectionDTO {
 	private Double price;	
 
 	private String username;
+	
+	private Integer seatsAvailable;
+
+	public Integer getSeatsAvailable() {
+		return seatsAvailable;
+	}
+
+	public void setSeatsAvailable(Integer seatsAvailable) {
+		this.seatsAvailable = seatsAvailable;
+	}
 
 	public Long getId() {
 		return id;

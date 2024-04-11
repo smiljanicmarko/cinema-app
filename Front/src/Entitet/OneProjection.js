@@ -78,27 +78,15 @@ const OneProjection = () => {
                     <tr>
                     <th>Price: </th> <td>{projection.price}</td>
                     </tr>
-                    
+                    <tr>
+                    <th>Number of tickets available:</th> <td>{projection.seatsAvailable}</td>
+                    </tr>
                    
                 </Table>
-                </Col>
-               
+                </Col>       
+                <Col></Col>
+                <Col></Col>
                 </Row>
-                {
-                    isAdmin? 
-                    <Row>
-                        <Col>
-                        {/* <Button className="btn btn-warning" style={{ marginRight: '10px' }}
-                         onClick={()=>{goToEditMovie(movieId)}}>Edit movie</Button> */}
-                        {/* <Button className="btn btn-danger" >Delete</Button> */}
-                        </Col>                        
-                    </Row> :
-                    <Row>
-                        <Col>
-                         <Button className="btn btn-success" >Buy tickets</Button>
-                         </Col>
-                    </Row>
-                }
               
 
             </div>

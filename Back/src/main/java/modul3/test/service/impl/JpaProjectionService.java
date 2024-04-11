@@ -1,6 +1,5 @@
 package modul3.test.service.impl;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -66,6 +65,22 @@ public class JpaProjectionService implements ProjectionService {
 	public List<Projection> todaysProjections(LocalDateTime startOfDay, LocalDateTime endOfDay) {
 		// TODO Auto-generated method stub
 		return r.findByTimeBetween(startOfDay, endOfDay);
+	}
+
+	@Override
+	public Integer numberOfSeatsAvailable(Long projectionId) {
+		Projection projection = r.findOneById(projectionId);
+		Integer seats = 0;
+		
+		if (projection != null) {
+			Integer totalNumber = projection.getTheater().getSeats().size();			
+			seats = totalNumber - projection.getTickets().size();
+			
+		}
+		
+		
+		
+		return seats;
 	}
 
 }

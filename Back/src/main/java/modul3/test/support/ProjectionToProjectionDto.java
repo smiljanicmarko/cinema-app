@@ -4,15 +4,20 @@ package modul3.test.support;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import modul3.test.model.Projection;
+import modul3.test.service.ProjectionService;
 import modul3.test.web.dto.ProjectionDTO;
 
 @Component
 public class ProjectionToProjectionDto implements Converter<Projection, ProjectionDTO> {
 
+	@Autowired
+	private ProjectionService projectionService;
+	
     @Override
     public ProjectionDTO convert(Projection e) {
     	ProjectionDTO dto = new ProjectionDTO();
@@ -27,7 +32,7 @@ public class ProjectionToProjectionDto implements Converter<Projection, Projecti
     	dto.setTheaterName(e.getTheater().getName());
     	dto.setTime(e.getTime());
     	dto.setUsername(e.getAdmin().getKorisnickoIme());
-    
+    	dto.setSeatsAvailable(projectionService.numberOfSeatsAvailable(e.getId()));
     	
     	
         return dto;

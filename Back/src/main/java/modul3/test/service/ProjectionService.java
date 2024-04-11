@@ -1,6 +1,5 @@
 package modul3.test.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,6 +24,8 @@ public interface ProjectionService {
 
     
     List<Projection> todaysProjections (LocalDateTime startOfDay, LocalDateTime endOfDay);
+    
+    Integer numberOfSeatsAvailable (Long projectionId);
 	
 //    Page<Film> findAll(Integer pageNo);
 //    Page<Film> find(String naziv, Long zanrId, Integer trajanjeOd, Integer trajanjeDo, int page);
