@@ -21,8 +21,10 @@ const AddProjection = () => {
 
 //============================================= S T A T E ============================================================    
 const [objekat, setObjekat] = useState(kostur);
+const [types, setTypes] = useState([])
 const [movies, setMovies] = useState([]) 
 const [theatres, setTheatres] = useState([]) 
+const [currentTheater, setCurrentTheater] = useState(null)
 
     var navigate = useNavigate();
 // ==================================== GLAVNA AXIOS FUNKCIJA ZA KREIRANJE ============================================
@@ -50,12 +52,21 @@ const [theatres, setTheatres] = useState([])
     const valueInputChanged = (e) => {
         const { name, value } = e.target;      
     
+        if (name === "theaterId"){
+            setCurrentTheater(value);
+            if (value === "") {
+                setTypes([]);
+            }
+        }
+
         setObjekat((prevState) => ({
             ...prevState,
             [name]: value,
         }));
-    };
 
+
+
+    };    
 
     // ======================== DOBAVLJANJE PODATAKA ZA SELECT================================
     const getMovies = useCallback(() => {
@@ -86,12 +97,28 @@ const [theatres, setTheatres] = useState([])
             });
     }, []);
 
-
+    const getTypes = useCallback(() => {
+        TestAxios.get("/theatres/" + currentTheater + "/projection-types")
+            .then(res => {
+               
+                console.log(res);
+                setTypes(res.data)               
+            })
+            .catch(error => {
+              
+                console.log(error);
+                alert('3');
+            });
+    }, [currentTheater]);
     useEffect(() => {
         getMovies()
         getTheatres()
+       
     }, []);
-
+    useEffect(() => {
+        if (currentTheater)
+        getTypes();
+    }, [currentTheater]);
 //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 return(
@@ -147,15 +174,19 @@ return(
                         </Form.Control>
                       </FormGroup>
                     
-              <FormGroup>
-                <FormLabel htmlFor="projectionTypeId">Projection type</FormLabel>
-                <Form.Control as='select' name="projectionTypeId" id="projectionTypeId" onChange={valueInputChanged}>
-                  <option value=''>Choose option</option>
-                  <option value='1'>2D</option> 
-                  <option value='2'>3D</option>  
-                  <option value='3'>4D</option>         
-                </Form.Control>
-              </FormGroup>
+                      <FormGroup>
+                        <FormLabel htmlFor='projectionTypeId'>Projection Type</FormLabel>
+                        <Form.Control as='select' id='projectionTypeId' name='projectionTypeId' onChange={valueInputChanged}>
+                        <option value=''>Choose type</option>
+                        {types.length > 0 &&
+                            types.map((obj, index) =>{
+                                return (
+                                    <option key={obj.id} value={obj.id}> {obj.type} </option>
+                                )
+                            })
+                        }
+                        </Form.Control>
+                      </FormGroup>
            
 
 

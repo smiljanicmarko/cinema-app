@@ -7,12 +7,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import modul3.test.model.ProjectionType;
 import modul3.test.model.Theater;
 import modul3.test.service.TheaterService;
+import modul3.test.support.ProjectionTypeToProjectionTypeDto;
 import modul3.test.support.TheaterToTheaterDto;
+import modul3.test.web.dto.ProjectionTypeDTO;
 import modul3.test.web.dto.TheaterDTO;
 
 @RestController
@@ -23,6 +27,10 @@ public class TheaterController {
 	private TheaterService theaterService;
 	@Autowired
 	private TheaterToTheaterDto toDto;
+	@Autowired
+	private ProjectionTypeToProjectionTypeDto toPtDto;
+	
+	
 //	@Autowired
 //	private MovieDtoToMovie toClass;
 	
@@ -46,18 +54,19 @@ public class TheaterController {
 		}
 	
 	
-//	//GET BY ID
-//
-//	@GetMapping("/{id}")
-//	public ResponseEntity <MovieDTO> get(@PathVariable Long id) {
-//		Movie obj = movieService.findOneById(id);
-//
-//		if(obj != null) {
-//			return new ResponseEntity<>(toDto.convert(obj), HttpStatus.OK);
-//		}else {
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		}
-//	}
+	//GET BY ID
+
+	@GetMapping("/{id}/projection-types")
+	public ResponseEntity <List<ProjectionTypeDTO>> get(@PathVariable Long id) {
+		Theater theater = theaterService.findOneById(id);
+
+		if(theater != null) {
+			List<ProjectionType>pt = theater.getProjectionTypes();
+			return new ResponseEntity<>(toPtDto.convert(pt), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 //
 //
 //
