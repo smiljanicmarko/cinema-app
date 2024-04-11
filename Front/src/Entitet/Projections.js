@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button, Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TestAxios from '../apis/TestAxios';
 import { jwtDecode } from 'jwt-decode';
 import { formatDate } from '../services/formatDate';
@@ -112,10 +112,10 @@ const Projections = () => {
         return tabela.map((klasa, index) => {
             return (
                 <tr key={klasa.id}>
-                    <td>{klasa.movieName}</td>
+                    <td>{<Link to={'/movies/' + klasa.movieId}>{klasa.movieName}</Link>  }</td>
                     <td>{klasa.projectionType}</td>
                     <td>{klasa.theaterName}</td>
-                    <td>{formatDate(klasa.time) }</td>
+                    <td><Link to={'/projections/' +klasa.id}>{formatDate(klasa.time) }</Link> </td>
                     <td>{klasa.price}</td>
                     {/* === DUGMICI ===*/}
                     {/* <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td> */}
