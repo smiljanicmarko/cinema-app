@@ -56,6 +56,7 @@ public class ProjectionController {
 			@RequestParam(required=false) Double priceTo,
 			
 			@RequestParam(defaultValue="0") int pageNo) {
+		System.out.println("IZ KONTROLERA: ");
 		System.out.println("vremeOd =" + timeFrom);
 		System.out.println("vremeDo =" + timeTo);
 		
