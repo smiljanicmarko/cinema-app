@@ -1,6 +1,8 @@
 package modul3.test.repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +41,7 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 	
 	
 	
-	
+	 List<Projection> findByTimeBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
 	
 	
 	

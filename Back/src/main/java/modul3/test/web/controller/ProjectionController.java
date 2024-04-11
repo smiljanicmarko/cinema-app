@@ -2,7 +2,7 @@ package modul3.test.web.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -88,18 +88,12 @@ public class ProjectionController {
 		
 		@GetMapping("/today")
 		public ResponseEntity<List<ProjectionDTO>> projectionsToday () {
-			LocalDate now = LocalDate.now();
+			LocalDateTime startOfDay = LocalDate.now().atStartOfDay();
+	        LocalDateTime endOfDay = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59, 999_999_999));
 			
-			List<Projection> stranice = projectionService.findAll();
-			List<Projection> today = new ArrayList<Projection>();
+			List<Projection> projections = projectionService.todaysProjections(startOfDay, endOfDay);		
 			
-			for (Projection p : stranice) {
-				if (p.getTime().toLocalDate().equals(now)) {
-					today.add(p);
-				}
-			}
-			
-			return new ResponseEntity<>(toDto.convert(today), HttpStatus.OK);
+			return new ResponseEntity<>(toDto.convert(projections), HttpStatus.OK);
 
 		}
 		

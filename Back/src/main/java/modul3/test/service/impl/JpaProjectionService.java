@@ -1,5 +1,6 @@
 package modul3.test.service.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -59,6 +60,12 @@ public class JpaProjectionService implements ProjectionService {
 //		System.out.println("vremeDo =" + timeTo);
 		
 		return r.searchProjections(movie, projectionTypeId, theaterId, priceFrom, priceTo, timeFrom, timeTo, PageRequest.of(pageNo, 5));
+	}
+
+	@Override
+	public List<Projection> todaysProjections(LocalDateTime startOfDay, LocalDateTime endOfDay) {
+		// TODO Auto-generated method stub
+		return r.findByTimeBetween(startOfDay, endOfDay);
 	}
 
 }

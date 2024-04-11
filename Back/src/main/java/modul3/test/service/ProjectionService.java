@@ -1,5 +1,6 @@
 package modul3.test.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,6 +23,8 @@ public interface ProjectionService {
     Page<Projection> searchProjections (String movie, LocalDateTime timeFrom, LocalDateTime timeTo, Long projectionTypeId, 
     									Long theaterId, Double priceFrom, Double priceTo, int pageNo);
 
+    
+    List<Projection> todaysProjections (LocalDateTime startOfDay, LocalDateTime endOfDay);
 	
 //    Page<Film> findAll(Integer pageNo);
 //    Page<Film> find(String naziv, Long zanrId, Integer trajanjeOd, Integer trajanjeDo, int page);
