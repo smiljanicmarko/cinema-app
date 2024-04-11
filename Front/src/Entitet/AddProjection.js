@@ -1,0 +1,173 @@
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import TestAxios from '../apis/TestAxios';
+import { FormGroup, FormLabel, Row, Col, Form, Button } from 'react-bootstrap';
+import { jwtDecode } from 'jwt-decode';
+
+
+const AddProjection = () => {
+    const token = localStorage.getItem("jwt");
+    const decoded = token ? jwtDecode(token) : null;
+    const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
+    const usernameToken = decoded?.sub
+//DEKLARACIJA OBJEKTA, SA IMENIMA IZ DTO! OBAVEZNO ISTA IMENA U NAME ATRIBUT U HTML!
+    var kostur = {
+    movieId: '',    
+	projectionTypeId: '',	
+	theaterId: '',	
+	time: '',	
+	price: '',		
+    };
+
+//============================================= S T A T E ============================================================    
+const [objekat, setObjekat] = useState(kostur);
+const [movies, setMovies] = useState([]) 
+const [theatres, setTheatres] = useState([]) 
+
+    var navigate = useNavigate();
+// ==================================== GLAVNA AXIOS FUNKCIJA ZA KREIRANJE ============================================
+    const create = () => {
+        var params = {
+            ...objekat,
+            username: usernameToken
+        };
+
+        TestAxios.post('/projections', params)
+        .then(res => {
+            console.log(res);
+           
+            alert('Dodavanje je uspesno izvrseno!');
+            navigate('/projections'); 
+        })
+        .catch(error => {           
+            console.log(error);
+            alert('Doslo je do greske, molimo pokusajte ponovo!');
+         });
+    }
+
+    // ============= GENERICKA FUNKCIJA - OBAVEZNO IMATI OBJEKAT SA IMENIMA IZ DTO + "NAME" atribut u html!==============
+    // ==============ALTERNATIVA JE  (e) => setNesto (e.target.value)=====================
+    const valueInputChanged = (e) => {
+        const { name, value } = e.target;      
+    
+        setObjekat((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
+
+    // ======================== DOBAVLJANJE PODATAKA ZA SELECT================================
+    const getMovies = useCallback(() => {
+        TestAxios.get("/movies")
+            .then(res => {
+               
+                console.log(res);
+                setMovies(res.data)               
+            })
+            .catch(error => {
+              
+                console.log(error);
+                alert('Doslo je do greske, molimo pokusajte ponovo!');
+            });
+    }, []);
+   
+    const getTheatres = useCallback(() => {
+        TestAxios.get("/theatres")
+            .then(res => {
+               
+                console.log(res);
+                setTheatres(res.data)               
+            })
+            .catch(error => {
+              
+                console.log(error);
+                alert('Doslo je do greske, molimo pokusajte ponovo!');
+            });
+    }, []);
+
+
+    useEffect(() => {
+        getMovies()
+        getTheatres()
+    }, []);
+
+//= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+//= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+return(
+<div>
+    <h1>Add new projection</h1>
+
+    <Row>
+                <Col></Col>
+                <Col></Col>
+                <Col xs="12" sm="10" md="4">
+                   
+                    <Form>
+                        
+                    <FormGroup>
+                        <FormLabel htmlFor='time'>Date and time</FormLabel>
+                        <Form.Control type='datetime-local' id='time' name='time' onChange={valueInputChanged}></Form.Control>
+                      </FormGroup>
+
+                      <FormGroup>
+                        <FormLabel htmlFor='price'>Price</FormLabel>
+                        <Form.Control type='number' id='price' name='price' onChange={valueInputChanged}></Form.Control>
+                      </FormGroup>
+
+                     
+
+                    
+ {/*===================================== S E L E C T  /   PADAJUCI MENI ======= onChange NIKAKO U LABEL!!! ========================== */} 
+                      <FormGroup>
+                        <FormLabel htmlFor='movieId'>Movie</FormLabel>
+                        <Form.Control as='select' id='movieId' name='movieId' onChange={valueInputChanged}>
+                        <option value=''>Choose movie</option>
+                        {
+                            movies.map((obj, index) =>{
+                                return (
+                                    <option key={obj.id} value={obj.id}> {obj.name} </option>
+                                )
+                            })
+                        }
+                        </Form.Control>
+                      </FormGroup>
+  {/*===================================== S E L E C T  /   PADAJUCI MENI ======= onChange NIKAKO U LABEL!!! ========================== */} 
+                         <FormGroup>
+                        <FormLabel htmlFor='theaterId'>Theater</FormLabel>
+                        <Form.Control as='select' id='theaterId' name='theaterId' onChange={valueInputChanged}>
+                        <option value=''>Choose theater</option>
+                        {
+                            theatres.map((obj, index) =>{
+                                return (
+                                    <option key={obj.id} value={obj.id}> {obj.name} </option>
+                                )
+                            })
+                        }
+                        </Form.Control>
+                      </FormGroup>
+                    
+              <FormGroup>
+                <FormLabel htmlFor="projectionTypeId">Projection type</FormLabel>
+                <Form.Control as='select' name="projectionTypeId" id="projectionTypeId" onChange={valueInputChanged}>
+                  <option value=''>Choose option</option>
+                  <option value='1'>2D</option> 
+                  <option value='2'>3D</option>  
+                  <option value='3'>4D</option>         
+                </Form.Control>
+              </FormGroup>
+           
+
+
+
+                        <Button type="button" className="btn btn-success"  onClick={() => create()}>Create Projection</Button>
+                    </Form>
+                </Col>
+                <Col></Col>
+                <Col></Col>
+                
+            </Row>
+</div>
+)}
+
+export default AddProjection

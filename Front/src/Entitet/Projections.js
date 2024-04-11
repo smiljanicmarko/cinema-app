@@ -12,6 +12,7 @@ const Projections = () => {
      const token = localStorage.getItem("jwt");
      const decoded = token ? jwtDecode(token) : null;
      const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
+   
 
     //========================== OBJEKAT PRETRAGE ==================================
     var pretragaObjekat = {
@@ -81,7 +82,7 @@ const Projections = () => {
      var navigate = useNavigate()
 
      const goToAdd = () => {
-         navigate("/dodavanje");
+         navigate("/new-projection");
      }
  
 

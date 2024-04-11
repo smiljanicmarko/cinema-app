@@ -14,6 +14,7 @@ import OneMovie from './Entitet/OneMovie';
 import AddMovie from './Entitet/AddMovie';
 import EditMovie from './Entitet/EditMovie';
 import Projections from './Entitet/Projections';
+import AddProjection from './Entitet/AddProjection';
 
 
 
@@ -46,7 +47,8 @@ const App = () => {
                         <Route path='/movies/:id' element={<OneMovie/>} />
                         <Route path='/new-movie' element={<AddMovie/>}/>  
                         <Route path="/edit-movie/:id" element={<EditMovie/>} />  
-                        <Route path='/projections' element={<Projections/>} />                   
+                        <Route path='/projections' element={<Projections/>} />
+                        <Route path='/new-projection' element={<AddProjection/>}/>                   
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Container>
