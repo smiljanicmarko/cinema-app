@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { Button, Col, Form, Row } from "react-bootstrap"
+import { Button, Col, Container, Form, Row } from "react-bootstrap"
 import { login } from "../../services/auth"
+import { Link } from "react-router-dom"
 
 
 const Login = () => {
@@ -9,6 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState("")
 
     return (
+        <div>
         <Row className="justify-content-center">
             <Col md={6}>
                 <Form>
@@ -25,6 +27,12 @@ const Login = () => {
                 <Button onClick={() => login(username, password)}>Login</Button>
             </Col>
         </Row>
+       
+        <Row className="text-center">
+            <span>First time here? <Link to={'/user-registration'}>Register</Link></span>
+        </Row>
+       
+        </div>
     )
 }
 

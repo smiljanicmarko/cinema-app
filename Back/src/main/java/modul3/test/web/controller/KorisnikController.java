@@ -119,7 +119,7 @@ public class KorisnikController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<KorisnikDTO>> get(@RequestParam(defaultValue="0") int page){
         Page<Korisnik> korisnici = korisnikService.findAll(page);

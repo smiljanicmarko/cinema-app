@@ -4,7 +4,7 @@ import javax.validation.constraints.Positive;
 
 public class KorisnikDTO {
 
-    @Positive(message = "Id mora biti pozitivan broj.")
+    //@Positive(message = "Id mora biti pozitivan broj.")
     private Long id;
 
     //@NotBlank

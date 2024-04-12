@@ -16,6 +16,7 @@ import EditMovie from './Entitet/EditMovie';
 import Projections from './Entitet/Projections';
 import AddProjection from './Entitet/AddProjection';
 import OneProjection from './Entitet/OneProjection';
+import UserRegistration from './Entitet/UserRegistration';
 
 
 
@@ -73,7 +74,7 @@ const App = () => {
                             All-Projections
                         </Nav.Link>            
                         <Nav.Link as={Link} to="/login">
-                            Login
+                            Register/Login
                         </Nav.Link>
                         </Nav>
                 </Navbar>
@@ -84,7 +85,8 @@ const App = () => {
                         <Route path="/movies" element={<Movies />} />    
                         <Route path="/movies/:id" element={<OneMovie/>} />  
                         <Route path='/projections' element={<Projections/>} />  
-                        <Route path='/projections/:id' element={<OneProjection/>}/>             
+                        <Route path='/projections/:id' element={<OneProjection/>}/>    
+                        <Route path='/user-registration' element={<UserRegistration/>}/>         
                         <Route path="*" element={<Navigate replace to = "/login" />} />
                     </Routes>
                 </Container>
