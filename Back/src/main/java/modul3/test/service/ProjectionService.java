@@ -19,6 +19,8 @@ public interface ProjectionService {
     Projection update(Projection p);
 
     Projection delete(Long id);
+    
+    Projection deleteLogically (Long id);
 
     Page<Projection> searchProjections (String movie, LocalDate date, Long projectionTypeId, 
     									Long theaterId, Double priceFrom, Double priceTo, int pageNo);

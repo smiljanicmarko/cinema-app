@@ -108,7 +108,10 @@ const Projections = () => {
     {/* ================================================ RENDER TABELE ========================================= */ }
     //=============================================================================================================
     const renderTabela = () => {
-        return tabela.map((klasa, index) => {
+     
+        return tabela
+        .filter(projection => !projection.deleted)
+        .map((klasa, index) => {
             return (
                 <tr key={klasa.id}>
                     <td>{<Link to={'/movies/' + klasa.movieId}>{klasa.movieName}</Link>  }</td>

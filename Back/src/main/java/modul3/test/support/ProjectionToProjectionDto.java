@@ -34,7 +34,7 @@ public class ProjectionToProjectionDto implements Converter<Projection, Projecti
     	dto.setUsername(e.getAdmin().getKorisnickoIme());
     	dto.setSeatsAvailable(projectionService.numberOfSeatsAvailable(e.getId()));
     	dto.setTicketsSold(projectionService.getNumberOfSoldTickets(e.getId()));
-    	
+    	dto.setDeleted(e.getDeleted());
     	
         return dto;
     }

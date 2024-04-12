@@ -136,6 +136,18 @@ public class ProjectionController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@DeleteMapping("/{id}/logical")
+	public ResponseEntity<Void> deleteLogically (@PathVariable Long id){
+		Projection projection = projectionService.findOneById(id);
+		
+		if(projection != null) {
+			projectionService.deleteLogically(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
 	//UPDATE
 	//@PreAuthorize("hasRole('ADMIN')")

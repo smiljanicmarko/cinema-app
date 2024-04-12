@@ -50,6 +50,37 @@ const OneProjection = () => {
     const today = new Date();
     const projectionTime = new Date(projection.time)
 
+
+     // ======================== BRISANJE ===========================================
+     const deleteProjection = (id) => {
+        projection.ticketsSold==0? (
+            TestAxios.delete("/projections/" +projection.id)
+            .then(res=>{
+                alert('Projection successfully deleted!');
+                navigate("/projections")
+            }                
+            )
+            .catch(error =>{
+                alert('Error in delete!');
+            })
+
+        ) : (
+            TestAxios.delete("/projections/" +projection.id +"/logical")
+            .then(res=>{
+                alert('Projection successfully deleted!');
+                navigate("/projections")
+            }                
+            )
+            .catch(error =>{
+                alert('Error in delete!');
+            })
+        );
+
+
+
+        
+    }
+
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     return (
@@ -110,10 +141,10 @@ const OneProjection = () => {
 
                 }
                 {
-                    isAdmin ?
+                    (isAdmin)?
                         <Row>
                             <Col>
-                                <Button className="btn btn-danger">Delete</Button>
+                                <Button disabled={projection.deleted}  className="btn btn-danger" onClick={()=>deleteProjection(projection.id)}>Delete</Button>
                             </Col>
                         </Row> : <></>
                     

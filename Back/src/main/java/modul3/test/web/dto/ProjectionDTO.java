@@ -26,6 +26,16 @@ public class ProjectionDTO {
 	
 	private Integer ticketsSold;
 
+	private Boolean deleted;
+	
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	public Integer getSeatsAvailable() {
 		return seatsAvailable;
 	}

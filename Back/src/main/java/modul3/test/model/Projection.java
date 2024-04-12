@@ -43,6 +43,8 @@ public class Projection {
 		
 		@OneToMany(mappedBy = "projection", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		private List<Ticket>tickets = new ArrayList<Ticket>();
+		
+		Boolean deleted = false;
 
 		public Long getId() {
 			return id;
@@ -111,6 +113,14 @@ public class Projection {
 		@Override
 		public int hashCode() {
 			return Objects.hash(id);
+		}
+
+		public Boolean getDeleted() {
+			return deleted;
+		}
+
+		public void setDeleted(Boolean deleted) {
+			this.deleted = deleted;
 		}
 
 		@Override

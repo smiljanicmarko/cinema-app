@@ -53,6 +53,16 @@ public class JpaProjectionService implements ProjectionService {
 	}
 
 	@Override
+	public Projection deleteLogically(Long id) {
+		Projection p = r.findOneById(id);
+		if (p!=null) {
+			p.setDeleted(true);
+			r.save(p);
+		}
+		return p;
+	}
+	
+	@Override
 	public Page<Projection> searchProjections(String movie, LocalDate date,
 			Long projectionTypeId, Long theaterId, Double priceFrom, Double priceTo, int pageNo) {
 		
@@ -93,5 +103,7 @@ public class JpaProjectionService implements ProjectionService {
 		}
 		return numberOfTickets;
 	}
+
+	
 
 }
