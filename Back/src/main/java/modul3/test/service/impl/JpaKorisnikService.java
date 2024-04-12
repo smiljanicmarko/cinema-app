@@ -1,10 +1,9 @@
 package modul3.test.service.impl;
 
-import modul3.test.enumeration.KorisnickaUloga;
-import modul3.test.model.Korisnik;
-import modul3.test.repository.KorisnikRepository;
-import modul3.test.service.KorisnikService;
-import modul3.test.web.dto.KorisnikPromenaLozinkeDto;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,9 +12,11 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.List;
-import java.util.Optional;
+import modul3.test.enumeration.KorisnickaUloga;
+import modul3.test.model.Korisnik;
+import modul3.test.repository.KorisnikRepository;
+import modul3.test.service.KorisnikService;
+import modul3.test.web.dto.KorisnikPromenaLozinkeDto;
 
 @Service
 public class JpaKorisnikService implements KorisnikService {
@@ -84,4 +85,19 @@ public class JpaKorisnikService implements KorisnikService {
 
         return true;
     }
+
+	@Override
+	public Korisnik updateRole(Long id) {
+		Korisnik korisnik = korisnikRepository.findOneById(id);
+		if (korisnik != null) {
+			if(korisnik.getUloga().toString().equals("KORISNIK")) {				
+				korisnik.setUloga(KorisnickaUloga.ADMIN);				
+			}else {
+				korisnik.setUloga(KorisnickaUloga.KORISNIK);
+			}
+			korisnik = korisnikRepository.save(korisnik);
+		}
+		
+		return korisnik;
+	}
 }

@@ -108,6 +108,26 @@ public class KorisnikController {
         return new ResponseEntity<>(toKorisnikDto.convert(korisnikService.save(korisnik)),HttpStatus.OK);
     }
 
+    
+    @PreAuthorize("hasAnyRole('ROLE_KORISNIK', 'ROLE_ADMIN')")
+    @PutMapping(value= "/{id}/change-role")
+    public ResponseEntity<KorisnikDTO> updateRole(@PathVariable Long id){       
+
+        Korisnik korisnik = korisnikService.updateRole(id);        
+       
+        if (korisnik != null) {
+        	 System.out.println("Role updated for user with ID " + id + ". New role: " + korisnik.getUloga());
+        	  return new ResponseEntity<>(toKorisnikDto.convert(korisnik), HttpStatus.OK);
+        }else{
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+      
+    }
+
+    
+    
+    
+    
     @PreAuthorize("hasAnyRole('ROLE_KORISNIK', 'ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<KorisnikDTO> get(@PathVariable Long id){

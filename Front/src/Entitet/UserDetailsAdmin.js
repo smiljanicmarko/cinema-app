@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import TestAxios from "../apis/TestAxios"
 import { Button,Card,  Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
 import { jwtDecode } from "jwt-decode";
-const UserAccount = () => {
+const UserDetailsAdmin = () => {
 
       //=================================== AUTORIZACIJA =========================================
       const token = localStorage.getItem("jwt");
@@ -15,13 +15,13 @@ const UserAccount = () => {
     const navigate = useNavigate()
 
     const urlParams = useParams()
-    const movieId = urlParams.id
+    const userId = urlParams.id
 
     const [user, setUser] = useState({})
 
 
     const getUser = useCallback(() => {
-        TestAxios.get("/korisnici/" + usernameToken +'/details')
+        TestAxios.get("/korisnici/" + userId )
             .then(res => {
                 console.log(res);
                 setUser(res.data)
@@ -35,15 +35,25 @@ const UserAccount = () => {
     useEffect(() => {
         getUser()
     }, [])
-    // const getGenresStringFromMap = (genresMap) => {
-    //     if (!genresMap || typeof genresMap !== 'object') {
-    //         return '';
-    //     }
-    //     return Object.values(genresMap).join(', ');
-    // };
-
+    
    const goToEditMovie = (id) =>{
         navigate("/edit-movie/" +id)
+    }
+
+
+    const changeRole = () =>{       
+
+        TestAxios.put('/korisnici/' + userId + '/change-role')
+        .then(res => {           
+            console.log(res);
+            alert('User role was changed successfully!');
+            navigate('/users/');
+        })
+        .catch(error => {
+            // handle error
+            console.log(error);
+            alert('Error occured please try again!');
+         });
     }
 
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -75,6 +85,24 @@ const UserAccount = () => {
                     <tr>
                     <th>Email: </th> <td>{user.eMail}</td>
                     </tr>
+                    <tr>
+                    <th>Role: </th> <td>{user.uloga}</td>
+                    </tr>
+                    <tr>
+                    <th>Actions:</th>
+                    <td>
+                    <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                                        <div style={{ marginRight: '10px' }}>
+                                            <Button className='btn btn-warning' onClick={changeRole}>Change role</Button>
+                                        </div>
+                                        <div >
+                                            <Button className='btn btn-danger'>Delete</Button>
+                                        </div>
+                                    </div>
+
+                    </td>
+                    </tr>
+                    
                     </tbody>
                 </Table>
                 </Col>
@@ -91,4 +119,4 @@ const UserAccount = () => {
     )
 }
 
-export default UserAccount
+export default UserDetailsAdmin

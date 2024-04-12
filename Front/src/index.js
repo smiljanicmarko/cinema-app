@@ -20,6 +20,7 @@ import UserRegistration from './Entitet/UserRegistration';
 import UserAccount from './Entitet/UserAccount';
 import { jwtDecode } from 'jwt-decode';
 import Users from './Entitet/Users';
+import UserDetailsAdmin from './Entitet/UserDetailsAdmin';
 
 
 
@@ -71,6 +72,7 @@ const App = () => {
                             <Route path='/projections/:id' element={<OneProjection />} />
                             <Route path='/new-projection' element={<AddProjection />} />
                             <Route path='/user-details' element={<UserAccount />} />
+                            <Route path='/users/:id' element={<UserDetailsAdmin/>}/>
                             {isAdmin?<Route path='/users' element={<Users/>}/>: <></> }                            
                             <Route path="*" element={<NotFound />} />
                         </Routes>

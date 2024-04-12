@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button, Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TestAxios from '../apis/TestAxios';
 import { jwtDecode } from 'jwt-decode';
 
@@ -117,7 +117,7 @@ const Users = () => {
                 <tr key={klasa.id}>
                     <td>{klasa.ime}</td>
                     <td>{klasa.prezime}</td>
-                    <td>{klasa.korisnickoIme}</td>
+                    <td><Link to={'/users/' +klasa.id}>{klasa.korisnickoIme}</Link> </td>
                     <td>{klasa.eMail}</td>
                     <td>{klasa.uloga}</td>
                     <td>{klasa.distributor}</td>

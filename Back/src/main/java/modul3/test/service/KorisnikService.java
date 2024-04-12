@@ -1,12 +1,12 @@
 package modul3.test.service;
 
-import modul3.test.model.Korisnik;
-import modul3.test.web.dto.KorisnikPromenaLozinkeDto;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 
-import java.util.List;
-import java.util.Optional;
+import modul3.test.model.Korisnik;
+import modul3.test.web.dto.KorisnikPromenaLozinkeDto;
 
 public interface KorisnikService {
 
@@ -23,4 +23,6 @@ public interface KorisnikService {
     Optional<Korisnik> findbyKorisnickoIme(String korisnickoIme);
 
     boolean changePassword(Long id, KorisnikPromenaLozinkeDto korisnikPromenaLozinkeDto);
+    
+    Korisnik updateRole (Long id);
 }
