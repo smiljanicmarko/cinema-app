@@ -85,6 +85,8 @@ const renderTickets = () => {
             return (
                 <tr key={klasa.id}>
                     <td>{klasa.id}</td>
+                    <td>{klasa.projectionId}</td>
+                    <td>{klasa.movie}</td>
                     <td>{formatDate(klasa.purchaseTime)}</td>                    
                     {/* === DUGMICI ===*/}
                     {/* <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td> */}
@@ -106,10 +108,10 @@ const renderTable = () =>{
 return (
     <div>
         <h1>{user.ime +"'s tickets" }</h1>
-    <Table className="table table-striped" style={{ width: '30%' }}>
+    <Table className="table table-striped" style={{ width: '40%' }}>
             <thead>
             <tr>
-            <th>Ticket id</th> <th>Purchase time</th>
+            <th>Ticket id</th><th>Projection id</th><th>Movie name</th> <th>Purchase time</th>
             </tr>
             </thead>
             <tbody>
