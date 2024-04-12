@@ -1,5 +1,6 @@
 package modul3.test.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface ProjectionService {
 
     Projection delete(Long id);
 
-    Page<Projection> searchProjections (String movie, LocalDateTime timeFrom, LocalDateTime timeTo, Long projectionTypeId, 
+    Page<Projection> searchProjections (String movie, LocalDate date, Long projectionTypeId, 
     									Long theaterId, Double priceFrom, Double priceTo, int pageNo);
 
     

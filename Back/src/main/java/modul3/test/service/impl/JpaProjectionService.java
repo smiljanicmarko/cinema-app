@@ -1,5 +1,6 @@
 package modul3.test.service.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,13 +53,13 @@ public class JpaProjectionService implements ProjectionService {
 	}
 
 	@Override
-	public Page<Projection> searchProjections(String movie, LocalDateTime timeFrom, LocalDateTime timeTo,
+	public Page<Projection> searchProjections(String movie, LocalDate date,
 			Long projectionTypeId, Long theaterId, Double priceFrom, Double priceTo, int pageNo) {
 		
 //		System.out.println("vremeOd =" + timeFrom);
 //		System.out.println("vremeDo =" + timeTo);
 		
-		return r.searchProjections(movie, projectionTypeId, theaterId, priceFrom, priceTo, timeFrom, timeTo, PageRequest.of(pageNo, 5));
+		return r.searchProjections(movie, projectionTypeId, theaterId, priceFrom, priceTo, date, PageRequest.of(pageNo, 5));
 	}
 
 	@Override

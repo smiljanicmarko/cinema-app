@@ -18,9 +18,8 @@ const Projections = () => {
     var pretragaObjekat = {
         movie: '',
         projectionTypeId: '',
-        theaterId: '',
-        timeFrom: '',
-        timeTo: '',
+        theaterId: '',       
+        date: '',
         priceFrom: '',
         priceTo: ''
       }
@@ -137,17 +136,11 @@ const renderFormu = () => {
                 <Form.Control type='text' name="movie" id="movie" onChange={valueInputChanged}></Form.Control>
               </FormGroup>
             </Col>
-
-          <Col md={2}>
-              <FormGroup>
-                <FormLabel htmlFor="timeFrom">Time from</FormLabel>
-                <Form.Control type='datetime-local' name="timeFrom" id="timeFrom" onChange={valueInputChanged}></Form.Control>
-              </FormGroup>
-            </Col>
+          
             <Col md={2}>
               <FormGroup>
-                <FormLabel htmlFor="timeTo">Time to</FormLabel>
-                <Form.Control type='datetime-local' name="timeTo" id="timeTo" onChange={valueInputChanged}></Form.Control>
+                <FormLabel htmlFor="date">Date</FormLabel>
+                <Form.Control type='date' name="date" id="date" onChange={valueInputChanged}></Form.Control>
               </FormGroup>
             </Col>
            

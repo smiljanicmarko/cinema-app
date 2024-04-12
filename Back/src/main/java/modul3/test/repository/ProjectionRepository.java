@@ -25,17 +25,15 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 			+ "(:priceFrom IS NULL OR p.price >= :priceFrom) AND"
 			+ "(:priceTo IS NULL OR p.price <= :priceTo) AND"
 			+ "(:theaterId IS NULL OR p.theater.id = :theaterId)AND"
-			+ "(:timeFrom is NULL OR p.time >= :timeFrom) AND"
-			+ "(:timeTo is NULL OR p.time <= :timeTo)"			
-			)
+			+ "(COALESCE(:date, '') = '' OR DATE(p.time) = :date)")
+	
 	Page<Projection> searchProjections (
 			@Param("movie") String movie , 
 			@Param("projectionTypeId") Long projectionTypeId,
 			@Param("theaterId") Long theaterId,
 			@Param("priceFrom") Double priceFrom, 
 			@Param("priceTo") Double priceTo, 
-			@Param("timeFrom") LocalDateTime timeFrom,
-			@Param("timeTo") LocalDateTime timeTo,
+			@Param("date") LocalDate date,			
 			Pageable pageable);
 	
 	

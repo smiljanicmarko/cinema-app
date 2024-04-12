@@ -52,18 +52,15 @@ public class ProjectionController {
 			@RequestParam(required=false) String movie,			
 			@RequestParam(required=false) Long projectionTypeId,
 			@RequestParam(required=false) Long theaterId,
-			@RequestParam(required=false) LocalDateTime timeFrom,
-			@RequestParam(required=false) LocalDateTime timeTo,
 			@RequestParam(required=false) Double priceFrom,
 			@RequestParam(required=false) Double priceTo,
+			@RequestParam(required=false) LocalDate date,			
 			
 			@RequestParam(defaultValue="0") int pageNo) {
-		System.out.println("IZ KONTROLERA: ");
-		System.out.println("vremeOd =" + timeFrom);
-		System.out.println("vremeDo =" + timeTo);
 		
 		
-		Page<Projection> stranice = projectionService.searchProjections(movie, timeFrom, timeTo, projectionTypeId, theaterId, priceFrom, priceTo, pageNo);
+		
+		Page<Projection> stranice = projectionService.searchProjections(movie, date, projectionTypeId, theaterId, priceFrom, priceTo, pageNo);
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set("Total-Pages", stranice.getTotalPages() + "");

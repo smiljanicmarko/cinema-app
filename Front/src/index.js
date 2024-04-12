@@ -68,7 +68,10 @@ const App = () => {
                         <Nav>         
                         <Nav.Link as={Link} to="/movies">
                             Movies
-                        </Nav.Link>                
+                        </Nav.Link>     
+                        <Nav.Link as={Link} to="/projections">
+                            All-Projections
+                        </Nav.Link>            
                         <Nav.Link as={Link} to="/login">
                             Login
                         </Nav.Link>
@@ -79,7 +82,8 @@ const App = () => {
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />   
                         <Route path="/movies" element={<Movies />} />    
-                        <Route path="/movies/:id" element={<OneMovie/>} />                 
+                        <Route path="/movies/:id" element={<OneMovie/>} />  
+                        <Route path='/projections' element={<Projections/>} />               
                         <Route path="*" element={<Navigate replace to = "/login" />} />
                     </Routes>
                 </Container>
