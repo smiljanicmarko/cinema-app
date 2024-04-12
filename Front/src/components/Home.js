@@ -3,9 +3,14 @@ import { Button, Col, Form, FormGroup, FormLabel, Row, Table } from 'react-boots
 import { formatDate, formatOnlyDate } from '../services/formatDate';
 import TestAxios from '../apis/TestAxios';
 import { Link } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 const Home = () =>{
-
+  const token = localStorage.getItem("jwt");
+  const decoded = token ? jwtDecode(token) : null;
+  const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
+  const isKorisnik = decoded?.role?.authority === "ROLE_KORISNIK";
+  const usernameToken = decoded?.sub
   const [projections, setProjections] = useState([])
 
   
@@ -70,7 +75,7 @@ if (projections.length>0){
     <div>
       <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">Welcome to our Cinema!</h1>
+    <h1 class="display-4">{usernameToken}, Welcome to our Cinema!</h1>
     <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
   </div>
 </div>

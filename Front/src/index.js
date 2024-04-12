@@ -21,8 +21,9 @@ import UserAccount from './Entitet/UserAccount';
 
 
 
-const App = () => {
 
+const App = () => {
+    
     if(window.localStorage["jwt"]){
         return (
             <>
@@ -39,7 +40,7 @@ const App = () => {
                             All-Projections
                         </Nav.Link> 
                         <Nav.Link as={Link} to="/user-details">
-                           My Account
+                          MyAccount
                         </Nav.Link>   
                         <Button  onClick={logout}>Logout</Button>
                        
