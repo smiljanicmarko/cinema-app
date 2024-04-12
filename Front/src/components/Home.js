@@ -75,7 +75,7 @@ if (projections.length>0){
     <div>
       <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">{usernameToken}, Welcome to our Cinema!</h1>
+    <h1 class="display-4">{usernameToken?  (usernameToken + ', ')  : ''} Welcome to our Cinema!</h1>
     <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
   </div>
 </div>
