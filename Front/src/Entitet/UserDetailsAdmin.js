@@ -93,7 +93,9 @@ const UserDetailsAdmin = () => {
                     <td>
                     <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                                         <div style={{ marginRight: '10px' }}>
-                                            <Button className='btn btn-warning' onClick={changeRole}>Change role</Button>
+                                            <Button className='btn btn-warning' onClick={changeRole}>
+                                                {user.uloga === "ADMIN"?'Change role to Korisnik':'Change role to Admin' }
+                                                </Button>
                                         </div>
                                         <div >
                                             <Button className='btn btn-danger'>Delete</Button>
