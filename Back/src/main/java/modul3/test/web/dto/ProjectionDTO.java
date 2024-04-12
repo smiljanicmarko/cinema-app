@@ -23,6 +23,8 @@ public class ProjectionDTO {
 	private String username;
 	
 	private Integer seatsAvailable;
+	
+	private Integer ticketsSold;
 
 	public Integer getSeatsAvailable() {
 		return seatsAvailable;
@@ -110,6 +112,14 @@ public class ProjectionDTO {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Integer getTicketsSold() {
+		return ticketsSold;
+	}
+
+	public void setTicketsSold(Integer ticketsSold) {
+		this.ticketsSold = ticketsSold;
 	}
 
 	

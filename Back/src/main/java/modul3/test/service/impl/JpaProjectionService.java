@@ -84,4 +84,14 @@ public class JpaProjectionService implements ProjectionService {
 		return seats;
 	}
 
+	@Override
+	public Integer getNumberOfSoldTickets(Long projectionId) {
+		Projection p = r.findOneById(projectionId);
+		Integer numberOfTickets = 0;
+		if (p!=null) {
+			numberOfTickets = p.getTickets().size();
+		}
+		return numberOfTickets;
+	}
+
 }
