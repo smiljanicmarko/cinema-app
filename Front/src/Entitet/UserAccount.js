@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import TestAxios from "../apis/TestAxios"
 import { Button,Card,  Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
 import { jwtDecode } from "jwt-decode";
+import { formatDate } from "../services/formatDate";
 const UserAccount = () => {
 
       //=================================== AUTORIZACIJA =========================================
@@ -15,10 +16,11 @@ const UserAccount = () => {
     const navigate = useNavigate()
 
     const urlParams = useParams()
-    const movieId = urlParams.id
+   
 
     const [user, setUser] = useState({})
-
+    const [tickets, setTickets] = useState([])
+    const [showTickets, setShowTickets] = useState(false);
 
     const getUser = useCallback(() => {
         TestAxios.get("/korisnici/" + usernameToken +'/details')
@@ -33,18 +35,75 @@ const UserAccount = () => {
     }, []);
 
     useEffect(() => {
-        getUser()
+        getUser();      
     }, [])
-    // const getGenresStringFromMap = (genresMap) => {
-    //     if (!genresMap || typeof genresMap !== 'object') {
-    //         return '';
-    //     }
-    //     return Object.values(genresMap).join(', ');
-    // };
+
+    
 
    const goToChangePassword = (id) =>{
         navigate("/users/" +id +'/change-password')
     }
+
+
+    //===================================================================TICKET DETAILS============================================================
+const getTickets = useCallback(() => {
+    if (user.id) {
+        TestAxios.get("/tickets/user/" + user.id)
+            .then(res => {
+                console.log(res);
+                setTickets(res.data)
+            })
+            .catch(error => {
+                console.log(error);
+                alert('Error occurred, please try again!');
+            });
+    }
+}, [user.id]);
+
+useEffect(() => {
+    if (user.id) {
+        getTickets();
+    }
+}, [user.id, getTickets]);
+
+const renderTickets = () => {
+    return tickets.length > 0 ? (
+        tickets.map((klasa, index) => {
+            return (
+                <tr key={klasa.id}>
+                    <td>{klasa.id}</td>
+                    <td>{formatDate(klasa.purchaseTime)}</td>                    
+                    {/* === DUGMICI ===*/}
+                    {/* <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td> */}
+                </tr>
+            );
+        })
+    ) : (
+        <tr>
+            <td colSpan="3">Your tickets list is empty!</td>
+        </tr>
+    );
+}
+   
+const formHandler = () => {
+    setShowTickets(!showTickets);
+};
+
+const renderTable = () =>{
+return (
+    <Table className="table table-striped" style={{ width: '30%' }}>
+            <thead>
+            <tr>
+            <th>Ticket id</th> <th>Purchase time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {renderTickets()}
+            </tbody>
+
+          </Table>
+)
+}
 
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -84,6 +143,11 @@ const UserAccount = () => {
               
                 </Row>
               
+                <div>            
+            <Form.Check type="checkbox"  label="Show my tickets" onChange={formHandler} />
+            {showTickets && renderTable()}
+            <br/>
+        </div>
               
 
             </div>

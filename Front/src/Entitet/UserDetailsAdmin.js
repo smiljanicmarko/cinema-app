@@ -4,6 +4,7 @@ import TestAxios from "../apis/TestAxios"
 import { Button,Card,  Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
 import { jwtDecode } from "jwt-decode";
 import { logout } from "../services/auth";
+import { formatDate } from "../services/formatDate";
 const UserDetailsAdmin = () => {
 
       //=================================== AUTORIZACIJA =========================================
@@ -19,7 +20,8 @@ const UserDetailsAdmin = () => {
     const userId = urlParams.id
 
     const [user, setUser] = useState({})
-
+    const [tickets, setTickets] = useState([])
+    const [showTickets, setShowTickets] = useState(false);
 
     const getUser = useCallback(() => {
         TestAxios.get("/korisnici/" + userId )
@@ -57,7 +59,67 @@ const UserDetailsAdmin = () => {
             alert('Error occured please try again!');
          });
     }
+ //===================================================================TICKET DETAILS============================================================
+ const getTickets = useCallback(() => {   
+        TestAxios.get("/tickets/user/" + userId)
+            .then(res => {
+                console.log(res);
+                setTickets(res.data)
+            })
+            .catch(error => {
+                console.log(error);
+                alert('Error occurred, please try again!');
+            });
+   
+}, []);
 
+useEffect(() => {
+   
+        getTickets();
+    
+}, []);
+
+const renderTickets = () => {
+    return tickets.length > 0 ? (
+        tickets.map((klasa, index) => {
+            return (
+                <tr key={klasa.id}>
+                    <td>{klasa.id}</td>
+                    <td>{formatDate(klasa.purchaseTime)}</td>                    
+                    {/* === DUGMICI ===*/}
+                    {/* <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td> */}
+                </tr>
+            );
+        })
+    ) : (
+        <tr>
+            <td colSpan="3">{user.ime +"'s "} tickets list is empty!</td>
+        </tr>
+    );
+}
+   
+const formHandler = () => {
+    setShowTickets(!showTickets);
+};
+
+const renderTable = () =>{
+return (
+    <div>
+        <h1>{user.ime +"'s tickets" }</h1>
+    <Table className="table table-striped" style={{ width: '30%' }}>
+            <thead>
+            <tr>
+            <th>Ticket id</th> <th>Purchase time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {renderTickets()}
+            </tbody>
+
+          </Table>
+          </div>
+)
+}
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     return (
@@ -112,8 +174,13 @@ const UserDetailsAdmin = () => {
                 </Col>
               
                 </Row>
-              
-              
+                <hr></hr>
+             
+              <div>            
+            <Form.Check type="checkbox"  label="Show users tickets" onChange={formHandler} />
+            {showTickets && renderTable()}
+            <br/>
+        </div>
 
             </div>
 

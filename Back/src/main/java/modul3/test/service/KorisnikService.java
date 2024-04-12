@@ -25,4 +25,6 @@ public interface KorisnikService {
     boolean changePassword(Long id, KorisnikPromenaLozinkeDto korisnikPromenaLozinkeDto);
     
     Korisnik updateRole (Long id);
+    
+    Korisnik findOneById (Long id);
 }

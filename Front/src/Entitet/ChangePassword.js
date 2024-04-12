@@ -76,7 +76,7 @@ const edit = () => {
                      
  
 
-                        <Button  onClick={edit} >Create account</Button>
+                        <Button className='btn btn-success' onClick={edit} >Submit</Button>
                     </Form>
                 </Col>
                 <Col></Col>

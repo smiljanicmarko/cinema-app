@@ -100,4 +100,10 @@ public class JpaKorisnikService implements KorisnikService {
 		
 		return korisnik;
 	}
+
+	@Override
+	public Korisnik findOneById(Long id) {
+		// TODO Auto-generated method stub
+		return korisnikRepository.findOneById(id);
+	}
 }

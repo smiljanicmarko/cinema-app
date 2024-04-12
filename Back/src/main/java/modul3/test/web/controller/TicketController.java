@@ -9,10 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import modul3.test.model.Korisnik;
 import modul3.test.model.Projection;
 import modul3.test.model.Ticket;
+import modul3.test.service.KorisnikService;
 import modul3.test.service.ProjectionService;
 import modul3.test.service.TicketService;
 import modul3.test.support.TicketToTicketDto;
@@ -28,8 +31,8 @@ public class TicketController {
 	private ProjectionService projectionService;
 	@Autowired
 	private TicketToTicketDto toDto;
-//	@Autowired
-//	private MovieDtoToMovie toClass;
+	@Autowired
+	private KorisnikService korisnikService;
 	
 	
 	//  @PreAuthorize("hasAnyRole('KORISNIK', 'ADMIN')")
@@ -47,6 +50,21 @@ public class TicketController {
 		public ResponseEntity<List<TicketDTO>> getAll() {
 
 			List<Ticket> stranice = ticketService.findAll();
+
+		
+			return new ResponseEntity<>(toDto.convert(stranice), HttpStatus.OK);
+
+		}
+		
+		@GetMapping("/user/{id}")
+		public ResponseEntity<List<TicketDTO>> getAllTicketsFromUser(@PathVariable Long id) {
+
+			Korisnik korisnik = korisnikService.findOneById(id);
+			if (korisnik == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			
+			List<Ticket> stranice = ticketService.findAllTicketsForUser(id);
 
 		
 			return new ResponseEntity<>(toDto.convert(stranice), HttpStatus.OK);

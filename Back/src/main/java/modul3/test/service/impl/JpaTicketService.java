@@ -33,4 +33,10 @@ public class JpaTicketService implements TicketService {
 		return r.findByProjectionId(projectionId);
 	}
 
+	@Override
+	public List<Ticket> findAllTicketsForUser(Long userId) {
+		
+		return r.findByUserId(userId);
+	}
+
 }

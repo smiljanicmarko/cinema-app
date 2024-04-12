@@ -51,86 +51,86 @@ const OneProjection = () => {
     const projectionTime = new Date(projection.time)
 
 
-     // ======================== BRISANJE ===========================================
-     const deleteProjection = (id) => {
-        projection.ticketsSold==0? (
-            TestAxios.delete("/projections/" +projection.id)
-            .then(res=>{
-                alert('Projection successfully deleted!');
-                navigate("/projections")
-            }                
-            )
-            .catch(error =>{
-                alert('Error in delete!');
-            })
+    // ======================== BRISANJE ===========================================
+    const deleteProjection = (id) => {
+        projection.ticketsSold == 0 ? (
+            TestAxios.delete("/projections/" + projection.id)
+                .then(res => {
+                    alert('Projection successfully deleted!');
+                    navigate("/projections")
+                }
+                )
+                .catch(error => {
+                    alert('Error in delete!');
+                })
 
         ) : (
-            TestAxios.delete("/projections/" +projection.id +"/logical")
-            .then(res=>{
-                alert('Projection successfully deleted!');
-                navigate("/projections")
-            }                
-            )
-            .catch(error =>{
-                alert('Error in delete!');
-            })
+            TestAxios.delete("/projections/" + projection.id + "/logical")
+                .then(res => {
+                    alert('Projection successfully deleted!');
+                    navigate("/projections")
+                }
+                )
+                .catch(error => {
+                    alert('Error in delete!');
+                })
         );
     }
-//===================================================================TICKET DETAILS============================================================
-const getTickets = useCallback(() => {
-    TestAxios.get("/tickets/projection/" + projectionId)
-        .then(res => {
-            console.log(res);
-            setTickets(res.data)
-        })
-        .catch(error => {
-            console.log(error);
-            alert('Error occured please try again!');
-        });
-}, []);
+    //===================================================================TICKET DETAILS============================================================
+    const getTickets = useCallback(() => {
+        TestAxios.get("/tickets/projection/" + projectionId)
+            .then(res => {
+                console.log(res);
+                setTickets(res.data)
+            })
+            .catch(error => {
+                console.log(error);
+                alert('Error occured please try again!');
+            });
+    }, []);
 
-useEffect(() => {
-    getTickets()
-}, [])
-const renderTickets = () => {
-    return tickets.length > 0 ? (
-        tickets.map((klasa, index) => {
-            return (
-                <tr key={klasa.id}>
-                    <td>{klasa.id}</td>
-                    <td>{formatDate(klasa.purchaseTime)}</td>
-                    <td>{klasa.username}</td>
-                    {/* === DUGMICI ===*/}
-                    {/* <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td> */}
-                </tr>
-            );
-        })
-    ) : (
-        <tr>
-            <td colSpan="3"> <h4>There are no sold tickets for this projection!</h4></td>
-        </tr>
-    );
-}
-   
-const formHandler = () => {
-    setShowTickets(!showTickets);
-};
-
-const renderTable = () =>{
-return (
-    <Table className="table table-striped" style={{ width: '40%' }}>
-            <thead>
+    useEffect(() => {
+        getTickets()
+    }, [])
+    const renderTickets = () => {
+        return tickets.length > 0 ? (
+            tickets.map((klasa, index) => {
+                return (
+                    <tr key={klasa.id}>
+                        <td>{klasa.id}</td>
+                        <td>{formatDate(klasa.purchaseTime)}</td>
+                        <td>{klasa.username}</td>
+                        {/* === DUGMICI ===*/}
+                        {/* <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td> */}
+                    </tr>
+                );
+            })
+        ) : (
             <tr>
-            <th>Ticket id</th> <th>Purchase time</th> <th>User details</th>
+                <td colSpan="3"> <h4>There are no sold tickets for this projection!</h4></td>
             </tr>
-            </thead>
-            <tbody>
-            {renderTickets()}
-            </tbody>
+        );
+    }
 
-          </Table>
-)
-}
+    const formHandler = () => {
+        setShowTickets(!showTickets);
+    };
+
+    const renderTable = () => {
+        return (
+            <Table className="table table-striped" style={{ width: '40%' }}>
+                <thead>
+                    <tr>
+                        <th>Ticket id</th> <th>Purchase time</th> <th>User details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {renderTickets()}
+                </tbody>
+
+            </Table>
+        )
+    }
 
 
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -173,7 +173,7 @@ return (
                     <Col></Col>
                     <Col></Col>
                 </Row>
-               
+
                 {
 
                     (isKorisnik && projection.seatsAvailable > 0 && today < projectionTime) ?
@@ -185,26 +185,28 @@ return (
 
                 }
                 {
-                    (isAdmin)?
+                    (isAdmin) ?
                         <Row>
                             <Col>
-                                <Button disabled={projection.deleted}  className="btn btn-danger" onClick={()=>deleteProjection(projection.id)}>Delete</Button>
+                                <Button disabled={projection.deleted} className="btn btn-danger" onClick={() => deleteProjection(projection.id)}>Delete</Button>
                             </Col>
                         </Row> : <></>
-                    
+
                 }
                 <hr></hr>
 
             </div>
 
-        <div>
-        <div>            
-            <Form.Check type="checkbox"  label="Show sold tickets" onChange={formHandler} />
-            {showTickets && renderTable()}
-            <br/>
-        </div>
-          
-        </div>
+            <div>
+                {isAdmin ?
+                    <div>
+                        <Form.Check type="checkbox" label="Show sold tickets" onChange={formHandler} />
+                        {showTickets && renderTable()}
+                        <br />
+                    </div> : <></>}
+
+
+            </div>
 
 
         </div>

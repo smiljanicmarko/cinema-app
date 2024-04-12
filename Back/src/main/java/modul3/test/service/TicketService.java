@@ -12,4 +12,5 @@ public interface TicketService {
 	
 	List<Ticket> findAllTicketsForProjection (Long projectionId);
 	
+	List<Ticket> findAllTicketsForUser (Long userId);
 }
