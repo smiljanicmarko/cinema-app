@@ -83,7 +83,8 @@ const App = () => {
                         <Route path="/login" element={<Login />} />   
                         <Route path="/movies" element={<Movies />} />    
                         <Route path="/movies/:id" element={<OneMovie/>} />  
-                        <Route path='/projections' element={<Projections/>} />               
+                        <Route path='/projections' element={<Projections/>} />  
+                        <Route path='/projections/:id' element={<OneProjection/>}/>             
                         <Route path="*" element={<Navigate replace to = "/login" />} />
                     </Routes>
                 </Container>

@@ -47,6 +47,9 @@ const OneProjection = () => {
         navigate("/edit-movie/" +id)
     }
 
+    const today = new Date();
+    const projectionTime = new Date(projection.time)
+
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     return (
@@ -87,6 +90,26 @@ const OneProjection = () => {
                 <Col></Col>
                 <Col></Col>
                 </Row>
+                {
+                console.log(today < projectionTime )         
+                    
+                
+                }
+                {
+                    console.log(projection.time)
+                }
+                {console.log(new Date())}
+                {                
+                  
+                        (isKorisnik && projection.seatsAvailable>0 && today < projectionTime )?
+                        (<Row>
+                            <Col>
+                            <Button className="btn btn-success">Buy tickets</Button>
+                            </Col>
+                          </Row>) :<></>  
+                   
+                }
+
               
 
             </div>
