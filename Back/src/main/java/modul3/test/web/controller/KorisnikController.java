@@ -1,18 +1,16 @@
 package modul3.test.web.controller;
 
-import modul3.test.model.Korisnik;
-import modul3.test.security.TokenUtils;
-import modul3.test.service.KorisnikService;
-import modul3.test.support.KorisnikDtoToKorisnik;
-import modul3.test.support.KorisnikToKorisnikDto;
-import modul3.test.web.dto.AuthKorisnikDto;
-import modul3.test.web.dto.KorisnikDTO;
-import modul3.test.web.dto.KorisnikPromenaLozinkeDto;
-import modul3.test.web.dto.KorisnikRegistracijaDTO;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +22,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,13 +29,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
+import modul3.test.model.Korisnik;
+import modul3.test.security.TokenUtils;
+import modul3.test.service.KorisnikService;
+import modul3.test.support.KorisnikDtoToKorisnik;
+import modul3.test.support.KorisnikToKorisnikDto;
+import modul3.test.web.dto.AuthKorisnikDto;
+import modul3.test.web.dto.KorisnikDTO;
+import modul3.test.web.dto.KorisnikPromenaLozinkeDto;
+import modul3.test.web.dto.KorisnikRegistracijaDTO;
 
 @RestController
 @RequestMapping(value = "/api/korisnici", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -119,6 +120,28 @@ public class KorisnikController {
         }
     }
 
+    
+   // @PreAuthorize("hasAnyRole('ROLE_KORISNIK', 'ROLE_ADMIN')")
+    @GetMapping("/{username}/details")
+    public ResponseEntity<KorisnikDTO> getKorisnik(@PathVariable String username){
+        
+    	Optional korisnik = korisnikService.findbyKorisnickoIme(username);
+
+        if(korisnik.isPresent()) {
+        	
+        	Korisnik k = (Korisnik) korisnik.get();
+            return new ResponseEntity<>(toKorisnikDto.convert(k), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    
+    
+    
+    
+    
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<KorisnikDTO>> get(@RequestParam(defaultValue="0") int page){
