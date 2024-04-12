@@ -21,6 +21,7 @@ import UserAccount from './Entitet/UserAccount';
 import { jwtDecode } from 'jwt-decode';
 import Users from './Entitet/Users';
 import UserDetailsAdmin from './Entitet/UserDetailsAdmin';
+import ChangePassword from './Entitet/ChangePassword';
 
 
 
@@ -73,6 +74,7 @@ const App = () => {
                             <Route path='/new-projection' element={<AddProjection />} />
                             <Route path='/user-details' element={<UserAccount />} />
                             <Route path='/users/:id' element={<UserDetailsAdmin/>}/>
+                            <Route path='/users/:id/change-password' element={<ChangePassword/>}/>
                             {isAdmin?<Route path='/users' element={<Users/>}/>: <></> }                            
                             <Route path="*" element={<NotFound />} />
                         </Routes>

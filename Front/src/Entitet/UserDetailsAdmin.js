@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import TestAxios from "../apis/TestAxios"
 import { Button,Card,  Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
 import { jwtDecode } from "jwt-decode";
+import { logout } from "../services/auth";
 const UserDetailsAdmin = () => {
 
       //=================================== AUTORIZACIJA =========================================
@@ -42,12 +43,13 @@ const UserDetailsAdmin = () => {
 
 
     const changeRole = () =>{       
-
+// U slucaju da se admin sam promeni na korisnika, bice automatski izlogovan
         TestAxios.put('/korisnici/' + userId + '/change-role')
         .then(res => {           
             console.log(res);
             alert('User role was changed successfully!');
-            navigate('/users/');
+            res.data.uloga === 'KORISNIK'?
+            logout() : navigate('/users');
         })
         .catch(error => {
             // handle error

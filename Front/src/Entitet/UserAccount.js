@@ -42,8 +42,8 @@ const UserAccount = () => {
     //     return Object.values(genresMap).join(', ');
     // };
 
-   const goToEditMovie = (id) =>{
-        navigate("/edit-movie/" +id)
+   const goToChangePassword = (id) =>{
+        navigate("/users/" +id +'/change-password')
     }
 
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -74,6 +74,9 @@ const UserAccount = () => {
                     </tr>
                     <tr>
                     <th>Email: </th> <td>{user.eMail}</td>
+                    </tr>
+                    <tr>
+                        <th>Actions:</th> <td> <Button className='btn btn-warning' onClick={()=> goToChangePassword(user.id)}>Change password</Button></td>
                     </tr>
                     </tbody>
                 </Table>
