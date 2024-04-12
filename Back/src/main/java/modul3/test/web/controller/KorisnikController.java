@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -146,7 +147,9 @@ public class KorisnikController {
     @GetMapping
     public ResponseEntity<List<KorisnikDTO>> get(@RequestParam(defaultValue="0") int page){
         Page<Korisnik> korisnici = korisnikService.findAll(page);
-        return new ResponseEntity<>(toKorisnikDto.convert(korisnici.getContent()), HttpStatus.OK);
+        HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set("Total-Pages", korisnici.getTotalPages() + "");
+        return new ResponseEntity<>(toKorisnikDto.convert(korisnici.getContent()), responseHeaders, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_KORISNIK')")

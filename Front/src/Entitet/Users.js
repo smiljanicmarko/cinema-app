@@ -36,9 +36,7 @@ const Users = () => {
         getZadaci();
     }, [pageNo]);
 
-    useEffect(() => {
-        getGenres();
-    }, [])
+ 
 
 
     // ======================== DOBAVLJANJE PODATAKA ================================
@@ -48,7 +46,7 @@ const Users = () => {
     // Ako mora na dugme, onda f-ja pretragaClickHandler, useEffect ostaje samo pageNo, a u getZadaci pageNo i pretraga. 
 
     const getZadaci = useCallback(() => {
-        TestAxios.get(`/movies?pageNo=${pageNo}`, {
+        TestAxios.get(`/korisnici?pageNo=${pageNo}`, {
             params: {
                 ...pretraga
             }
@@ -65,17 +63,7 @@ const Users = () => {
     }, [pageNo, pretraga]);
 
 
-    const getGenres = useCallback(() => {
-        TestAxios.get('/genres')
-            .then(res => {
-                console.log(res);
-                setGenres(res.data)
-            })
-            .catch(error => {
-                console.log(error);
-                alert('Error occured please try again!');
-            });
-    }, []);
+    
     //======================== NAVIGATE ============================================
     var navigate = useNavigate()
 
@@ -120,27 +108,22 @@ const Users = () => {
         getZadaci();
     }
 
-    const getGenresStringFromMap = (genresMap) => {
-        if (!genresMap || typeof genresMap !== 'object') {
-            return '';
-        }
-        return Object.values(genresMap).join(', ');
-    };
+    
     {/* ================================================ RENDER TABELE ========================================= */ }
     //=============================================================================================================
     const renderTabela = () => {
         return tabela.map((klasa, index) => {
             return (
                 <tr key={klasa.id}>
-                    <td>{klasa.name}</td>
-                    <td>{getGenresStringFromMap(klasa.genres)}</td>
-                    <td>{klasa.duration}</td>
-                    <td>{klasa.country}</td>
-                    <td>{klasa.year}</td>
+                    <td>{klasa.ime}</td>
+                    <td>{klasa.prezime}</td>
+                    <td>{klasa.korisnickoIme}</td>
+                    <td>{klasa.eMail}</td>
+                    <td>{klasa.uloga}</td>
                     <td>{klasa.distributor}</td>
                     {/* === DUGMICI ===*/}
-                    {isAdmin? <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td>: <td></td>}
-                    <td> <Button onClick={() => navigate("/movies/" + klasa.id)}>Details</Button> </td>
+                    {/* {isAdmin? <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td>: <td></td>}
+                    <td> <Button onClick={() => navigate("/movies/" + klasa.id)}>Details</Button> </td> */}
                 </tr>
             )
         })
@@ -276,18 +259,17 @@ const Users = () => {
                 </Row>
             </div>
             <Row><Col>
-                <Table id="movies-table">
+                <Table className='table table-striped' id="movies-table">
                     <thead>
                         <tr>
                             {/* ================================== ZAGLAVLJE TABELE ================= */}
                             <th>Name</th>
-                            <th>Genres</th>
-                            <th>Duration</th>
-                            <th>Country</th>
-                            <th>Year</th>
-                            <th>Distributor</th>
-                            <th></th>
-                            <th></th>
+                            <th>Last name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Registration date</th>
+                            
                         </tr>
                     </thead>
                     {/* ================================== TELO TABELE  ================= */}

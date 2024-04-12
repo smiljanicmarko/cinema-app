@@ -1,7 +1,5 @@
 package modul3.test.web.dto;
 
-import javax.validation.constraints.Positive;
-
 public class KorisnikDTO {
 
     //@Positive(message = "Id mora biti pozitivan broj.")
@@ -19,6 +17,16 @@ public class KorisnikDTO {
 
     //@Size(min=3, max=50)
     private String prezime;
+    
+    private String uloga;
+
+	public String getUloga() {
+		return uloga;
+	}
+
+	public void setUloga(String uloga) {
+		this.uloga = uloga;
+	}
 
 	public KorisnikDTO() {
 		super();
