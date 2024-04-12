@@ -20,7 +20,7 @@ const OneProjection = () => {
 
     const [projection, setProjection] = useState({})
     const [tickets, setTickets] = useState([])
-
+    const [showTickets, setShowTickets] = useState(false);
     const getProjection = useCallback(() => {
         TestAxios.get("/projections/" + projectionId)
             .then(res => {
@@ -93,21 +93,45 @@ useEffect(() => {
     getTickets()
 }, [])
 const renderTickets = () => {
-     
-    return tickets.map((klasa, index) => {
-        return (
-            <tr key={klasa.id}>
-                <td>{klasa.id}</td>
-                <td>{klasa.purchaseTime}</td>
-                <td>{klasa.username}</td>
-              
-                {/* === DUGMICI ===*/}
-                {/* <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td> */}
+    return tickets.length > 0 ? (
+        tickets.map((klasa, index) => {
+            return (
+                <tr key={klasa.id}>
+                    <td>{klasa.id}</td>
+                    <td>{formatDate(klasa.purchaseTime)}</td>
+                    <td>{klasa.username}</td>
+                    {/* === DUGMICI ===*/}
+                    {/* <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td> */}
+                </tr>
+            );
+        })
+    ) : (
+        <tr>
+            <td colSpan="3"> <h4>There are no sold tickets for this projection!</h4></td>
+        </tr>
+    );
+}
+   
+const formHandler = () => {
+    setShowTickets(!showTickets);
+};
+
+const renderTable = () =>{
+return (
+    <Table className="table table-striped" style={{ width: '40%' }}>
+            <thead>
+            <tr>
+            <th>Ticket id</th> <th>Purchase time</th> <th>User details</th>
             </tr>
-        )
-    })
-}    
-    
+            </thead>
+            <tbody>
+            {renderTickets()}
+            </tbody>
+
+          </Table>
+)
+}
+
 
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -169,18 +193,17 @@ const renderTickets = () => {
                         </Row> : <></>
                     
                 }
+                <hr></hr>
 
             </div>
 
         <div>
-          <Table>
-            <tr>
-            <th>Ticket id</th> <th>Purchase time</th> <th>User details</th>
-            </tr>
-            {renderTickets()}
+        <div>            
+            <Form.Check type="checkbox"  label="Show sold tickets" onChange={formHandler} />
+            {showTickets && renderTable()}
+            <br/>
+        </div>
           
-
-          </Table>
         </div>
 
 
