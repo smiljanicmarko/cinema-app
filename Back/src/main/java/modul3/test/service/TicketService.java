@@ -6,7 +6,7 @@ import modul3.test.model.Ticket;
 
 public interface TicketService {
 
-	Ticket findById (Long id);
+	Ticket findOneById (Long id);
 	
 	List<Ticket> findAll ();
 	

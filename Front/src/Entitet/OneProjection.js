@@ -19,7 +19,7 @@ const OneProjection = () => {
     const projectionId = urlParams.id
 
     const [projection, setProjection] = useState({})
-
+    const [tickets, setTickets] = useState([])
 
     const getProjection = useCallback(() => {
         TestAxios.get("/projections/" + projectionId)
@@ -75,11 +75,39 @@ const OneProjection = () => {
                 alert('Error in delete!');
             })
         );
-
-
-
-        
     }
+//===================================================================TICKET DETAILS============================================================
+const getTickets = useCallback(() => {
+    TestAxios.get("/tickets/projection/" + projectionId)
+        .then(res => {
+            console.log(res);
+            setTickets(res.data)
+        })
+        .catch(error => {
+            console.log(error);
+            alert('Error occured please try again!');
+        });
+}, []);
+
+useEffect(() => {
+    getTickets()
+}, [])
+const renderTickets = () => {
+     
+    return tickets.map((klasa, index) => {
+        return (
+            <tr key={klasa.id}>
+                <td>{klasa.id}</td>
+                <td>{klasa.purchaseTime}</td>
+                <td>{klasa.username}</td>
+              
+                {/* === DUGMICI ===*/}
+                {/* <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td> */}
+            </tr>
+        )
+    })
+}    
+    
 
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -121,15 +149,7 @@ const OneProjection = () => {
                     <Col></Col>
                     <Col></Col>
                 </Row>
-                {
-                    console.log(today < projectionTime)
-
-
-                }
-                {
-                    console.log(projection.time)
-                }
-                {console.log(new Date())}
+               
                 {
 
                     (isKorisnik && projection.seatsAvailable > 0 && today < projectionTime) ?
@@ -150,9 +170,18 @@ const OneProjection = () => {
                     
                 }
 
-
             </div>
 
+        <div>
+          <Table>
+            <tr>
+            <th>Ticket id</th> <th>Purchase time</th> <th>User details</th>
+            </tr>
+            {renderTickets()}
+          
+
+          </Table>
+        </div>
 
 
         </div>
