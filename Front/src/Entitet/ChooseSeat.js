@@ -6,6 +6,11 @@ import { jwtDecode } from "jwt-decode";
 import { formatDate } from "../services/formatDate";
 import Multiselect from "multiselect-react-dropdown";
 
+
+//kad se izaberu sedista, pa poniste, dugme Confirm ostaje aktivno!!!
+
+
+
 const ChooseSeat = () => {
 
     //=================================== AUTORIZACIJA =========================================
@@ -13,6 +18,7 @@ const ChooseSeat = () => {
     const decoded = token ? jwtDecode(token) : null;
     const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
     const isKorisnik = decoded?.role?.authority === "ROLE_KORISNIK";
+    const usernameToken = decoded?.sub
 
     const navigate = useNavigate()
 
@@ -22,14 +28,14 @@ const ChooseSeat = () => {
     const [projection, setProjection] = useState({})
     const [seats, setSeats] = useState([])
     const [chosenSeats, setChosenSeats] = useState([])
-   
+
 
     const getSeats = useCallback(() => {
         TestAxios.get("/projections/" + projectionId)
             .then(res => {
                 setProjection(res.data);
                 return TestAxios.get(`/theatres/${res.data.theaterId}/seats`, {
-                    params:{
+                    params: {
                         projectionId: projectionId
                     }
                 });
@@ -43,16 +49,16 @@ const ChooseSeat = () => {
                 alert('Error occurred, please try again!');
             });
     }, [projectionId]); // Ensure projectionId is included in the dependency array
-    
+
     useEffect(() => {
         getSeats();
-    }, []); 
+    }, []);
 
-   
+
     useEffect(() => {
         console.log(chosenSeats);
-    }, [chosenSeats]); 
-   
+    }, [chosenSeats]);
+
 
 
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -75,7 +81,7 @@ const ChooseSeat = () => {
                                 <th>Movie name:</th> <td> <Link to={'/movies/' + projection.movieId}>{projection.movieName}</Link> </td>
                             </tr>
                             <tr>
-                                <th>Date and time: </th> <td><Link to={'/projections/'+projection.id}>{formatDate(projection.time)}</Link> </td>
+                                <th>Date and time: </th> <td><Link to={'/projections/' + projection.id}>{formatDate(projection.time)}</Link> </td>
                             </tr>
                             <tr>
                                 <th>Projection type: </th> <td>{projection.projectionType}</td>
@@ -94,13 +100,16 @@ const ChooseSeat = () => {
                     </Col>
                     <Col></Col>
                     <Col></Col>
-                </Row>     
-              <hr></hr>
-              <h3>Choose your seat(s)</h3>
-        
-        <Row>
-            <Col md={3}>
-            <FormGroup>
+                </Row>
+            </div>
+            <hr></hr>
+
+            <div>
+                <h3>Choose your seat(s)</h3>
+
+                <Row>
+                    <Col md={3}>
+                        <FormGroup>
                             <FormLabel htmlFor=''></FormLabel>
                             <Multiselect
                                 options={seats.map(obj => ({ id: obj.id, name: obj.number }))}
@@ -109,16 +118,20 @@ const ChooseSeat = () => {
                                 onRemove={(selectedList) => setChosenSeats(prevState => ({ ...prevState, seats: selectedList.map(item => item.id) }))}
                                 placeholder="Select seat number"
                             />
-                        </FormGroup>  
-            </Col>
-        </Row>
+                        </FormGroup>
+                    </Col>
+
+                    <Col>
+                        <Button style={{ marginTop: '25px' }} className='btn btn-success' disabled={chosenSeats.length === 0}>
+                            Confirm
+                        </Button>
+                    </Col>
+
+                </Row>
             </div>
 
-           
-
-
         </div>
-    )
+    );
 }
 
 export default ChooseSeat

@@ -111,7 +111,7 @@ const ProjectionsForMovie = () => {
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     return (
         <div>
-            <h1>Projections for {movie.name}</h1>   
+            <h1>Choose projection for {movie.name}</h1>   
             <Row><Col>
                 <Table id="movies-table">
                     <thead>
