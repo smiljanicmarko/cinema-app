@@ -28,7 +28,11 @@ const ChooseSeat = () => {
         TestAxios.get("/projections/" + projectionId)
             .then(res => {
                 setProjection(res.data);
-                return TestAxios.get(`/theatres/${res.data.theaterId}/seats`);
+                return TestAxios.get(`/theatres/${res.data.theaterId}/seats`, {
+                    params:{
+                        projectionId: projectionId
+                    }
+                });
             })
             .then(res => {
                 console.log(res);

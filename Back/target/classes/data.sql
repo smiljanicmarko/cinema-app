@@ -89,19 +89,19 @@ INSERT INTO movie_genre (movie_id, genre_id) VALUES (6, 7);
 INSERT INTO movie_genre (movie_id, genre_id) VALUES (6, 8);
 
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (1, 1, 1, '2024-04-13 20:00', 500, 1 );
+VALUES (1, 1, 1, '2024-04-15 20:00', 500, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (1, 1, 2, '2024-04-14 21:00', 500, 1 );
+VALUES (1, 1, 2, '2024-04-15 21:00', 500, 1 );
 
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (2, 1, 2, '2024-04-14 20:00', 500, 1 );
+VALUES (2, 1, 2, '2024-04-15 20:00', 500, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (2, 1, 1, '2024-04-13 20:00', 500, 1 );
+VALUES (2, 1, 1, '2024-04-16 20:00', 500, 1 );
 
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (3, 2, 1, '2024-04-24 20:00', 600, 1 );
+VALUES (3, 2, 1, '2024-04-26 20:00', 600, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (3, 3, 3, '2024-04-13 20:00', 700, 1 );
+VALUES (3, 3, 3, '2024-04-15 20:00', 700, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
 VALUES (3, 3, 3, '2024-04-15 20:00', 700, 1 );
 
@@ -112,7 +112,7 @@ INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
 VALUE (1, 2, '2024-04-03 17:00', 3);
 
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
-VALUE (2, 1, '2024-04-01 20:00', 2);
+VALUE (2, 6, '2024-04-01 20:00', 2);
 
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
 VALUE (3, 6, '2024-04-03 18:00', 3);

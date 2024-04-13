@@ -10,11 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import modul3.test.model.Projection;
 import modul3.test.model.ProjectionType;
 import modul3.test.model.Seat;
 import modul3.test.model.Theater;
+import modul3.test.model.Ticket;
+import modul3.test.service.ProjectionService;
 import modul3.test.service.TheaterService;
 import modul3.test.support.ProjectionTypeToProjectionTypeDto;
 import modul3.test.support.SeatToSeatDto;
@@ -31,6 +35,8 @@ public class TheaterController {
 	private TheaterService theaterService;
 	@Autowired
 	private TheaterToTheaterDto toDto;
+	@Autowired
+	private ProjectionService projectionService;
 	@Autowired
 	private ProjectionTypeToProjectionTypeDto toPtDto;
 	@Autowired
@@ -61,12 +67,27 @@ public class TheaterController {
 	
 		
 		@GetMapping("/{id}/seats")
-		public ResponseEntity <List<SeatDTO>> getSeats(@PathVariable Long id) {
+		public ResponseEntity <List<SeatDTO>> getSeats(@PathVariable Long id, @RequestParam Long projectionId) {
 			Theater theater = theaterService.findOneById(id);
+			Projection projection = projectionService.findOneById(projectionId);
 			
-			if(theater != null) {
-				List<Seat>seats = new ArrayList<Seat>(theater.getSeats());
-				return new ResponseEntity<>(toSeatDto.convert(seats), HttpStatus.OK);
+			
+			if(theater != null && projection != null) {
+				List<Seat> allSeats = new ArrayList<Seat>(theater.getSeats());
+				List<Seat> bookedSeats = new ArrayList<Seat>();
+				for (Ticket t : projection.getTickets()) {
+					bookedSeats.add(t.getSeat());
+				}
+				
+				List<Seat> availableSeats = new ArrayList<Seat>();
+				
+				for (Seat s : allSeats) {
+					if (!bookedSeats.contains(s)) {
+						availableSeats.add(s);
+					}
+				}
+				
+				return new ResponseEntity<>(toSeatDto.convert(availableSeats), HttpStatus.OK);
 			}else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
