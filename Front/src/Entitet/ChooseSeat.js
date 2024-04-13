@@ -4,6 +4,7 @@ import TestAxios from "../apis/TestAxios"
 import { Button, Card, Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
 import { jwtDecode } from "jwt-decode";
 import { formatDate } from "../services/formatDate";
+import Multiselect from "multiselect-react-dropdown";
 
 const ChooseSeat = () => {
 
@@ -20,7 +21,7 @@ const ChooseSeat = () => {
 
     const [projection, setProjection] = useState({})
     const [seats, setSeats] = useState([])
-    
+    const [chosenSeats, setChosenSeats] = useState([])
    
 
     const getSeats = useCallback(() => {
@@ -44,7 +45,9 @@ const ChooseSeat = () => {
     }, []); 
 
    
-
+    useEffect(() => {
+        console.log(chosenSeats);
+    }, [chosenSeats]); 
    
 
 
@@ -89,8 +92,22 @@ const ChooseSeat = () => {
                     <Col></Col>
                 </Row>     
               <hr></hr>
-              <h3>Choose seat</h3>
-
+              <h3>Choose your seat(s)</h3>
+        
+        <Row>
+            <Col md={3}>
+            <FormGroup>
+                            <FormLabel htmlFor=''></FormLabel>
+                            <Multiselect
+                                options={seats.map(obj => ({ id: obj.id, name: obj.number }))}
+                                displayValue="name"
+                                onSelect={(selectedList) => setChosenSeats(prevState => ({ ...prevState, seats: selectedList.map(item => item.id) }))}
+                                onRemove={(selectedList) => setChosenSeats(prevState => ({ ...prevState, seats: selectedList.map(item => item.id) }))}
+                                placeholder="Select seat number"
+                            />
+                        </FormGroup>  
+            </Col>
+        </Row>
             </div>
 
            
