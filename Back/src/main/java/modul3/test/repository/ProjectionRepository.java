@@ -41,10 +41,8 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 	
 	 List<Projection> findByTimeBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
 	
-//	List<Projection> findByMovieIdAndTimeAfterAndAvailableTicketsGreaterThan(Long movieId, LocalDateTime now, int availableTickets);
+	List<Projection> findByMovieIdAndTimeAfter(Long movieId, LocalDateTime now);
 	
-	  @Query("SELECT p FROM Projection p WHERE p.movie.id = :movieId AND p.time > :now AND SIZE(p.tickets) < SIZE(p.theater.seats)")
-	    List<Projection> findByMovieIdAndTimeAfterAndAvailableTicketsGreaterThan(@Param("movieId") Long movieId, @Param("now") LocalDateTime now);
 
 	
 

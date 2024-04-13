@@ -107,13 +107,15 @@ public class JpaProjectionService implements ProjectionService {
 		return numberOfTickets;
 	}
 
+	@Override
+	public List<Projection> findProjectionsByMovieAndTime(Long movieId, LocalDateTime now) {
+		
+		
+		return r.findByMovieIdAndTimeAfter(movieId, now);
+	}
+
 	
 
-	@Override
-	public List<Projection> findProjectionsByMovieAndTime(Long movieId, LocalDateTime now, int availableTickets) {
-	
-		return r.findByMovieIdAndTimeAfterAndAvailableTicketsGreaterThan(movieId, now);
-	}
 
 	
 

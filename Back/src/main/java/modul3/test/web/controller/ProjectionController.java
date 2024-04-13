@@ -3,6 +3,7 @@ package modul3.test.web.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -100,7 +101,15 @@ public class ProjectionController {
 			LocalDateTime now = LocalDateTime.now();
 			
 			
-			List<Projection> projections = projectionService.findProjectionsByMovieAndTime(movieId, now, 0);	
+			List<Projection> projectionsAll = projectionService.findProjectionsByMovieAndTime(movieId, now);	
+			List<Projection> projections = new ArrayList<Projection>();
+			
+			for (Projection p : projectionsAll) {
+				if (p.getAvailableTickets()>0) {
+					projections.add(p);
+				}
+			}
+			
 			System.out.println("ovoooooooooooooooooooooooo: \n" + projections);
 			if (projections != null) {
 				return new ResponseEntity<>(toDto.convert(projections), HttpStatus.OK);
