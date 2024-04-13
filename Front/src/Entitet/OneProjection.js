@@ -183,7 +183,7 @@ const OneProjection = () => {
                             <Col>
                                 <Button className="btn btn-success" onClick={()=>goToChooseSeat(projection.id)}>Buy tickets</Button>
                             </Col>
-                        </Row>) : <></>
+                        </Row>) : <span>Can't but tickets for this projection.</span>
 
                 }
                 {

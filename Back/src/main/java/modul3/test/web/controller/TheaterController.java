@@ -1,5 +1,6 @@
 package modul3.test.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import modul3.test.model.ProjectionType;
+import modul3.test.model.Seat;
 import modul3.test.model.Theater;
 import modul3.test.service.TheaterService;
 import modul3.test.support.ProjectionTypeToProjectionTypeDto;
+import modul3.test.support.SeatToSeatDto;
 import modul3.test.support.TheaterToTheaterDto;
 import modul3.test.web.dto.ProjectionTypeDTO;
+import modul3.test.web.dto.SeatDTO;
 import modul3.test.web.dto.TheaterDTO;
 
 @RestController
@@ -29,7 +33,8 @@ public class TheaterController {
 	private TheaterToTheaterDto toDto;
 	@Autowired
 	private ProjectionTypeToProjectionTypeDto toPtDto;
-	
+	@Autowired
+	private SeatToSeatDto toSeatDto;
 	
 //	@Autowired
 //	private MovieDtoToMovie toClass;
@@ -54,6 +59,19 @@ public class TheaterController {
 		}
 	
 	
+		
+		@GetMapping("/{id}/seats")
+		public ResponseEntity <List<SeatDTO>> getSeats(@PathVariable Long id) {
+			Theater theater = theaterService.findOneById(id);
+
+			if(theater != null) {
+				List<Seat>seats = new ArrayList<Seat>(theater.getSeats());
+				return new ResponseEntity<>(toSeatDto.convert(seats), HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}
+		
 	//GET BY ID
 
 	@GetMapping("/{id}/projection-types")

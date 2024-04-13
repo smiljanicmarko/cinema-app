@@ -20,7 +20,7 @@ const ChooseSeat = () => {
 
     const [projection, setProjection] = useState({})
     const [tickets, setTickets] = useState([])
-    const [showTickets, setShowTickets] = useState(false);
+    
     const getProjection = useCallback(() => {
         TestAxios.get("/projections/" + projectionId)
             .then(res => {
@@ -51,7 +51,21 @@ const ChooseSeat = () => {
 
    
     //===================================================================TICKET DETAILS============================================================
-   
+    const getTickets = useCallback(() => {
+        TestAxios.get("/tickets/projection/" + projectionId)
+            .then(res => {
+                console.log(res);
+                setTickets(res.data)
+            })
+            .catch(error => {
+                console.log(error);
+                alert('Error occured please try again!');
+            });
+    }, []);
+
+    useEffect(() => {
+        getTickets()
+    }, [])
 
     
 

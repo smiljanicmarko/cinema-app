@@ -40,7 +40,7 @@ public class ProjectionController {
 	private ProjectionToProjectionDto toDto;
 	@Autowired
 	private ProjectionDtoToProjection toClass;
-	
+
 	
 	//  @PreAuthorize("hasAnyRole('KORISNIK', 'ADMIN')")
 	 // @PreAuthorize("hasRole('ADMIN')")
@@ -124,7 +124,7 @@ public class ProjectionController {
 		}
 	}
 
-
+	
 
 
 	//CREATE
