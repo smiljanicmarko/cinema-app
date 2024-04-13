@@ -64,7 +64,8 @@ if (projections.length>0){
 
 }else{
   return (
-    <h2>No movies available today</h2>
+    <tr><td colSpan={5} style={{ fontSize: '35px' }}>No movies available today</td></tr>
+   
   )
 }
       
@@ -73,10 +74,10 @@ if (projections.length>0){
 
   return (
     <div>
-      <div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">{usernameToken?  (usernameToken + ', ')  : ''} Welcome to our Cinema!</h1>
-    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+      <div className="jumbotron jumbotron-fluid">
+  <div className="container">
+    <h1 className="display-4">{usernameToken?  (usernameToken + ', ')  : ''} Welcome to our Cinema!</h1>
+    <p className="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
   </div>
 </div>
 

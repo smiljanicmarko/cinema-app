@@ -142,12 +142,13 @@ return (
                 </Col>
               
                 </Row>
-              
-                <div>            
-            <Form.Check type="checkbox"  label="Show my tickets" onChange={formHandler} />
-            {showTickets && renderTable()}
-            <br/>
-        </div>
+              {!isAdmin?
+               <div>            
+               <Form.Check type="checkbox"  label="Show my tickets" onChange={formHandler} />
+               {showTickets && renderTable()}
+               <br/>
+           </div>: <></>}
+               
               
 
             </div>
