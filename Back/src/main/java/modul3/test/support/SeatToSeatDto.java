@@ -20,7 +20,7 @@ public class SeatToSeatDto implements Converter<Seat, SeatDTO> {
     	dto.setId(e.getId());
     	dto.setTheater(e.getTheater().getName());
     	dto.setTheaterId(e.getTheater().getId());
-    	
+    	dto.setNumber(e.getNumber());
     	
         return dto;
     }

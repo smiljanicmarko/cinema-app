@@ -16,7 +16,9 @@ public class Seat {
 	 	@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
-
+	 	
+	 	private Integer number;
+	 	
 	 	@ManyToOne(fetch = FetchType.EAGER)
 	    @JoinColumn(nullable = false) 	
 	 	private Theater theater;
@@ -27,6 +29,16 @@ public class Seat {
 
 		public void setId(Long id) {
 			this.id = id;
+		}
+		
+		
+
+		public Integer getNumber() {
+			return number;
+		}
+
+		public void setNumber(Integer number) {
+			this.number = number;
 		}
 
 		public Theater getTheater() {

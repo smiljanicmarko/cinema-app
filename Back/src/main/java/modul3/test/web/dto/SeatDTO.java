@@ -6,8 +6,16 @@ public class SeatDTO {
 
 	 	private Long theaterId;
 	 	private String theater;
+	 	private Integer number;
 	 	
 	 	
+	 	
+		public Integer getNumber() {
+			return number;
+		}
+		public void setNumber(Integer number) {
+			this.number = number;
+		}
 		public Long getId() {
 			return id;
 		}

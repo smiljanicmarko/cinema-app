@@ -122,6 +122,16 @@ public class Projection {
 		public void setDeleted(Boolean deleted) {
 			this.deleted = deleted;
 		}
+		
+		public Integer getAvailableTickets (){
+			Integer seats = 0;			
+			
+				Integer totalNumber = this.getTheater().getSeats().size();			
+				seats = totalNumber - this.getTickets().size();
+				
+			return seats;
+		}
+		
 
 		@Override
 		public boolean equals(Object obj) {
@@ -133,6 +143,11 @@ public class Projection {
 				return false;
 			Projection other = (Projection) obj;
 			return Objects.equals(id, other.id);
+		}
+
+		@Override
+		public String toString() {
+			return "Projection [id=" + id + ", movie=" + movie.getName() + ", tickets=" + tickets.size() + "]";
 		}
 
 		

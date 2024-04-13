@@ -32,7 +32,7 @@ public interface ProjectionService {
     
     Integer getNumberOfSoldTickets (Long projectionId);
     
-    List<Projection> findProjectionsByMovieAndTime (Long movieId, LocalDateTime now);
+    List<Projection> findProjectionsByMovieAndTime (Long movieId, LocalDateTime now, int availableTickets);
 	
 //    Page<Film> findAll(Integer pageNo);
 //    Page<Film> find(String naziv, Long zanrId, Integer trajanjeOd, Integer trajanjeDo, int page);

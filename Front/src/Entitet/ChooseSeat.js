@@ -19,55 +19,29 @@ const ChooseSeat = () => {
     const projectionId = urlParams.id
 
     const [projection, setProjection] = useState({})
-    const [tickets, setTickets] = useState([])
+    const [seats, setSeats] = useState([])
     
-    const getProjection = useCallback(() => {
+   
+
+    const getSeats = useCallback(() => {
         TestAxios.get("/projections/" + projectionId)
             .then(res => {
-                console.log(res);
-                setProjection(res.data)
+                setProjection(res.data);
+                return TestAxios.get(`/theatres/${res.data.theaterId}/seats`);
             })
-            .catch(error => {
-                console.log(error);
-                alert('Error occured please try again!');
-            });
-    }, []);
-
-    useEffect(() => {
-        getProjection()
-    }, [])
-    const getGenresStringFromMap = (genresMap) => {
-        if (!genresMap || typeof genresMap !== 'object') {
-            return '';
-        }
-        return Object.values(genresMap).join(', ');
-    };
-
-    const goToEditMovie = (id) => {
-        navigate("/edit-movie/" + id)
-    }
-
-
-
-   
-    //===================================================================TICKET DETAILS============================================================
-    const getTickets = useCallback(() => {
-        TestAxios.get("/tickets/projection/" + projectionId)
             .then(res => {
                 console.log(res);
-                setTickets(res.data)
+                setSeats(res.data);
             })
             .catch(error => {
                 console.log(error);
-                alert('Error occured please try again!');
+                alert('Error occurred, please try again!');
             });
-    }, []);
-
-    useEffect(() => {
-        getTickets()
-    }, [])
-
+    }, [projectionId]); // Ensure projectionId is included in the dependency array
     
+    useEffect(() => {
+        getSeats();
+    }, []); 
 
    
 

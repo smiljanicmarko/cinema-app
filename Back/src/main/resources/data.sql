@@ -21,23 +21,23 @@ INSERT INTO theater_projection_type VALUES (2, 1);
 INSERT INTO theater_projection_type VALUES (3, 2);
 INSERT INTO theater_projection_type VALUES (3, 3);
 
-INSERT INTO seat (theater_id) VALUES ( 1);
-INSERT INTO seat (theater_id) VALUES ( 1);
-INSERT INTO seat (theater_id) VALUES ( 1);
-INSERT INTO seat (theater_id) VALUES ( 1);
-INSERT INTO seat (theater_id) VALUES ( 1);
+INSERT INTO seat (theater_id, number) VALUES ( 1, 1);
+INSERT INTO seat (theater_id, number) VALUES ( 1, 2);
+INSERT INTO seat (theater_id, number) VALUES ( 1, 3);
+INSERT INTO seat (theater_id, number) VALUES ( 1, 4);
+INSERT INTO seat (theater_id, number) VALUES ( 1, 5);
 
 
-INSERT INTO seat (theater_id) VALUES ( 2);
-INSERT INTO seat (theater_id) VALUES ( 2);
-INSERT INTO seat (theater_id) VALUES ( 2);
+INSERT INTO seat (theater_id, number) VALUES ( 2, 1);
+INSERT INTO seat (theater_id, number) VALUES ( 2, 2);
+INSERT INTO seat (theater_id, number) VALUES ( 2, 3);
 
 
-INSERT INTO seat (theater_id) VALUES ( 3);
-INSERT INTO seat (theater_id) VALUES ( 3);
-INSERT INTO seat (theater_id) VALUES ( 3);
-INSERT INTO seat (theater_id) VALUES ( 3);
-INSERT INTO seat (theater_id) VALUES ( 3);
+INSERT INTO seat (theater_id, number) VALUES ( 3, 1);
+INSERT INTO seat (theater_id, number) VALUES ( 3, 2);
+INSERT INTO seat (theater_id, number) VALUES ( 3, 3);
+INSERT INTO seat (theater_id, number) VALUES ( 3, 4);
+INSERT INTO seat (theater_id, number) VALUES ( 3, 5);
 
 INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description) VALUES (1, "Maratonci", "Slobodan Sijan", 
 "Bogdan Diklic, Bata Stojkovic, Pavle Vujisic", 92, "Yugo-film", "Jugoslavija", 1982, "The Topalovic family has been in the burial business for generations. When the old (150 yrs old) Pantelija dies, five generations of his heirs start to fight for the inheritance.");
