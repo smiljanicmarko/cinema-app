@@ -63,7 +63,7 @@ public class TheaterController {
 		@GetMapping("/{id}/seats")
 		public ResponseEntity <List<SeatDTO>> getSeats(@PathVariable Long id) {
 			Theater theater = theaterService.findOneById(id);
-
+			
 			if(theater != null) {
 				List<Seat>seats = new ArrayList<Seat>(theater.getSeats());
 				return new ResponseEntity<>(toSeatDto.convert(seats), HttpStatus.OK);
