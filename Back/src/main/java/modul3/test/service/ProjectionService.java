@@ -31,6 +31,8 @@ public interface ProjectionService {
     Integer numberOfSeatsAvailable (Long projectionId);
     
     Integer getNumberOfSoldTickets (Long projectionId);
+    
+    List<Projection> findProjectionsByMovieAndTime (Long movieId, LocalDateTime now);
 	
 //    Page<Film> findAll(Integer pageNo);
 //    Page<Film> find(String naziv, Long zanrId, Integer trajanjeOd, Integer trajanjeDo, int page);

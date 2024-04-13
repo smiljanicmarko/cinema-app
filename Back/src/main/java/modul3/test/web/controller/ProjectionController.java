@@ -95,6 +95,21 @@ public class ProjectionController {
 
 		}
 		
+		@GetMapping("/movie/{movieId}")
+		public ResponseEntity<List<ProjectionDTO>> projectionsForMovieToday (@PathVariable Long movieId) {
+			LocalDateTime now = LocalDateTime.now();
+	      
+			
+			List<Projection> projections = projectionService.findProjectionsByMovieAndTime(movieId, now);		
+			if (projections != null) {
+				return new ResponseEntity<>(toDto.convert(projections), HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+
+		}
+		
 	
 	//GET BY ID
 

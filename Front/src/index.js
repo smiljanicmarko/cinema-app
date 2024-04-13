@@ -22,6 +22,8 @@ import { jwtDecode } from 'jwt-decode';
 import Users from './Entitet/Users';
 import UserDetailsAdmin from './Entitet/UserDetailsAdmin';
 import ChangePassword from './Entitet/ChangePassword';
+import ProjectionsForMovie from './Entitet/ProjectionsForMovie';
+import ChooseSeat from './Entitet/ChooseSeat';
 
 
 
@@ -71,6 +73,8 @@ const App = () => {
                             <Route path="/edit-movie/:id" element={<EditMovie />} />
                             <Route path='/projections' element={<Projections />} />
                             <Route path='/projections/:id' element={<OneProjection />} />
+                            <Route path='/projections/movie/:id' element={<ProjectionsForMovie/>}/>
+                            <Route path='/projections/:id/seat' element={<ChooseSeat/>}/>
                             <Route path='/new-projection' element={<AddProjection />} />
                             <Route path='/user-details' element={<UserAccount />} />
                             <Route path='/users/:id' element={<UserDetailsAdmin/>}/>

@@ -41,7 +41,7 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 	
 	 List<Projection> findByTimeBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
 	
-	
+	List<Projection> findByMovieIdAndTimeAfterAndTicketsIsNotEmpty(Long movieId, LocalDateTime now);
 	
 
 	

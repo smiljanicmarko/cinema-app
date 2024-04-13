@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import modul3.test.model.Movie;
 import modul3.test.model.Projection;
+import modul3.test.repository.MovieRepository;
 import modul3.test.repository.ProjectionRepository;
 import modul3.test.service.ProjectionService;
 
@@ -18,7 +20,8 @@ public class JpaProjectionService implements ProjectionService {
 
 	@Autowired
 	private ProjectionRepository r;
-	
+	@Autowired
+	private MovieRepository movieRepository;
 	@Override
 	public Projection findOneById(Long id) {
 		
@@ -103,6 +106,17 @@ public class JpaProjectionService implements ProjectionService {
 		}
 		return numberOfTickets;
 	}
+
+	@Override
+	public List<Projection> findProjectionsByMovieAndTime(Long movieId, LocalDateTime now) {
+		Movie m = movieRepository.findOneById(movieId);
+		if (m == null) {
+			return null;
+		}
+		return r.findByMovieIdAndTimeAfterAndTicketsIsNotEmpty(movieId, now);
+	}
+
+	
 
 	
 

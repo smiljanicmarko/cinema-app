@@ -45,6 +45,9 @@ const OneMovie = () => {
         navigate("/edit-movie/" +id)
     }
 
+    const goToBuyTickets = (id) =>{
+        navigate("/projections/movie/" +id)
+    }
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     return (
@@ -109,7 +112,7 @@ const OneMovie = () => {
                     </Row> :
                     <Row>
                         <Col>
-                         <Button className="btn btn-success" >Buy tickets</Button>
+                         <Button className="btn btn-success" onClick={()=>goToBuyTickets(movie.id)}>Buy tickets</Button>
                          </Col>
                     </Row>
                 }
@@ -117,6 +120,7 @@ const OneMovie = () => {
 
             </div>
 
+                <hr style={{ width: '73%' }}></hr>
 
 
         </div>

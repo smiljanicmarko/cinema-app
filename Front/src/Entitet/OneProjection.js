@@ -131,7 +131,9 @@ const OneProjection = () => {
             </Table>
         )
     }
-
+    const goToChooseSeat = (id)=>{
+        navigate('/projections/' + id + '/seat')
+       }
 
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -179,7 +181,7 @@ const OneProjection = () => {
                     (isKorisnik && projection.seatsAvailable > 0 && today < projectionTime) ?
                         (<Row>
                             <Col>
-                                <Button className="btn btn-success">Buy tickets</Button>
+                                <Button className="btn btn-success" onClick={()=>goToChooseSeat(projection.id)}>Buy tickets</Button>
                             </Col>
                         </Row>) : <></>
 
