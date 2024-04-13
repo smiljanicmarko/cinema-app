@@ -30,6 +30,9 @@ public class Ticket {
 	  	@ManyToOne(fetch = FetchType.EAGER)
 	    @JoinColumn(nullable = false, name = "user_id") 
 	  	private Korisnik user;
+	  	
+	  	
+	  	
 		public Long getId() {
 			return id;
 		}

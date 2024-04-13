@@ -15,4 +15,6 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
     Optional<Korisnik> findFirstByKorisnickoImeAndLozinka(String korisnickoIme,String lozinka);
     
     Korisnik findOneById (Long id);
+    
+    Korisnik findByKorisnickoIme(String korisnickoIme);
 }

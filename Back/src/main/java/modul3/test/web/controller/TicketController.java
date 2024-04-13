@@ -2,14 +2,17 @@ package modul3.test.web.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import modul3.test.model.Korisnik;
@@ -19,6 +22,7 @@ import modul3.test.service.KorisnikService;
 import modul3.test.service.ProjectionService;
 import modul3.test.service.TicketService;
 import modul3.test.support.TicketToTicketDto;
+import modul3.test.web.dto.BuyTicketDTO;
 import modul3.test.web.dto.TicketDTO;
 
 @RestController
@@ -105,19 +109,24 @@ public class TicketController {
 		}
 	}
 
-//
-//
-//
-//	//CREATE
-//	//@PreAuthorize("hasRole('ADMIN')")
-//	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<MovieDTO> create(@Valid @RequestBody MovieDTO dto){
-//
-//		Movie obj = toClass.convert(dto);
-//		Movie saved = movieService.save(obj);
-//
-//		return new ResponseEntity<>(toDto.convert(saved), HttpStatus.CREATED);
-//	}
+
+
+
+	
+	//@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<TicketDTO>> buyTickets(@Valid @RequestBody BuyTicketDTO dto){
+
+		
+		List<Ticket>tickets = ticketService.buyTicket(dto);
+		if (tickets != null) {
+			return new ResponseEntity<>(toDto.convert(tickets), HttpStatus.CREATED);
+		}else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		
+	}
 //
 //
 //	//DELETE

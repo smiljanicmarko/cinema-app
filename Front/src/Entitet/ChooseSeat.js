@@ -28,7 +28,7 @@ const ChooseSeat = () => {
     const [projection, setProjection] = useState({})
     const [seats, setSeats] = useState([])
     const [chosenSeats, setChosenSeats] = useState([])
-
+    const [confirmed, setConfirmed] = useState(false)
 
     const getSeats = useCallback(() => {
         TestAxios.get("/projections/" + projectionId)
@@ -60,20 +60,44 @@ const ChooseSeat = () => {
     }, [chosenSeats]);
 
 
+    const buyTickets = () =>{
+        var params = { 		  
+	  	projectionId: projectionId, 	
+	  	seatIds: chosenSeats.seats,  
+	  	username: usernameToken
+        };
+
+        TestAxios.post('/tickets', params)
+        .then(res => {
+           
+            console.log(res);           
+            alert('Tickets bought successfully!');
+            navigate('/user-details'); 
+        })
+        .catch(error => {
+            // handle error
+            console.log(error);
+            alert('Error occured please try again!');
+         });
+    }
 
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     return (
         <div>
 
+            
+{/* //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = KORAK 2 - IZABERI SEDISTE = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */}
+        {!confirmed &&
+        
+        <div>
+            <div>
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
                     <h1 class="display-4">Projection details</h1>
                     <p class="lead"></p>
                 </div>
             </div>
-
-            <div>
                 <Row>
                     <Col>
                         <Table>
@@ -122,13 +146,67 @@ const ChooseSeat = () => {
                     </Col>
 
                     <Col>
-                        <Button style={{ marginTop: '25px' }} className='btn btn-success' disabled={chosenSeats.length === 0}>
+                        <Button style={{ marginTop: '25px' }} className='btn btn-success' disabled={chosenSeats.length === 0} onClick={()=>setConfirmed(true)}>
                             Confirm
                         </Button>
                     </Col>
 
                 </Row>
             </div>
+            </div>
+            }
+{/* //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = KORAK 3 - POTVRDI KUPOVINU = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */}
+
+            {
+                confirmed &&
+                 <div>
+                    <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4">Purchase details</h1>
+                    <p class="lead"></p>
+                </div>
+            </div>
+                    <Row>
+                    <Col>
+                        <Table className="table table-striped">
+                            <tbody>
+                            <tr>
+                                <th>Movie name:</th> <td> <Link to={'/movies/' + projection.movieId}>{projection.movieName}</Link> </td>
+                            </tr>
+                            <tr>
+                                <th>Date and time: </th> <td><Link to={'/projections/' + projection.id}>{formatDate(projection.time)}</Link> </td>
+                            </tr>
+                            <tr>
+                                <th>Projection type: </th> <td>{projection.projectionType}</td>
+                            </tr>
+                            <tr>
+                                <th>Theater: </th> <td>{projection.theaterName}</td>
+                            </tr>
+                            <tr>
+                                <th>Price: </th> <td>{projection.price}</td>
+                            </tr>
+                            <tr>
+                                <th>Seats chosen: </th> <td>{ Object.values(chosenSeats).join(', ') }</td>
+                            </tr>
+                            <tr>
+                                <th>Total price: </th><td>{chosenSeats.seats.length * projection.price}</td>
+                            </tr>
+                            </tbody>
+                        </Table>
+                    </Col>
+                    <Col></Col>
+                    <Col></Col>
+                </Row>
+                <Row>
+                        <Col>
+                         <Button className="btn btn-success" onClick={buyTickets}>Buy tickets</Button>
+                         </Col>
+                    </Row>
+                 </div>
+            }
+
+
+
 
         </div>
     );

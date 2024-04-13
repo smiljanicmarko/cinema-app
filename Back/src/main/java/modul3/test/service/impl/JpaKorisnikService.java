@@ -116,4 +116,10 @@ public class JpaKorisnikService implements KorisnikService {
 		}
 		return k;
 	}
+
+	@Override
+	public Korisnik findByKorisnickoIme(String korisnickoIme) {
+		// TODO Auto-generated method stub
+		return korisnikRepository.findByKorisnickoIme(korisnickoIme);
+	}
 }

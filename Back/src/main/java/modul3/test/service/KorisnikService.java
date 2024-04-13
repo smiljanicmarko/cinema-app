@@ -30,4 +30,6 @@ public interface KorisnikService {
     
     Korisnik findOneById (Long id);
     
+    Korisnik findByKorisnickoIme(String korisnickoIme);
+    
 }
