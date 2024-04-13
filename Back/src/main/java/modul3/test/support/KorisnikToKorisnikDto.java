@@ -23,6 +23,9 @@ public class KorisnikToKorisnikDto implements Converter<Korisnik, KorisnikDTO>{
         korisnikDTO.setPrezime(korisnik.getPrezime());
         korisnikDTO.setKorisnickoIme(korisnik.getKorisnickoIme());
         korisnikDTO.setUloga(korisnik.getUloga().toString());
+        korisnikDTO.setDeleted(korisnik.getDeleted());
+        
+        
         return korisnikDTO;
     }
 

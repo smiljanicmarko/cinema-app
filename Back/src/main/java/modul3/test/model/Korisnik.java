@@ -36,6 +36,8 @@ public class Korisnik {
     @Enumerated(EnumType.STRING)
     private KorisnickaUloga uloga;
 
+    private Boolean deleted = false;
+    
 	public Korisnik() {
 		super();
 	}
@@ -98,6 +100,14 @@ public class Korisnik {
 
 	public void setLozinka(String lozinka) {
 		this.lozinka = lozinka;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public KorisnickaUloga getUloga() {

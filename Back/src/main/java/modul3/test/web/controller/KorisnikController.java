@@ -22,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import modul3.test.model.Korisnik;
+import modul3.test.model.Movie;
 import modul3.test.security.TokenUtils;
 import modul3.test.service.KorisnikService;
 import modul3.test.support.KorisnikDtoToKorisnik;
@@ -212,4 +214,17 @@ public class KorisnikController {
             return ResponseEntity.notFound().build();
         }
     }
+    
+    
+  //@PreAuthorize("hasRole('ADMIN')")
+  	@DeleteMapping("/{id}")
+  	public ResponseEntity<Void> delete(@PathVariable Long id){
+  		Korisnik obrisan = korisnikService.logicalDelete(id);
+  		System.out.println("Korisnik " +obrisan.getIme() +" deleted parametar je " +obrisan.getDeleted());
+  		if(obrisan != null) {
+  			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  		} else {
+  			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  		}
+  	}
 }

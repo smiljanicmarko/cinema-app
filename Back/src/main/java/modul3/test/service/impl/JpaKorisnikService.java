@@ -106,4 +106,14 @@ public class JpaKorisnikService implements KorisnikService {
 		// TODO Auto-generated method stub
 		return korisnikRepository.findOneById(id);
 	}
+
+	@Override
+	public Korisnik logicalDelete(Long id) {
+		Korisnik k = korisnikRepository.findOneById(id);		
+		if (k != null) {
+			k.setDeleted(true);
+			korisnikRepository.save(k);
+		}
+		return k;
+	}
 }

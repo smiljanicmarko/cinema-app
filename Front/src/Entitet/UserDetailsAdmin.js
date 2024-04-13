@@ -59,6 +59,20 @@ const UserDetailsAdmin = () => {
             alert('Error occured please try again!');
          });
     }
+
+    const deleteUser = (id) => {       
+            TestAxios.delete("/korisnici/" + id)
+                .then(res => {
+                    alert('User successfully deleted!');
+                    navigate("/users")
+                }
+                )
+                .catch(error => {
+                    alert('Error in delete!');
+                })
+
+    }
+
  //===================================================================TICKET DETAILS============================================================
  const getTickets = useCallback(() => {   
         TestAxios.get("/tickets/user/" + userId)
@@ -129,7 +143,7 @@ return (
 
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h1 class="display-4">{user.ime} {user.prezime}</h1>
+                    <h1 class="display-4">{user.ime} {user.prezime} {user.deleted? ' - D E L E T E D' : ''}</h1>
                     <p class="lead"> </p>
                 </div>
             </div>
@@ -164,7 +178,7 @@ return (
                                                 </Button>
                                         </div>
                                         <div >
-                                            <Button className='btn btn-danger'>Delete</Button>
+                                            <Button disabled={user.deleted || usernameToken === user.korisnickoIme} className='btn btn-danger' onClick={()=> deleteUser(user.id)}>Delete</Button>
                                         </div>
                                     </div>
 

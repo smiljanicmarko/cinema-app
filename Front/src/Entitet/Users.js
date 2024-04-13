@@ -112,7 +112,9 @@ const Users = () => {
     {/* ================================================ RENDER TABELE ========================================= */ }
     //=============================================================================================================
     const renderTabela = () => {
-        return tabela.map((klasa, index) => {
+        return tabela
+        .filter(user => !user.deleted)
+        .map((klasa, index) => {
             return (
                 <tr key={klasa.id}>
                     <td>{klasa.ime}</td>

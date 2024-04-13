@@ -19,6 +19,8 @@ public interface KorisnikService {
     Korisnik save(Korisnik korisnik);
 
     void delete(Long id);
+    
+    Korisnik logicalDelete (Long id);
 
     Optional<Korisnik> findbyKorisnickoIme(String korisnickoIme);
 
@@ -27,4 +29,5 @@ public interface KorisnikService {
     Korisnik updateRole (Long id);
     
     Korisnik findOneById (Long id);
+    
 }

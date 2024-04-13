@@ -20,6 +20,8 @@ public class KorisnikDTO {
     
     private String uloga;
 
+    private Boolean deleted;
+    
 	public String getUloga() {
 		return uloga;
 	}
@@ -70,6 +72,14 @@ public class KorisnikDTO {
 
 	public void setPrezime(String prezime) {
 		this.prezime = prezime;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
    
