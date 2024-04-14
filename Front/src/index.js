@@ -25,6 +25,7 @@ import ChangePassword from './Entitet/ChangePassword';
 import ProjectionsForMovie from './Entitet/ProjectionsForMovie';
 import ChooseSeat from './Entitet/ChooseSeat';
 import TicketDetails from './Entitet/TicketDetails';
+import AdminReport from './Entitet/AdminReport';
 
 
 
@@ -71,7 +72,11 @@ const App = () => {
                                     Users
                                 </Nav.Link> : <></>
                             }
-
+                             {isAdmin ?
+                                <Nav.Link as={Link} to="/report">
+                                    Report
+                                </Nav.Link> : <></>
+                            }
 
                             <Button onClick={logout}>Logout</Button>
 
@@ -94,6 +99,7 @@ const App = () => {
                             <Route path='/users/:id' element={<UserDetailsAdmin />} />
                             <Route path='/users/:id/change-password' element={<ChangePassword />} />
                             <Route path='/tickets/:id' element={<TicketDetails />} />
+                            <Route path='/report' element={<AdminReport/>}/>
                             {isAdmin ? <Route path='/users' element={<Users />} /> : <></>}
                             <Route path="*" element={<NotFound />} />
                         </Routes>

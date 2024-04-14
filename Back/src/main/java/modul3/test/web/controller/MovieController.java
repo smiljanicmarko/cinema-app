@@ -1,5 +1,6 @@
 package modul3.test.web.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -78,6 +79,17 @@ public class MovieController {
 			return new ResponseEntity<>(toDto.convert(stranice), HttpStatus.OK);
 
 		}
+		
+		
+//		@GetMapping("/report")
+//		public ResponseEntity<List<MovieDTO>> getReport(@ RequestParam LocalDate start, @RequestParam LocalDate end) {
+//
+//			List<Movie> stranice = movieService.findAll();
+//
+//		
+//			return new ResponseEntity<>(toDto.convert(stranice), HttpStatus.OK);
+//
+//		}
 	
 	
 	//GET BY ID

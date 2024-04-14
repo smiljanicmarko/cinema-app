@@ -1,5 +1,6 @@
 package modul3.test.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -22,6 +23,8 @@ public interface MovieService {
     							Long genreId,Integer durationFrom, Integer durationTo, 
     							Integer yearFrom, Integer yearTo, int pageNo);
 
+    
+//    List<Movie> report (LocalDate start, LocalDate end);
 	
 //    Page<Film> findAll(Integer pageNo);
 //    Page<Film> find(String naziv, Long zanrId, Integer trajanjeOd, Integer trajanjeDo, int page);
