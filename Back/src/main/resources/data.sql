@@ -98,7 +98,7 @@ INSERT INTO movie_genre (movie_id, genre_id) VALUES (6, 7);
 INSERT INTO movie_genre (movie_id, genre_id) VALUES (6, 8);
 
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (1, 1, 1, '2024-04-14 20:00', 500, 1 );
+VALUES (1, 1, 1, '2024-04-13 20:00', 500, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
 VALUES (1, 1, 2, '2024-04-14 21:00', 500, 1 );
 

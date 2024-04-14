@@ -29,7 +29,7 @@ public class TicketToTicketDto implements Converter<Ticket, TicketDTO> {
     	dto.setUsername(e.getUser().getKorisnickoIme());
     	dto.setSeatNumber(e.getSeat().getNumber());   	
     	dto.setPrice(e.getProjection().getPrice());
-    	
+    	dto.setProjectionTime(e.getProjection().getTime());
     	
         return dto;
     }

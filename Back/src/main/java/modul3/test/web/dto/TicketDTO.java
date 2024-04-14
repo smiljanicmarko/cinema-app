@@ -24,6 +24,8 @@ public class TicketDTO {
 	  	private Long userId;
 	  	private String username;
 	  	private Double price;
+	  	
+	  	private LocalDateTime projectionTime;
 
 		public Long getId() {
 			return id;
@@ -119,6 +121,14 @@ public class TicketDTO {
 
 		public void setMovieId(Long movieId) {
 			this.movieId = movieId;
+		}
+
+		public LocalDateTime getProjectionTime() {
+			return projectionTime;
+		}
+
+		public void setProjectionTime(LocalDateTime projectionTime) {
+			this.projectionTime = projectionTime;
 		}
     
    

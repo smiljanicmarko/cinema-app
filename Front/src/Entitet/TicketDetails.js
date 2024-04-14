@@ -58,8 +58,7 @@ const TicketDetails = () => {
 
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h1 class="display-4">Ticket details</h1>
-
+                    <h1 class="display-4">Ticket details</h1>                   
                 </div>
             </div>
 
@@ -73,7 +72,14 @@ const TicketDetails = () => {
                                     <th>Ticket id: </th><td>{ticket.id}</td>
                                 </tr>
                                 <tr>
+                                    <th>Purchase time: </th> <td>{formatDate(ticket.purchaseTime)}</td>
+                                </tr>
+                                
+                                <tr>
                                     <th>Movie name: </th><td><Link to={'/movies/' + ticket.movieId}>{ticket.movie}</Link></td>
+                                </tr>
+                                <tr>
+                                    <th>Projection time: </th><td><Link to={'/projections/' + ticket.projectionId}>{formatDate(ticket.projectionTime)}</Link> </td>
                                 </tr>
                                 <tr>
                                     <th>Projection type: </th> <td>{ticket.projectionType}</td>
@@ -83,24 +89,23 @@ const TicketDetails = () => {
                                 </tr>
                                 <tr>
                                     <th>Seat number: </th> <td>{ticket.seatNumber}</td>
-                                </tr>
-                                <tr>
-                                    <th>Purchase time: </th><td><Link to={'/projections/' + ticket.projectionId}>{formatDate(ticket.purchaseTime)}</Link> </td>
-                                </tr>
+                                </tr>                               
                                 <tr>
                                     <th>Price: </th><td>{ticket.price},00</td>
                                 </tr>
-                                {isAdmin ?
+                                {isAdmin?
                                     (
                                         <>
                                             <tr><th>User: </th><td><Link to={`/users/${ticket.userId}`}>{ticket.username}</Link></td></tr>
                                             <tr>
                                                 <td colSpan="2" style={{ textAlign: 'center' }}>
-                                                    <Button className='btn btn-danger' onClick={()=>deleteTicket(ticket.id, ticket.userId)}>Delete ticket</Button>
+                                                    <Button disabled={(new Date(ticket.projectionTime) < new Date())} className='btn btn-danger' onClick={()=>deleteTicket(ticket.id, ticket.userId)}>Delete ticket</Button>
                                                 </td>
                                             </tr>
                                         </>
                                     ) : (<></>)}
+                               
+
                             </tbody>
 
                         </Table>

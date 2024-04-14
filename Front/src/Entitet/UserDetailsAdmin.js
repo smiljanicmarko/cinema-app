@@ -189,12 +189,14 @@ return (
               
                 </Row>
                 <hr></hr>
-             
+             {usernameToken !== user.korisnickoIme?
               <div>            
-            <Form.Check type="checkbox"  label="Show users tickets" onChange={formHandler} />
-            {showTickets && renderTable()}
-            <br/>
-        </div>
+              <Form.Check type="checkbox"  label="Show users tickets" onChange={formHandler} />
+              {showTickets && renderTable()}
+              <br/>
+          </div> : <></>            
+            }
+             
 
             </div>
 
