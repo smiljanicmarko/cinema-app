@@ -81,6 +81,7 @@ public class ProjectionType {
 		ProjectionType other = (ProjectionType) obj;
 		return Objects.equals(id, other.id);
 	}
+
 	
 
 	

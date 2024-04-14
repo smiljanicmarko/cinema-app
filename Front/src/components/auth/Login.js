@@ -12,7 +12,7 @@ const Login = () => {
     return (
         <div>
         <Row className="justify-content-center">
-            <Col md={6}>
+            <Col md={3}>
                 <Form>
                     <Form.Group>
                         <Form.Label>Username</Form.Label>
@@ -24,7 +24,7 @@ const Login = () => {
                         <Form.Control type="password" onChange={(e) => setPassword(e.target.value)}></Form.Control>
                     </Form.Group>
                 </Form>
-                <Button onClick={() => login(username, password)}>Login</Button>
+                <Button style={{ marginTop: '15px' }} onClick={() => login(username, password)}>Login</Button>
             </Col>
         </Row>
        

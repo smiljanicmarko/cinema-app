@@ -8,6 +8,7 @@ public class TicketDTO {
 	  
 	  	private Long projectionId;
 	  	
+	  	private Long movieId;
 	  	private String movie;
 	  	
 	  	private String projectionType;
@@ -16,10 +17,13 @@ public class TicketDTO {
 	  	
 	  	private Long seatId;
 	  	
+	  	private Integer seatNumber;
+	  	
 	  	private LocalDateTime purchaseTime;
 	  
 	  	private Long userId;
 	  	private String username;
+	  	private Double price;
 
 		public Long getId() {
 			return id;
@@ -91,6 +95,30 @@ public class TicketDTO {
 
 		public void setUsername(String username) {
 			this.username = username;
+		}
+
+		public Integer getSeatNumber() {
+			return seatNumber;
+		}
+
+		public void setSeatNumber(Integer seatNumber) {
+			this.seatNumber = seatNumber;
+		}
+
+		public Double getPrice() {
+			return price;
+		}
+
+		public void setPrice(Double price) {
+			this.price = price;
+		}
+
+		public Long getMovieId() {
+			return movieId;
+		}
+
+		public void setMovieId(Long movieId) {
+			this.movieId = movieId;
 		}
     
    

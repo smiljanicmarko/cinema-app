@@ -96,7 +96,7 @@ return(
 
  
 
-                        <Button  onClick={() => create()}  >Create account</Button>
+                        <Button style={{ marginTop: '15px' }} onClick={() => create()}  >Create account</Button>
                     </Form>
                 </Col>
                 <Col></Col>

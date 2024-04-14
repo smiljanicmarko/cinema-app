@@ -18,14 +18,17 @@ public class TicketToTicketDto implements Converter<Ticket, TicketDTO> {
     	TicketDTO dto = new TicketDTO();
         
     	dto.setId(e.getId());
+    	dto.setMovieId(e.getProjection().getMovie().getId());
     	dto.setMovie(e.getProjection().getMovie().getName());
     	dto.setProjectionId(e.getProjection().getId());
-    	dto.setProjectionType(e.getProjection().getProjectionType().toString());
+    	dto.setProjectionType(e.getProjection().getProjectionType().getType().toString());
     	dto.setPurchaseTime(e.getPurchaseTime());
     	dto.setSeatId(e.getSeat().getId());
     	dto.setTheaterName(e.getProjection().getTheater().getName());
     	dto.setUserId(e.getUser().getId());
     	dto.setUsername(e.getUser().getKorisnickoIme());
+    	dto.setSeatNumber(e.getSeat().getNumber());   	
+    	dto.setPrice(e.getProjection().getPrice());
     	
     	
         return dto;

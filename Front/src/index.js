@@ -24,6 +24,7 @@ import UserDetailsAdmin from './Entitet/UserDetailsAdmin';
 import ChangePassword from './Entitet/ChangePassword';
 import ProjectionsForMovie from './Entitet/ProjectionsForMovie';
 import ChooseSeat from './Entitet/ChooseSeat';
+import TicketDetails from './Entitet/TicketDetails';
 
 
 
@@ -79,6 +80,7 @@ const App = () => {
                             <Route path='/user-details' element={<UserAccount />} />
                             <Route path='/users/:id' element={<UserDetailsAdmin/>}/>
                             <Route path='/users/:id/change-password' element={<ChangePassword/>}/>
+                            <Route path='/tickets/:id' element={<TicketDetails/>}/>
                             {isAdmin?<Route path='/users' element={<Users/>}/>: <></> }                            
                             <Route path="*" element={<NotFound />} />
                         </Routes>

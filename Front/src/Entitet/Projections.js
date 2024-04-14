@@ -117,7 +117,7 @@ const Projections = () => {
                     <td>{<Link to={'/movies/' + klasa.movieId}>{klasa.movieName}</Link>  }</td>
                     <td>{klasa.projectionType}</td>
                     <td>{klasa.theaterName}</td>
-                    <td><Link to={'/projections/' +klasa.id}>{formatDate(klasa.time) }</Link> </td>
+                    <td><Link to={'/projections/' +klasa.id}>{formatDate(klasa.time) }</Link></td>
                     <td>{klasa.price}</td>
                     {/* === DUGMICI ===*/}
                     {/* <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td> */}

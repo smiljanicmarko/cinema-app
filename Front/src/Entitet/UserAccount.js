@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import TestAxios from "../apis/TestAxios"
 import { Button,Card,  Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
 import { jwtDecode } from "jwt-decode";
@@ -72,9 +72,9 @@ const renderTickets = () => {
             return (
                 <tr key={klasa.id}>
                     <td>{klasa.id}</td>
-                    <td>{formatDate(klasa.purchaseTime)}</td>                    
+                    <td><Link to={'/tickets/'+klasa.id}>{formatDate(klasa.purchaseTime)}</Link></td>                    
                     {/* === DUGMICI ===*/}
-                    {/* <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td> */}
+                    {/* <td><Button className='btn btn-warning' onClick={() => navigate('/tickets/'+klasa.id)}>Details</Button></td> */}
                 </tr>
             );
         })
