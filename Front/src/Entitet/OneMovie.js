@@ -46,6 +46,9 @@ const OneMovie = () => {
     }
 
     const goToBuyTickets = (id) =>{
+        if (!isAdmin && !isKorisnik){
+            alert("You have to be logged in!")
+        }
         navigate("/projections/movie/" +id)
     }
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -107,7 +110,9 @@ const OneMovie = () => {
                         <Col>
                         <Button className="btn btn-warning" style={{ marginRight: '10px' }}
                          onClick={()=>{goToEditMovie(movieId)}}>Edit movie</Button>
-                        <Button className="btn btn-danger" >Delete</Button>
+                        <Button className="btn btn-danger" >
+                            
+                            Delete</Button>
                         </Col>                        
                     </Row> :
                     <Row>

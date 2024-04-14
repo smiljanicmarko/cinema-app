@@ -248,7 +248,7 @@ const renderFormu = () => {
                 </Row>
             </div>
             <Row><Col>
-                <Table id="movies-table">
+                <Table className='table table-striped table-dark' id="movies-table">
                     <thead>
                         <tr>
                             {/* ================================== ZAGLAVLJE TABELE ================= */}
@@ -257,7 +257,7 @@ const renderFormu = () => {
                             <th>Theater</th>
                             <th>Date and time</th>
                             <th>Price</th>
-                            <th></th>
+                           
                         </tr>
                     </thead>
                     {/* ================================== TELO TABELE  ================= */}

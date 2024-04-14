@@ -138,8 +138,7 @@ const Movies = () => {
                     <td>{klasa.country}</td>
                     <td>{klasa.year}</td>
                     <td>{klasa.distributor}</td>
-                    {/* === DUGMICI ===*/}
-                    {isAdmin? <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td>: <td></td>}
+                    {/* === DUGMICI ===*/}                   
                     <td> <Button onClick={() => navigate("/movies/" + klasa.id)}>Details</Button> </td>
                 </tr>
             )
