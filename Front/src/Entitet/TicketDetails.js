@@ -36,20 +36,21 @@ const TicketDetails = () => {
     useEffect(() => {
         getTicket()
     }, [])
-    //    const getGenresStringFromMap = (genresMap) => {
-    //        if (!genresMap || typeof genresMap !== 'object') {
-    //            return '';
-    //        }
-    //        return Object.values(genresMap).join(', ');
-    //    };
+   
 
-    //   const goToEditMovie = (id) =>{
-    //        navigate("/edit-movie/" +id)
-    //    }
+    const deleteTicket = (id, userId) =>{
+        TestAxios.delete('/tickets/' + id)
+        .then(res => {   
+            alert('Ticket was deleted successfully!');
+            navigate(`/users/${userId}`)
+        })
+        .catch(error => {
+            // handle error
+            console.log(error);
+            alert('Error occured please try again!');
+         });
+    }
 
-    //    const goToBuyTickets = (id) =>{
-    //        navigate("/projections/movie/" +id)
-    //    }
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     return (
@@ -72,7 +73,7 @@ const TicketDetails = () => {
                                     <th>Ticket id: </th><td>{ticket.id}</td>
                                 </tr>
                                 <tr>
-                                    <th>Movie name: </th><td><Link to={'/movies/'+ticket.movieId}>{ticket.movie}</Link></td>
+                                    <th>Movie name: </th><td><Link to={'/movies/' + ticket.movieId}>{ticket.movie}</Link></td>
                                 </tr>
                                 <tr>
                                     <th>Projection type: </th> <td>{ticket.projectionType}</td>
@@ -84,20 +85,24 @@ const TicketDetails = () => {
                                     <th>Seat number: </th> <td>{ticket.seatNumber}</td>
                                 </tr>
                                 <tr>
-                                    <th>Purchase time: </th><td><Link to={'/projections/' +ticket.projectionId}>{formatDate(ticket.purchaseTime)}</Link> </td>
+                                    <th>Purchase time: </th><td><Link to={'/projections/' + ticket.projectionId}>{formatDate(ticket.purchaseTime)}</Link> </td>
                                 </tr>
                                 <tr>
                                     <th>Price: </th><td>{ticket.price},00</td>
                                 </tr>
-                                {isAdmin?
-                                (<tr><th>User: </th><td><Link to={`/users/${ticket.userId}`}>{ticket.username}</Link></td></tr>):(<></>)}
+                                {isAdmin ?
+                                    (
+                                        <>
+                                            <tr><th>User: </th><td><Link to={`/users/${ticket.userId}`}>{ticket.username}</Link></td></tr>
+                                            <tr>
+                                                <td colSpan="2" style={{ textAlign: 'center' }}>
+                                                    <Button className='btn btn-danger' onClick={()=>deleteTicket(ticket.id, ticket.userId)}>Delete ticket</Button>
+                                                </td>
+                                            </tr>
+                                        </>
+                                    ) : (<></>)}
                             </tbody>
-                            {/* <tr>
-                   <th>Country: </th> <td>{movie.country}</td>
-                   </tr>
-                   <tr>
-                   <th>Year: </th> <td>{movie.year}</td>
-                   </tr> */}
+
                         </Table>
                     </Col>
 

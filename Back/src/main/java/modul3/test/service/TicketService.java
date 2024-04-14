@@ -16,4 +16,6 @@ public interface TicketService {
 	List<Ticket> findAllTicketsForUser (Long userId);
 	
 	List<Ticket> buyTicket (BuyTicketDTO dto);
+	
+	boolean deleteTicket (Long id);
 }

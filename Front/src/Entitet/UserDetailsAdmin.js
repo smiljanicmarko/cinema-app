@@ -87,10 +87,8 @@ const UserDetailsAdmin = () => {
    
 }, []);
 
-useEffect(() => {
-   
-        getTickets();
-    
+useEffect(() => {   
+        getTickets();    
 }, []);
 
 const renderTickets = () => {

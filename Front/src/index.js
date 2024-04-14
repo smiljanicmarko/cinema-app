@@ -51,7 +51,7 @@ const App = () => {
                                 All-Projections
                             </Nav.Link>
                             <Nav.Link as={Link} to="/user-details">
-                                MyAccount
+                               {usernameToken}'sAccount
                             </Nav.Link>
                             {isAdmin ?
                                 <Nav.Link as={Link} to="/users">

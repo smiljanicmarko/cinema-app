@@ -81,7 +81,15 @@ public class Ticket {
 
 	  	
 	  	
-	  	
+		 public void removeReferences() {
+		        if (projection != null) {
+		            projection.getTickets().remove(this);
+		        }
+		        if (seat != null) {
+		            seat.getTickets().remove(this);
+		        }
+		       
+		    }
 	  
 	  	
 	  	

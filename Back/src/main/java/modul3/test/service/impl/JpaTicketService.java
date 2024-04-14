@@ -94,4 +94,16 @@ public class JpaTicketService implements TicketService {
 		return newTickets;
 	}
 
+	@Override
+	public boolean deleteTicket(Long id) {
+		Ticket t = r.findOneById(id);
+		if (t == null) {
+			return false;
+		}		
+		t.removeReferences();
+		r.deleteById(id);		
+		
+		return true;
+	}
+
 }

@@ -58,6 +58,16 @@ public class Seat {
 		public int hashCode() {
 			return Objects.hash(id);
 		}
+		
+		
+
+		public List<Ticket> getTickets() {
+			return tickets;
+		}
+
+		public void setTickets(List<Ticket> tickets) {
+			this.tickets = tickets;
+		}
 
 		@Override
 		public boolean equals(Object obj) {

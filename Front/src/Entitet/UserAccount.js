@@ -58,13 +58,13 @@ const getTickets = useCallback(() => {
                 alert('Error occurred, please try again!');
             });
     }
-}, [user.id]);
+}, [user.id, tickets]);
 
 useEffect(() => {
     if (user.id) {
         getTickets();
     }
-}, [user.id, getTickets]);
+}, [user.id]);
 
 const renderTickets = () => {
     return tickets.length > 0 ? (

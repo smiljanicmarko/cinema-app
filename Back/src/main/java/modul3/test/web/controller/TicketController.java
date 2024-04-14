@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -87,11 +88,6 @@ public class TicketController {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 			
-			
-
-		
-			
-
 		}
 		
 	
@@ -109,10 +105,6 @@ public class TicketController {
 		}
 	}
 
-
-
-
-	
 	//@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<TicketDTO>> buyTickets(@Valid @RequestBody BuyTicketDTO dto){
@@ -124,23 +116,21 @@ public class TicketController {
 		}else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-
-		
 	}
-//
-//
-//	//DELETE
-//	//@PreAuthorize("hasRole('ADMIN')")
-//	@DeleteMapping("/{id}")
-//	public ResponseEntity<Void> delete(@PathVariable Long id){
-//		Movie obrisan = movieService.delete(id);
-//
-//		if(obrisan != null) {
-//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//		} else {
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		}
-//	}
+
+
+	//DELETE
+	//@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		boolean deleted = ticketService.deleteTicket(id);
+
+		if(deleted != false) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 //
 //	//UPDATE
 //	//@PreAuthorize("hasRole('ADMIN')")
