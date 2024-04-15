@@ -94,7 +94,7 @@ if (projections.length>0){
                             <th>Theater</th>
                             <th>Date and time</th>
                             <th>Price</th>
-                            <th></th>
+                           
                         </tr>
                     </thead>
                     {/* ================================== TELO TABELE  ================= */}

@@ -62,19 +62,6 @@ const Users = () => {
         setShowDeleted(!showDeleted);
     };
 
-    // const valueInputChanged = (e) => {
-    //     const { name, value } = e.target;
-    //     setPretraga((prevState) => ({
-    //         ...prevState,
-    //         [name]: value,
-    //     }));
-    // };
-
-    const pretragaClickHandler = () => {
-        setPageNo(0);
-        getZadaci();
-    }
-
 
     {/* ================================================ RENDER TABELE ========================================= */ }
     //=============================================================================================================
@@ -174,8 +161,8 @@ const Users = () => {
 
                                 </tr>
                             </thead>
-                            <tbody>
-                                {renderTabela(tabela, true)}
+                            <tbody>                           
+                             {renderTabela(tabela, true)}
                             </tbody>
                         </Table>
                     </Col>
