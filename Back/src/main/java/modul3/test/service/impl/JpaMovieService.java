@@ -1,7 +1,7 @@
 package modul3.test.service.impl;
 
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import modul3.test.model.Movie;
+import modul3.test.model.Projection;
 import modul3.test.repository.MovieRepository;
 import modul3.test.service.MovieService;
 
@@ -57,6 +58,28 @@ public class JpaMovieService implements MovieService {
 			Integer durationTo, Integer yearFrom, Integer yearTo, int pageNo) {
 		
 		return r.searchMovies(name, distributor, country, genreId, durationFrom, durationTo, yearFrom, yearTo, PageRequest.of(pageNo, 8));
+	}
+
+	@Override
+	public Boolean movieAvailable(Long movieId) {
+		Movie movie = r.findOneById(movieId);
+		boolean available = false;
+		if (movie==null) {
+			return null;
+		}
+			List<Projection> projections = movie.getProjections();
+			if (projections == null ) {
+				return null;
+			}
+			for (Projection p : projections){
+				if (p.getAvailableTickets()> 0 && p.getTime().isAfter(LocalDateTime.now())) {
+				available = true;
+				break;
+				}
+			}
+				
+		
+		return available;
 	}
 
 //	@Override

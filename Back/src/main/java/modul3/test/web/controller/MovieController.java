@@ -1,6 +1,5 @@
 package modul3.test.web.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -25,6 +24,7 @@ import modul3.test.model.Movie;
 import modul3.test.service.MovieService;
 import modul3.test.support.MovieDtoToMovie;
 import modul3.test.support.MovieToMovieDto;
+import modul3.test.web.dto.MovieAvailableDTO;
 import modul3.test.web.dto.MovieDTO;
 
 @RestController
@@ -103,6 +103,24 @@ public class MovieController {
 		}else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	
+	@GetMapping("/{id}/available")
+	public ResponseEntity <MovieAvailableDTO> isMovieAvailable (@PathVariable Long id) {
+		Boolean available = movieService.movieAvailable(id);
+
+		if (available != null) {
+			MovieAvailableDTO dto = new MovieAvailableDTO();
+			dto.setMovieAvailable(available);	
+			System.out.println("=========================================================================================================");
+			System.out.println(available);
+			return new ResponseEntity<>(dto, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<MovieAvailableDTO>(HttpStatus.BAD_REQUEST);
+		}
+			
+		
 	}
 
 

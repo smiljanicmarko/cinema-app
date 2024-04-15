@@ -86,7 +86,7 @@ const ProjectionsForMovie = () => {
       if (tabela.length <= 0) {
         return (
             <tr>
-                <td colSpan="5" style={{ fontWeight: 'bold', fontSize: '4.2em', textAlign: 'center'  }}>No projections available</td>
+                <td colSpan="5" style={{ fontWeight: 'bold', fontSize: '2.2em', textAlign: 'center'  }}>No projections available</td>
             </tr>
         );
     }

@@ -17,7 +17,7 @@ const OneMovie = () => {
     const movieId = urlParams.id
 
     const [movie, setMovie] = useState({})
-
+    const [available, setAvailable] = useState(true)
 
     const getMovie = useCallback(() => {
         TestAxios.get("/movies/" + movieId)
@@ -31,9 +31,23 @@ const OneMovie = () => {
             });
     }, []);
 
+    const getAvailability = useCallback(() => {
+        TestAxios.get("/movies/" + movieId + '/available')
+            .then(res => {                        
+                setAvailable(res.data.movieAvailable)
+                console.log(res.data)    
+            })
+            .catch(error => {
+                console.log(error);
+                alert('Error occured please try again!');
+            });
+    }, []);
+
+
     useEffect(() => {
         getMovie()
-    }, [])
+        getAvailability()
+    }, [movieId])
     const getGenresStringFromMap = (genresMap) => {
         if (!genresMap || typeof genresMap !== 'object') {
             return '';
@@ -117,10 +131,11 @@ const OneMovie = () => {
                     </Row> :
                     <Row>
                         <Col>
-                         <Button className="btn btn-success" onClick={()=>goToBuyTickets(movie.id)}>Buy tickets</Button>
+                         <Button disabled={!available} className="btn btn-success" onClick={()=>goToBuyTickets(movie.id)}>Buy tickets</Button>
                          </Col>
                     </Row>
                 }
+                {!available? <p style={{ color: 'red' }} className="fw-lighter">Sorry, no tickets or projections available at the moment. </p>:<></>}
               
 
             </div>
