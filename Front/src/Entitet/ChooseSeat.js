@@ -81,6 +81,25 @@ const ChooseSeat = () => {
          });
     }
 
+
+    const getSeatsNumbers = () => {
+        let numbers = [];
+    
+        chosenSeats.seats.forEach((chosenSeatId, index) => {
+            // Find the corresponding seat object
+            const chosenSeat = seats.find(seat => seat.id === chosenSeatId);
+            if (chosenSeat) {
+                // Push the seat number into the numbers array
+                numbers.push(chosenSeat.number);               
+            }
+        });
+    
+        // Sort the numbers in ascending order
+        numbers.sort((a, b) => a - b);
+        const result = numbers.join(', ');
+        return result;
+    }
+  
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     return (
@@ -184,10 +203,10 @@ const ChooseSeat = () => {
                             </tr>
                             <tr>
                                 <th>Price: </th> <td>{projection.price}</td>
-                            </tr>
-                            <tr>
-                                <th>Seats chosen: </th> <td>{ Object.values(chosenSeats).join(', ') }</td>
-                            </tr>
+                            </tr>                            
+                            <tr>  
+                                <th>Seats chosen: </th> <td>{ getSeatsNumbers()}</td>
+                            </tr> 
                             <tr>
                                 <th>Total price: </th><td>{chosenSeats.seats.length * projection.price}</td>
                             </tr>
