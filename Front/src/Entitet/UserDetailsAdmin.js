@@ -171,7 +171,7 @@ return (
                     <td>
                     <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                                         <div style={{ marginRight: '10px' }}>
-                                            <Button className='btn btn-warning' onClick={changeRole}>
+                                            <Button disabled={user.deleted} className='btn btn-warning' onClick={changeRole}>
                                                 {user.uloga === "ADMIN"?'Change role to Korisnik':'Change role to Admin' }
                                                 </Button>
                                         </div>

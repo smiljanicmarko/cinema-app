@@ -12,23 +12,14 @@ const Users = () => {
     const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
     const isKorisnik = decoded?.role?.authority === "ROLE_KORISNIK";
     //========================== OBJEKAT PRETRAGE ==================================
-    var pretragaObjekat = {
-        name: '',
-        distributor: '',
-        country: '',
-        genreId: '',
-        durationFrom: '',
-        durationTo: '',
-        yearFrom: '',
-        yearTo: ''
-    }
+
 
     // ========================== STATE ============================================
     const [tabela, setTabela] = useState([])
     const [pageNo, setPageNo] = useState(0)
     const [totalPages, setTotalPages] = useState(0)
-    const [prikaziFormu, setPrikaziFormu] = useState(false);
-    const [pretraga, setPretraga] = useState(pretragaObjekat)
+    const [showDeleted, setShowDeleted] = useState(false);
+
     const [genres, setGenres] = useState([])
     // /////////////////////////////////////////////////////// J A V A  S C R I P T  F U N K C I J E \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //======================== USE EFFECT ============================================
@@ -36,7 +27,7 @@ const Users = () => {
         getZadaci();
     }, [pageNo]);
 
- 
+
 
 
     // ======================== DOBAVLJANJE PODATAKA ================================
@@ -46,11 +37,7 @@ const Users = () => {
     // Ako mora na dugme, onda f-ja pretragaClickHandler, useEffect ostaje samo pageNo, a u getZadaci pageNo i pretraga. 
 
     const getZadaci = useCallback(() => {
-        TestAxios.get(`/korisnici?pageNo=${pageNo}`, {
-            params: {
-                ...pretraga
-            }
-        })
+        TestAxios.get(`/korisnici?pageNo=${pageNo}`)
             .then(res => {
                 console.log(res);
                 setTabela(res.data)
@@ -60,164 +47,58 @@ const Users = () => {
                 console.log(error);
                 alert('Error occured please try again!');
             });
-    }, [pageNo, pretraga]);
+    }, [pageNo]);
 
 
-    
+
     //======================== NAVIGATE ============================================
     var navigate = useNavigate()
 
-    const goToAdd = () => {
-        navigate("/new-movie");
-    }
 
 
-    // ======================== BRISANJE ===========================================
-    const izbrisi = (id) => {
-        TestAxios.delete('/movies/' + id)
-            .then(res => {
-                // handle success
-                console.log(res);
-                alert('Brisanje je uspesno izvrseno!');
-                setTabela(tabela.filter(el => el.id !== id))
-                // window.location.reload();
-
-            })
-            .catch(error => {
-                // handle error
-                console.log(error);
-                alert('Doslo je do greske, molimo pokusajte ponovo!');
-            });
-    }
 
     //============================================ HANDLERI ZA FORME I VALUE INPUT CHANGED ===============================
-    const formaHandler = () => {
-        setPrikaziFormu(!prikaziFormu);
+    const formHandler = () => {
+        setShowDeleted(!showDeleted);
     };
 
-    const valueInputChanged = (e) => {
-        const { name, value } = e.target;
-        setPretraga((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
+    // const valueInputChanged = (e) => {
+    //     const { name, value } = e.target;
+    //     setPretraga((prevState) => ({
+    //         ...prevState,
+    //         [name]: value,
+    //     }));
+    // };
 
     const pretragaClickHandler = () => {
         setPageNo(0);
         getZadaci();
     }
 
-    
+
     {/* ================================================ RENDER TABELE ========================================= */ }
     //=============================================================================================================
-    const renderTabela = () => {
-        return tabela
-        .filter(user => !user.deleted)
-        .map((klasa, index) => {
-            return (
-                <tr key={klasa.id}>
-                    <td>{klasa.ime}</td>
-                    <td>{klasa.prezime}</td>
-                    <td><Link to={'/users/' +klasa.id}>{klasa.korisnickoIme}</Link> </td>
-                    <td>{klasa.eMail}</td>
-                    <td>{klasa.uloga}</td>
-                    <td>{klasa.distributor}</td>
-                    {/* === DUGMICI ===*/}
-                    {/* {isAdmin? <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td>: <td></td>}
+    const renderTabela = (data, showDeleted = false) => {
+        return data
+            .filter(user => showDeleted ? user.deleted : !user.deleted)
+            .map((klasa, index) => {
+                return (
+                    <tr key={klasa.id}>
+                        <td>{klasa.ime}</td>
+                        <td>{klasa.prezime}</td>
+                        <td><Link to={'/users/' + klasa.id}>{klasa.korisnickoIme}</Link> </td>
+                        <td>{klasa.eMail}</td>
+                        <td>{klasa.uloga}</td>
+                        <td>{klasa.distributor}</td>
+                        {/* === DUGMICI ===*/}
+                        {/* {isAdmin? <td><Button className='btn btn-danger' onClick={() => izbrisi(klasa.id)}>Izbrisi</Button></td>: <td></td>}
                     <td> <Button onClick={() => navigate("/movies/" + klasa.id)}>Details</Button> </td> */}
-                </tr>
-            )
-        })
+                    </tr>
+                )
+            })
     }
 
-    //========================================== RENDER FORME ZA PRETRAGU====================================================
-    //=======================================================================================================================
-    const renderFormu = () => {
-        return (
-            <div>
-                <Form>
-                    <Row className="align-items-end">
-                        <Col md={2}>
-                            <FormGroup>
-                                <FormLabel htmlFor="name">Name</FormLabel>
-                                <Form.Control type='text' name="name" id="name" onChange={valueInputChanged}></Form.Control>
-                            </FormGroup>
-                        </Col>
-                        <Col md={2}>
-                            <FormGroup>
-                                <FormLabel htmlFor="distributor">Distributor</FormLabel>
-                                <Form.Control type='text' name="distributor" id="distributor" onChange={valueInputChanged}></Form.Control>
-                            </FormGroup>
-                        </Col>
-                        <Col md={2}>
-                            <FormGroup>
-                                <FormLabel htmlFor="country">Country</FormLabel>
-                                <Form.Control type='text' name="country" id="country" onChange={valueInputChanged}></Form.Control>
-                            </FormGroup>
-                        </Col>
 
-                        <Col md={2}>
-                            <FormGroup>
-                                <FormLabel htmlFor="genreId">Genre</FormLabel>
-                                <Form.Control as='select' name="genreId" id="genreId" onChange={valueInputChanged}>
-                                    <option value=''>Choose genre</option>
-                                    {
-                                        genres.map((obj, index) => {
-                                            return (
-                                                <option key={obj.id} value={obj.id}> {obj.name} </option>
-                                            )
-                                        })
-                                    }
-                                </Form.Control>
-                            </FormGroup>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={2}>
-                            <FormGroup>
-                                <FormLabel htmlFor="durationFrom">Duration from</FormLabel>
-                                <Form.Control type='number' name="durationFrom" id="durationFrom" onChange={valueInputChanged}></Form.Control>
-                            </FormGroup>
-                        </Col>
-                        <Col md={2}>
-                            <FormGroup>
-                                <FormLabel htmlFor="durationTo">Duration to</FormLabel>
-                                <Form.Control type='number' name="durationTo" id="durationTo" onChange={valueInputChanged}></Form.Control>
-                            </FormGroup>
-                        </Col>
-
-                        <Col md={2}>
-                            <FormGroup>
-                                <FormLabel htmlFor="yearFrom">Year from</FormLabel>
-                                <Form.Control type='number' name="yearFrom" id="yearFrom" onChange={valueInputChanged}></Form.Control>
-                            </FormGroup>
-                        </Col>
-
-                        <Col md={2}>
-                            <FormGroup>
-                                <FormLabel htmlFor="yearTo">Year to</FormLabel>
-                                <Form.Control type='number' name="yearTo" id="yearTo" onChange={valueInputChanged}></Form.Control>
-                            </FormGroup>
-                        </Col>
-                    </Row>
-
-                    {/*============== S E L E C T  /   PADAJUCI MENI ======= onChange NIKAKO U LABEL!!! =========== */}
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Row>
-                            <Col md={3}>
-                                <Button type="button" onClick={pretragaClickHandler}>Search</Button>
-                            </Col>
-
-                            {/*============== S E L E C T  /   PADAJUCI MENI ======= onChange NIKAKO U LABEL!!! =========== */}
-
-                        </Row>
-                    </div>
-                </Form>
-            </div>
-
-        )
-    }
 
 
 
@@ -232,22 +113,10 @@ const Users = () => {
     return (
         <div>
             <h1>Users details</h1>
-            {/* ================================== PRETRAGA meni================= */}
-
-            <div>
-                <Form.Check type="checkbox" label="Show search" onChange={formaHandler} />
-                {prikaziFormu && renderFormu()}
-                <br />
-            </div>
-
-            
-
-
 
             {/* ================================== ADD + PAGINACIJA IZNAD TABELE ================= */}
-           
-           {isAdmin?<Button className="btn btn-success" onClick={goToAdd} >New movie</Button> : <></> }
-            
+
+
 
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Row>
@@ -261,6 +130,7 @@ const Users = () => {
                 </Row>
             </div>
             <Row><Col>
+            <h4>ACTIVE USERS</h4>
                 <Table className='table table-striped' id="movies-table">
                     <thead>
                         <tr>
@@ -271,15 +141,45 @@ const Users = () => {
                             <th>Email</th>
                             <th>Role</th>
                             <th>Registration date</th>
-                            
+
                         </tr>
                     </thead>
                     {/* ================================== TELO TABELE  ================= */}
                     <tbody>
-                        {renderTabela()}
+                        {renderTabela(tabela, false)}
                     </tbody>
                 </Table>
             </Col></Row>
+            <hr></hr>
+            <div>
+                <Form.Check type="checkbox" label="Show deleted users" onChange={formHandler} />                
+                <br />
+            </div>
+
+            {showDeleted &&
+                <Row>
+
+                    <Col>
+                        <h4>DELETED USERS</h4>
+                        <Table className='table table-striped'>
+                            <thead>
+                                <tr>
+                                    {/* ================================== ZAGLAVLJE TABELE ================= */}
+                                    <th>Name</th>
+                                    <th>Last name</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Registration date</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {renderTabela(tabela, true)}
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>}
 
         </div>
     )
