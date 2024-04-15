@@ -135,7 +135,7 @@ const OneMovie = () => {
                          </Col>
                     </Row>
                 }
-                {!available? <p style={{ color: 'red' }} className="fw-lighter">Sorry, no tickets or projections available at the moment. </p>:<></>}
+                {!available && isKorisnik? <p style={{ color: 'red' }} className="fw-lighter">Sorry, no tickets or projections available at the moment. </p>:<></>}
               
 
             </div>

@@ -44,7 +44,7 @@ public class Projection {
 		@OneToMany(mappedBy = "projection", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		private List<Ticket>tickets = new ArrayList<Ticket>();
 		
-		Boolean deleted = false;
+		private Boolean deleted = false;
 
 		public Long getId() {
 			return id;

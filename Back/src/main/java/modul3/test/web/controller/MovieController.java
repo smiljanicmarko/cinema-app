@@ -105,7 +105,7 @@ public class MovieController {
 		}
 	}
 	
-	
+//  @PreAuthorize("hasAnyRole('KORISNIK', 'ADMIN')")
 	@GetMapping("/{id}/available")
 	public ResponseEntity <MovieAvailableDTO> isMovieAvailable (@PathVariable Long id) {
 		Boolean available = movieService.movieAvailable(id);
