@@ -12,43 +12,47 @@ const AdminReport = () => {
     const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
     const isKorisnik = decoded?.role?.authority === "ROLE_KORISNIK";
     //========================== OBJEKAT PRETRAGE ==================================
-    
+    var dates = {
+        start: new Date(),
+        end: new Date()
+      }
+       
 
     // ========================== STATE ============================================
-    const [tabela, setTabela] = useState([])
-    const [pageNo, setPageNo] = useState(0)
-    const [totalPages, setTotalPages] = useState(0)
-    
-    const [genres, setGenres] = useState([])
+    const [tabela, setTabela] = useState([])   
+    const [params, setParams] = useState(dates)
+
+ 
     // /////////////////////////////////////////////////////// J A V A  S C R I P T  F U N K C I J E \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //======================== USE EFFECT ============================================
-    useEffect(() => {
-        getZadaci();
-    }, [pageNo]);
-
-   
-
-    // ======================== DOBAVLJANJE PODATAKA ================================
-    // Kada budes ubacivao pretragu,  nakon (?pageNo=${pageNo}`)) stavis ZAREZ i onda {objekat}, da bi se sve slalo u istom zahtevu, i paginacija nastavila da radi.
-    //u dependeci tu i iznad u useEffectu obavezno dodati parametar 'pretraga' , i tako imamo live search! 
-
-    // Ako mora na dugme, onda f-ja pretragaClickHandler, useEffect ostaje samo pageNo, a u getZadaci pageNo i pretraga. 
+       
 
     const getZadaci = useCallback(() => {
-        TestAxios.get(`/movies?pageNo=${pageNo}`)
+        console.log("---------: ")
+       
+       
+
+        // console.log(params.start)
+        // console.log(params.end)
+        TestAxios.get('/report', {           
+
+            params:{
+                start: params.start,
+                end: params.end
+            }
+        })
             .then(res => {
                 console.log(res);
                 setTabela(res.data)
-                setTotalPages(res.headers["total-pages"])
             })
             .catch(error => {
                 console.log(error);
                 alert('Error occured please try again!');
             });
-    }, [pageNo]);
+    }, []);
 
 
-   
+
     //======================== NAVIGATE ============================================
     var navigate = useNavigate()
 
@@ -57,33 +61,37 @@ const AdminReport = () => {
     }
 
 
-    
+
 
     //============================================ HANDLERI ZA FORME I VALUE INPUT CHANGED ===============================
-    const getGenresStringFromMap = (genresMap) => {
-        if (!genresMap || typeof genresMap !== 'object') {
-            return '';
-        }
-        return Object.values(genresMap).join(', ');
+    
+    const valueInputChanged = (e) => {
+        const { name, value } = e.target;
+        console.log(name, value);
+        setParams((prevState) => ({
+             ...prevState,
+             [name]: value,
+         }));
+     };
+     const handleDateChange = (name, value) => {
+        setParams(prevState => ({
+            ...prevState,
+            [name]: new Date(value) // Convert the value to a Date object
+        }));
     };
 
-  
 
-   
     {/* ================================================ RENDER TABELE ========================================= */ }
     //=============================================================================================================
     const renderTabela = () => {
         return tabela.map((klasa, index) => {
             return (
-                <tr key={klasa.id}>
-                    <td>{klasa.name}</td>
-                    <td>{getGenresStringFromMap(klasa.genres)}</td>
-                    <td>{klasa.duration}</td>
-                    <td>{klasa.country}</td>
-                    <td>{klasa.year}</td>
-                    <td>{klasa.distributor}</td>
-                    {/* === DUGMICI ===*/}                   
-                    <td> <Button onClick={() => navigate("/movies/" + klasa.id)}>Details</Button> </td>
+                <tr key={klasa.movieId}>
+                    <td>{klasa.movieName}</td>
+                    <td>{klasa.totalProjections}</td>
+                    <td>{klasa.totalTickets}</td>
+                    <td>{klasa.totalPrice}</td>
+                    
                 </tr>
             )
         })
@@ -94,39 +102,52 @@ const AdminReport = () => {
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     return (
         <div>
-            <h1>Movies</h1>
-            {/* ================================== PRETRAGA meni================= */}
-                          
-
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <h1>Report</h1>
+            <div>
                 <Row>
-                    <Col>
-                        <Button disabled={pageNo <= 0} onClick={() => setPageNo(pageNo - 1)}>Previous</Button>
-                    </Col>
-                    <Col>
-                        <Button disabled={pageNo >= totalPages - 1} onClick={() => setPageNo(pageNo + 1)}>Next</Button>
-                        <span> {pageNo + 1}/{totalPages}</span>
-                    </Col>
+                    <p>Please select dates, in order to generate Report for that period.</p>
                 </Row>
+                <Row>
+                    <Col md={2}>
+                    <FormGroup>
+                        <FormLabel htmlFor='start'>Start date</FormLabel>
+                        <Form.Control type='date' id='start' name='start' onChange={valueInputChanged}></Form.Control>
+                      </FormGroup>
+                      </Col>
+                      <Col md={2}>
+                      <FormGroup>
+                        <FormLabel htmlFor='end'>End date</FormLabel>
+                        <Form.Control type='date' id='end' name='end' onChange={valueInputChanged}></Form.Control>
+                      </FormGroup>
+                      </Col>
+                      <Col>
+                      <Button type='button' className='btn btn-warning' style={{marginTop: '30px'}} onClick={getZadaci}>Generate</Button>
+                      </Col>
+                </Row>
+
+               
+
+                   
             </div>
+
+
             <Row><Col>
                 <Table id="movies-table">
                     <thead>
                         <tr>
                             {/* ================================== ZAGLAVLJE TABELE ================= */}
-                            <th>Name</th>
-                            <th>Genres</th>
-                            <th>Duration</th>
-                            <th>Country</th>
-                            <th>Year</th>
-                            <th>Distributor</th>
-                            <th></th>
-                            <th></th>
+                            <th>Movie</th>
+                            <th>Total projections</th>
+                            <th>Total tickets sold</th>
+                            <th>Total price</th>
+                            
                         </tr>
                     </thead>
                     {/* ================================== TELO TABELE  ================= */}
                     <tbody>
-                        {renderTabela()}
+                        {
+                        tabela.length > 0 &&
+                        renderTabela()}
                     </tbody>
                 </Table>
             </Col></Row>

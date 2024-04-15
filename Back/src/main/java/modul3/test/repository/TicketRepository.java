@@ -15,4 +15,8 @@ Ticket findOneById (Long id);
 List<Ticket> findByProjectionId (Long projectionId);
 	
 List<Ticket> findByUserId (Long korisnikId);	
+
+Integer countTicketsByProjectionMovieId(Long movieId);
+
+
 }

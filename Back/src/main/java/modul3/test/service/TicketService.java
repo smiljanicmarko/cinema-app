@@ -18,4 +18,6 @@ public interface TicketService {
 	List<Ticket> buyTicket (BuyTicketDTO dto);
 	
 	boolean deleteTicket (Long id);
+	
+	Integer totalTicketsForMovie (Long movieId);
 }

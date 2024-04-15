@@ -26,7 +26,7 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 			+ "(:priceTo IS NULL OR p.price <= :priceTo) AND"
 			+ "(:theaterId IS NULL OR p.theater.id = :theaterId)AND"
 			+ "(COALESCE(:date, '') = '' OR DATE(p.time) = :date)")
-	
+
 	Page<Projection> searchProjections (
 			@Param("movie") String movie , 
 			@Param("projectionTypeId") Long projectionTypeId,
@@ -35,16 +35,16 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 			@Param("priceTo") Double priceTo, 
 			@Param("date") LocalDate date,			
 			Pageable pageable);
-	
-	
-	
-	
-	 List<Projection> findByTimeBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
-	
-	List<Projection> findByMovieIdAndTimeAfter(Long movieId, LocalDateTime now);
-	
 
-	
+
+
+
+	List<Projection> findByTimeBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
+
+	List<Projection> findByMovieIdAndTimeAfter(Long movieId, LocalDateTime now);
+
+
+
 
 
 

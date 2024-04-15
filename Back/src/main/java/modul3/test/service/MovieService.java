@@ -1,10 +1,12 @@
 package modul3.test.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
 import modul3.test.model.Movie;
+import modul3.test.web.dto.MovieReportDTO;
 
 public interface MovieService {
 
@@ -24,7 +26,7 @@ public interface MovieService {
 
     Boolean movieAvailable (Long movieId);
     
-//    List<Movie> report (LocalDate start, LocalDate end);
+    List<MovieReportDTO> report (LocalDate start, LocalDate end);
 	
 //    Page<Film> findAll(Integer pageNo);
 //    Page<Film> find(String naziv, Long zanrId, Integer trajanjeOd, Integer trajanjeDo, int page);

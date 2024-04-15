@@ -1,8 +1,12 @@
 package modul3.test.service.impl;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,14 +16,21 @@ import org.springframework.stereotype.Service;
 import modul3.test.model.Movie;
 import modul3.test.model.Projection;
 import modul3.test.repository.MovieRepository;
+import modul3.test.repository.ProjectionRepository;
+import modul3.test.repository.TicketRepository;
 import modul3.test.service.MovieService;
+import modul3.test.web.dto.MovieReportDTO;
 
 @Service
 public class JpaMovieService implements MovieService {
 
 	@Autowired
 	private MovieRepository r;
-
+	@Autowired
+	private ProjectionRepository projectionRepository;
+	@Autowired
+	private TicketRepository ticketRepository;
+	
 	@Override
 	public Movie findOneById(Long id) {
 		
@@ -80,6 +91,47 @@ public class JpaMovieService implements MovieService {
 				
 		
 		return available;
+	}
+
+	@Override
+	public List<MovieReportDTO> report(LocalDate start, LocalDate end) {
+		
+		System.out.println("iz SERVISAAAAAAAAAAAAAAAAAAAAA: ");
+		
+		
+		LocalDateTime startTime = start.atStartOfDay();
+		LocalDateTime endTime = end.atTime(23, 59, 59);	
+		System.out.println(startTime);
+		System.out.println(endTime);
+		List<Projection> projections = projectionRepository.findByTimeBetween(startTime, endTime);
+		System.out.println("VELICINA LISTEEE "+projections.size());
+		List<MovieReportDTO> dtoList = new ArrayList<MovieReportDTO>();
+		
+		Set<Movie>movies = new HashSet<Movie>();
+		for (Projection p : projections) {
+			movies.add(p.getMovie());
+		}
+		
+		for (Movie m : movies) {
+			MovieReportDTO dto= new MovieReportDTO();
+			dto.setMovieId(m.getId());
+			dto.setMovieName(m.getName());
+			dto.setTotalProjections(m.getProjections().size());
+			dto.setTotalTickets(ticketRepository.countTicketsByProjectionMovieId(m.getId()));
+			Double totalPrice = 0.0;
+			
+			for (Projection p : m.getProjections()) {
+				totalPrice += p.getPrice() * p.getTickets().size();
+			}
+			
+			dto.setTotalPrice(totalPrice);
+			
+			dtoList.add(dto);
+			
+		}
+		
+		
+		return dtoList;
 	}
 
 //	@Override

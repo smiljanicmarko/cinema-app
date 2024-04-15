@@ -106,4 +106,10 @@ public class JpaTicketService implements TicketService {
 		return true;
 	}
 
+	@Override
+	public Integer totalTicketsForMovie(Long movieId) {
+		
+		return r.countTicketsByProjectionMovieId(movieId);
+	}
+
 }
