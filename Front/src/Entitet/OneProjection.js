@@ -150,7 +150,7 @@ const OneProjection = () => {
             <div>
                 <Row>
                     <Col>
-                        <Table>
+                        <Table style={{ width: '40%' }}>
                             <tr>
                                 <th>Movie name:</th> <td> <Link to={'/movies/' + projection.movieId}>{projection.movieName}</Link> </td>
                             </tr>
@@ -172,8 +172,8 @@ const OneProjection = () => {
 
                         </Table>
                     </Col>
-                    <Col></Col>
-                    <Col></Col>
+                   
+                    
                 </Row>
 
                 {
@@ -183,7 +183,7 @@ const OneProjection = () => {
                             <Col>
                                 <Button className="btn btn-success" onClick={()=>goToChooseSeat(projection.id)}>Buy tickets</Button>
                             </Col>
-                        </Row>) : <span>Can't but tickets for this projection.</span>
+                        </Row>) : (!isAdmin? <span>Can't but tickets for this projection.</span> : <></>)
 
                 }
                 {

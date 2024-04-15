@@ -24,17 +24,14 @@ const UserRegistration = () => {
     var navigate = useNavigate();
 // ==================================== GLAVNA AXIOS FUNKCIJA ZA KREIRANJE ============================================
     const create = () => {
-        // var params = {
-        //     'naziv': objekat.ime,
-        //     'trajanje': objekat.duration
-        // };
+       
 
         TestAxios.post('/korisnici', objekat)
         .then(res => {
             console.log(res);
            
-            alert('Dodavanje je uspesno izvrseno!');
-            navigate('/projections'); 
+            alert('Registration successfull! You can log in now.');
+            navigate('/login'); 
         })
         .catch(error => {           
             console.log(error);
