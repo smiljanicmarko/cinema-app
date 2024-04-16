@@ -28,6 +28,12 @@ public class MovieDTO {
 
 	private String description;
 
+	private Boolean deleted;
+	
+	
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -108,6 +114,14 @@ public class MovieDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}  
 	
 	

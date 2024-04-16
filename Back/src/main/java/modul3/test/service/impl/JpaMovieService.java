@@ -30,28 +30,28 @@ public class JpaMovieService implements MovieService {
 	private ProjectionRepository projectionRepository;
 	@Autowired
 	private TicketRepository ticketRepository;
-	
+
 	@Override
 	public Movie findOneById(Long id) {
-		
+
 		return r.findOneById(id);
 	}
 
 	@Override
 	public List<Movie> findAll() {
-		
+
 		return r.findAll();
 	}
 
 	@Override
 	public Movie save(Movie m) {
-		
+
 		return r.save(m);
 	}
 
 	@Override
 	public Movie update(Movie m) {
-		
+
 		return r.save(m);
 	}
 
@@ -67,7 +67,7 @@ public class JpaMovieService implements MovieService {
 	@Override
 	public Page<Movie> searchMovies(String name, String distributor, String country, Long genreId, Integer durationFrom,
 			Integer durationTo, Integer yearFrom, Integer yearTo, int pageNo) {
-		
+
 		return r.searchMovies(name, distributor, country, genreId, durationFrom, durationTo, yearFrom, yearTo, PageRequest.of(pageNo, 8));
 	}
 
@@ -78,27 +78,27 @@ public class JpaMovieService implements MovieService {
 		if (movie==null) {
 			return null;
 		}
-			List<Projection> projections = movie.getProjections();
-			if (projections == null ) {
-				return null;
-			}
-			for (Projection p : projections){
-				if (p.getAvailableTickets()> 0 && p.getTime().isAfter(LocalDateTime.now())) {
+		List<Projection> projections = movie.getProjections();
+		if (projections == null ) {
+			return null;
+		}
+		for (Projection p : projections){
+			if (p.getAvailableTickets()> 0 && p.getTime().isAfter(LocalDateTime.now())) {
 				available = true;
 				break;
-				}
 			}
-				
-		
+		}
+
+
 		return available;
 	}
 
 	@Override
 	public List<MovieReportDTO> report(LocalDate start, LocalDate end) {
-		
+
 		System.out.println("iz SERVISAAAAAAAAAAAAAAAAAAAAA: ");
-		
-		
+
+
 		LocalDateTime startTime = start.atStartOfDay();
 		LocalDateTime endTime = end.atTime(23, 59, 59);	
 		System.out.println(startTime);
@@ -106,12 +106,12 @@ public class JpaMovieService implements MovieService {
 		List<Projection> projections = projectionRepository.findByTimeBetween(startTime, endTime);
 		System.out.println("VELICINA LISTEEE "+projections.size());
 		List<MovieReportDTO> dtoList = new ArrayList<MovieReportDTO>();
-		
+
 		Set<Movie>movies = new HashSet<Movie>();
 		for (Projection p : projections) {
 			movies.add(p.getMovie());
 		}
-		
+
 		for (Movie m : movies) {
 			MovieReportDTO dto= new MovieReportDTO();
 			dto.setMovieId(m.getId());
@@ -119,30 +119,42 @@ public class JpaMovieService implements MovieService {
 			dto.setTotalProjections(m.getProjections().size());
 			dto.setTotalTickets(ticketRepository.countTicketsByProjectionMovieId(m.getId()));
 			Double totalPrice = 0.0;
-			
+
 			for (Projection p : m.getProjections()) {
 				totalPrice += p.getPrice() * p.getTickets().size();
 			}
-			
+
 			dto.setTotalPrice(totalPrice);
-			
+
 			dtoList.add(dto);
-			
+
 		}
-		
-		
+
+
 		return dtoList;
 	}
 
-//	@Override
-//	public List<Movie> report(LocalDate start, LocalDate end) {
-//		
-//		List<Movie> movies = 
-//		
-//		
-//		return null;
-//	}	
-	
-	
-   
+	@Override
+	public Movie logicallyDelete(Long id) {
+		Movie m = r.findOneById(id);
+		if (m!= null) {
+			m.setDeleted(true);	
+			r.save(m);
+		}
+		return m;
+
+
+	}
+
+	//	@Override
+	//	public List<Movie> report(LocalDate start, LocalDate end) {
+	//		
+	//		List<Movie> movies = 
+	//		
+	//		
+	//		return null;
+	//	}	
+
+
+
 }
