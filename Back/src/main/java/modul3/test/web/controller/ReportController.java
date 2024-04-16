@@ -36,7 +36,8 @@ public class ReportController {
 			start = start.substring(0,10);
 			System.out.println("start SUBSTRINGOVAN " +start);
 			
-			
+			end = end.substring(0,10);
+			System.out.println("end SUBSTRINGOVAN " +end);
 			LocalDate startDatum = LocalDate.parse(start);
 			
 			LocalDate endDatum = LocalDate.parse(end);
