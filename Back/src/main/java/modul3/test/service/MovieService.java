@@ -30,6 +30,8 @@ public interface MovieService {
     
     List<MovieReportDTO> report (LocalDate start, LocalDate end);
 	
+    Integer numberOfProjectionsForMovie (Long movieId);
+    
 //    Page<Film> findAll(Integer pageNo);
 //    Page<Film> find(String naziv, Long zanrId, Integer trajanjeOd, Integer trajanjeDo, int page);
 //    List<Film> findByZanrId(Long zanrId);

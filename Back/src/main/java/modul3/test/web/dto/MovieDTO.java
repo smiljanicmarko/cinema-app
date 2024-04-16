@@ -30,6 +30,7 @@ public class MovieDTO {
 
 	private Boolean deleted;
 	
+	private Integer projectionsNumber;
 	
 	
 	
@@ -122,6 +123,14 @@ public class MovieDTO {
 
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public Integer getProjectionsNumber() {
+		return projectionsNumber;
+	}
+
+	public void setProjectionsNumber(Integer projectionsNumber) {
+		this.projectionsNumber = projectionsNumber;
 	}  
 	
 	

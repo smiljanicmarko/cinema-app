@@ -146,14 +146,18 @@ public class JpaMovieService implements MovieService {
 
 	}
 
-	//	@Override
-	//	public List<Movie> report(LocalDate start, LocalDate end) {
-	//		
-	//		List<Movie> movies = 
-	//		
-	//		
-	//		return null;
-	//	}	
+	@Override
+	public Integer numberOfProjectionsForMovie(Long movieId) {
+		Movie m = r.findOneById(movieId);
+		Integer projectionsNumber = 0;
+		if (m != null) {
+			projectionsNumber = m.getProjections().size();
+		}
+		
+		return projectionsNumber;
+	}
+
+	
 
 
 

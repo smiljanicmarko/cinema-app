@@ -6,16 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import modul3.test.model.Genre;
 import modul3.test.model.Movie;
+import modul3.test.service.MovieService;
 import modul3.test.web.dto.MovieDTO;
 
 @Component
 public class MovieToMovieDto implements Converter<Movie, MovieDTO> {
 
+	@Autowired
+	private MovieService movieService;
+	
     @Override
     public MovieDTO convert(Movie e) {
     	MovieDTO dto = new MovieDTO();
@@ -38,7 +43,8 @@ public class MovieToMovieDto implements Converter<Movie, MovieDTO> {
     	}    	
     	
     	dto.setGenres(genres);
-    	
+    	dto.setDeleted(e.getDeleted());
+    	dto.setProjectionsNumber(movieService.numberOfProjectionsForMovie(e.getId()));
     	
         return dto;
     }
