@@ -50,6 +50,8 @@ public class Movie {
 
 	private String description;     
 	
+	private Boolean deleted = false;
+	
 
 	@OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Projection>projections = new ArrayList<Projection>();
@@ -162,6 +164,21 @@ public class Movie {
 
 	public void setProjections(List<Projection> projections) {
 		this.projections = projections;
+	}
+	
+	
+
+
+	
+
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 
