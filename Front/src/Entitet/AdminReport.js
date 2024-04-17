@@ -11,6 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import TestAxios from "../apis/TestAxios";
 import { jwtDecode } from "jwt-decode";
+import { formatDate, formatOnlyDate } from '../services/formatDate';
 
 const AdminReport = () => {
   //=================================== AUTORIZACIJA =========================================
@@ -122,12 +123,14 @@ const AdminReport = () => {
     }
   }
 
+
+
   //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
   //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
   return (
     <div>
       <h1>Report</h1>
-      <div>
+      <div  style={{marginBottom: '50px'}}>
         <Row>
           <p>
             Please select dates, in order to generate Report for that period.
@@ -152,7 +155,7 @@ const AdminReport = () => {
                 </Row> */}
         <form onSubmit={handleSubmit}>
           <Row>
-            <Col>
+            {/* <Col>
               <input
                 type="date"
                 name="start"
@@ -171,12 +174,30 @@ const AdminReport = () => {
                   setEndDate(e.target.value);
                 }}
               />
-            </Col>
+            </Col> */}
+
+                    <Col md={2}>
+                    <FormGroup>
+                        <FormLabel htmlFor='start'>Start date</FormLabel>
+                        <Form.Control type='date' id='start' name='start'  onChange={(e) => {
+                  console.log(e.target.value);
+                  setStartDate(e.target.value);
+                }}></Form.Control>
+                      </FormGroup>
+                      </Col>
+                      <Col md={2}>
+                      <FormGroup>
+                        <FormLabel htmlFor='end'>End date</FormLabel>
+                        <Form.Control type='date' id='end' name='end' onChange={(e) => {console.log(e.target.value); setEndDate(e.target.value)}}></Form.Control>
+                      </FormGroup>
+                      </Col>
+
+
             <Col>
               <Button
                 type="submit"
                 className="btn btn-warning"
-                // onClick={getZadaci}
+                style={{marginTop: '33px'}}
               >
                 Generate
               </Button>
@@ -184,9 +205,12 @@ const AdminReport = () => {
           </Row>
         </form>
       </div>
+       
+
 
       <Row>
         <Col>
+        {tabela.length > 0 ? <h3>Report for period {formatOnlyDate(startDate)} - {formatOnlyDate (endDate)}</h3>  : ""}
           <Table id="movies-table">
             <thead>
               <tr>
