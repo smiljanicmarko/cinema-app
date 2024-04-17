@@ -28,6 +28,7 @@ const AdminReport = () => {
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  
   // /////////////////////////////////////////////////////// J A V A  S C R I P T  F U N K C I J E \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   //======================== USE EFFECT ============================================
 
@@ -57,10 +58,7 @@ const AdminReport = () => {
   };
 
   async function handleSubmit(e) {
-    e.preventDefault();
-
-    console.log(startDate);
-    console.log(endDate);
+    e.preventDefault();   
 
     try {
       const res = await TestAxios.get("/report", {
@@ -72,6 +70,7 @@ const AdminReport = () => {
 
       console.log(res);
       setTabela(res.data);
+      
     } catch (err) {
       console.log(err);
     }
@@ -128,7 +127,7 @@ const AdminReport = () => {
 
       <Row>
         <Col>
-          {tabela.length > 0 ? <h3>Report for period {formatOnlyDate(startDate)} - {formatOnlyDate(endDate)}</h3> : ""}
+          {tabela.length > 0 ? <h3>Report for the period {formatOnlyDate(startDate)} - {formatOnlyDate(endDate)}</h3> : ""}
           <Table id="movies-table">
             <thead>
               <tr>

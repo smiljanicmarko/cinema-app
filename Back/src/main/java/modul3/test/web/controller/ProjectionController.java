@@ -46,7 +46,7 @@ public class ProjectionController {
 	 // @PreAuthorize("hasRole('ADMIN')")
 	
 	
-	//GET ALL
+	//There was some issue with Spring parsing dates, so that's the reason why the dates are received as Strings in Controller.
 	
 	@GetMapping
 	public ResponseEntity<List<ProjectionDTO>> getAll(
@@ -63,12 +63,19 @@ public class ProjectionController {
 		LocalDateTime end= null;		
 		
 		if (!dateFrom.isBlank()) { 
-			start = LocalDate.parse(dateFrom).atStartOfDay();
+			try {
+				start = LocalDate.parse(dateFrom).atStartOfDay();
+			} catch (Exception e) {				
+				e.printStackTrace();
+			}
 		}
 		if (!dateTo.isBlank()){
-			end = LocalDate.parse(dateTo).atTime(23, 59, 59);
-		}
-		 
+			try {
+				end = LocalDate.parse(dateTo).atTime(23, 59, 59);
+			} catch (Exception e) {				
+				e.printStackTrace();
+			}
+		}	 
 		
 		
 		Page<Projection> stranice = projectionService.searchProjections(movie, start, end, projectionTypeId, theaterId, priceFrom, priceTo, pageNo);
