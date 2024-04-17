@@ -19,7 +19,8 @@ const Projections = () => {
         movie: '',
         projectionTypeId: '',
         theaterId: '',       
-        date: '',
+        dateFrom: '',
+        dateTo: '',
         priceFrom: '',
         priceTo: ''
       }
@@ -108,7 +109,7 @@ const Projections = () => {
     {/* ================================================ RENDER TABELE ========================================= */ }
     //=============================================================================================================
     const renderTabela = () => {
-     
+     if (tabela.length>0)
         return tabela
         .filter(projection => !projection.deleted)
         .map((klasa, index) => {
@@ -142,12 +143,19 @@ const renderFormu = () => {
           
             <Col md={2}>
               <FormGroup>
-                <FormLabel htmlFor="date">Date</FormLabel>
-                <Form.Control type='date' name="date" id="date" onChange={valueInputChanged}></Form.Control>
+                <FormLabel htmlFor="dateFrom">Date from</FormLabel>
+                <Form.Control type='date' name="dateFrom" id="dateFrom" onChange={valueInputChanged}></Form.Control>
+              </FormGroup>
+            </Col>
+
+            <Col md={2}>
+              <FormGroup>
+                <FormLabel htmlFor="dateTo">Date to</FormLabel>
+                <Form.Control type='date' name="dateTo" id="dateTo" onChange={valueInputChanged}></Form.Control>
               </FormGroup>
             </Col>
            
-            <Col md={3}>
+            <Col md={2}>
               <FormGroup>
                 <FormLabel htmlFor="theaterId">Theater</FormLabel>
                 <Form.Control as='select' name="theaterId" id="theaterId" onChange={valueInputChanged}>

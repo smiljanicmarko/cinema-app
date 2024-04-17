@@ -1,6 +1,5 @@
 package modul3.test.service.impl;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import modul3.test.model.Movie;
 import modul3.test.model.Projection;
 import modul3.test.repository.MovieRepository;
 import modul3.test.repository.ProjectionRepository;
@@ -65,15 +63,7 @@ public class JpaProjectionService implements ProjectionService {
 		return p;
 	}
 	
-	@Override
-	public Page<Projection> searchProjections(String movie, LocalDate date,
-			Long projectionTypeId, Long theaterId, Double priceFrom, Double priceTo, int pageNo) {
-		
-//		System.out.println("vremeOd =" + timeFrom);
-//		System.out.println("vremeDo =" + timeTo);
-		
-		return r.searchProjections(movie, projectionTypeId, theaterId, priceFrom, priceTo, date, PageRequest.of(pageNo, 5));
-	}
+
 
 	@Override
 	public List<Projection> todaysProjections(LocalDateTime startOfDay, LocalDateTime endOfDay) {
@@ -112,6 +102,13 @@ public class JpaProjectionService implements ProjectionService {
 		
 		
 		return r.findByMovieIdAndTimeAfter(movieId, now);
+	}
+
+	@Override
+	public Page<Projection> searchProjections(String movie, LocalDateTime start, LocalDateTime end,
+			Long projectionTypeId, Long theaterId, Double priceFrom, Double priceTo, int pageNo) {
+		// TODO Auto-generated method stub
+		return r.searchProjections(movie, projectionTypeId, theaterId, priceFrom, priceTo, start, end,  PageRequest.of(pageNo, 5));
 	}
 
 	

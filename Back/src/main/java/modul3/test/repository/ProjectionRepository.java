@@ -1,6 +1,5 @@
 package modul3.test.repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,7 +24,8 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 			+ "(:priceFrom IS NULL OR p.price >= :priceFrom) AND"
 			+ "(:priceTo IS NULL OR p.price <= :priceTo) AND"
 			+ "(:theaterId IS NULL OR p.theater.id = :theaterId)AND"
-			+ "(COALESCE(:date, '') = '' OR DATE(p.time) = :date)")
+			+ "(:start is NULL OR p.time > :start) AND"
+			+ "(:end is NULL OR p.time < :end)")
 
 	Page<Projection> searchProjections (
 			@Param("movie") String movie , 
@@ -33,7 +33,8 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 			@Param("theaterId") Long theaterId,
 			@Param("priceFrom") Double priceFrom, 
 			@Param("priceTo") Double priceTo, 
-			@Param("date") LocalDate date,			
+			@Param("start") LocalDateTime start,	
+			@Param("end") LocalDateTime end,
 			Pageable pageable);
 
 

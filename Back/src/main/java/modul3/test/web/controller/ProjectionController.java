@@ -10,7 +10,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -56,19 +55,30 @@ public class ProjectionController {
 			@RequestParam(required=false) Long theaterId,
 			@RequestParam(required=false) Double priceFrom,
 			@RequestParam(required=false) Double priceTo,
-			@RequestParam(required=false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate date,			
-			
+			@RequestParam(required=false) String dateFrom,
+			@RequestParam(required=false) String dateTo,			
 			@RequestParam(defaultValue="0") int pageNo) {
 		
+		LocalDateTime start = null;
+		LocalDateTime end= null;		
+		
+		if (!dateFrom.isBlank()) { 
+			start = LocalDate.parse(dateFrom).atStartOfDay();
+		}
+		if (!dateTo.isBlank()){
+			end = LocalDate.parse(dateTo).atTime(23, 59, 59);
+		}
+		 
 		
 		
-		Page<Projection> stranice = projectionService.searchProjections(movie, date, projectionTypeId, theaterId, priceFrom, priceTo, pageNo);
-
+		Page<Projection> stranice = projectionService.searchProjections(movie, start, end, projectionTypeId, theaterId, priceFrom, priceTo, pageNo);
+		
+		
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set("Total-Pages", stranice.getTotalPages() + "");
 
 		return new ResponseEntity<>(toDto.convert(stranice.getContent()), responseHeaders, HttpStatus.OK);
-
+		
 	}
 
 	
