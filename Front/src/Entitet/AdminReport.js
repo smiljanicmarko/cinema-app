@@ -1,113 +1,139 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Button, Col, Form, FormGroup, FormLabel, Row, Table } from 'react-bootstrap';
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  Button,
+  Col,
+  Form,
+  FormGroup,
+  FormLabel,
+  Row,
+  Table,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import TestAxios from '../apis/TestAxios';
-import { jwtDecode } from 'jwt-decode';
+import TestAxios from "../apis/TestAxios";
+import { jwtDecode } from "jwt-decode";
 
 const AdminReport = () => {
+  //=================================== AUTORIZACIJA =========================================
+  const token = localStorage.getItem("jwt");
+  const decoded = token ? jwtDecode(token) : null;
+  const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
+  const isKorisnik = decoded?.role?.authority === "ROLE_KORISNIK";
+  //========================== OBJEKAT PRETRAGE ==================================
+  var dates = {
+    start: new Date(),
+    end: new Date(),
+  };
 
-    //=================================== AUTORIZACIJA =========================================
-    const token = localStorage.getItem("jwt");
-    const decoded = token ? jwtDecode(token) : null;
-    const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
-    const isKorisnik = decoded?.role?.authority === "ROLE_KORISNIK";
-    //========================== OBJEKAT PRETRAGE ==================================
-    var dates = {
-        start: new Date(),
-        end: new Date()
-      }
-       
+  // ========================== STATE ============================================
+  const [tabela, setTabela] = useState([]);
+  const [params, setParams] = useState(dates);
 
-    // ========================== STATE ============================================
-    const [tabela, setTabela] = useState([])   
-    const [params, setParams] = useState(dates)
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  // /////////////////////////////////////////////////////// J A V A  S C R I P T  F U N K C I J E \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+  //======================== USE EFFECT ============================================
 
- 
-    // /////////////////////////////////////////////////////// J A V A  S C R I P T  F U N K C I J E \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-    //======================== USE EFFECT ============================================
-       
+  const getZadaci = useCallback(() => {
+    console.log("---------: ");
+    console.log("s:" + startDate + " E:" + endDate);
 
-    const getZadaci = useCallback(() => {
-        console.log("---------: ")
-       
-       
+    // console.log(params.start)
+    // console.log(params.end)
+    TestAxios.get("/report", {
+      // params:{
+      //     start: params.start,
+      //     end: params.end
+      // }
 
-        // console.log(params.start)
-        // console.log(params.end)
-        TestAxios.get('/report', {           
+      params: {
+        start: startDate,
+        end: endDate,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        setTabela(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Error occured please try again!");
+      });
+  }, []);
 
-            params:{
-                start: params.start,
-                end: params.end
-            }
-        })
-            .then(res => {
-                console.log(res);
-                setTabela(res.data)
-            })
-            .catch(error => {
-                console.log(error);
-                alert('Error occured please try again!');
-            });
-    }, []);
+  //======================== NAVIGATE ============================================
+  var navigate = useNavigate();
 
+  const goToAdd = () => {
+    navigate("/new-movie");
+  };
 
+  //============================================ HANDLERI ZA FORME I VALUE INPUT CHANGED ===============================
 
-    //======================== NAVIGATE ============================================
-    var navigate = useNavigate()
+  const valueInputChanged = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    setParams((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  const handleDateChange = (name, value) => {
+    setParams((prevState) => ({
+      ...prevState,
+      [name]: new Date(value), // Convert the value to a Date object
+    }));
+  };
 
-    const goToAdd = () => {
-        navigate("/new-movie");
+  {
+    /* ================================================ RENDER TABELE ========================================= */
+  }
+  //=============================================================================================================
+  const renderTabela = () => {
+    return tabela.map((klasa, index) => {
+      return (
+        <tr key={klasa.movieId}>
+          <td>{klasa.movieName}</td>
+          <td>{klasa.totalProjections}</td>
+          <td>{klasa.totalTickets}</td>
+          <td>{klasa.totalPrice}</td>
+        </tr>
+      );
+    });
+  };
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    console.log(startDate);
+    console.log(endDate);
+
+    try {
+      const res = await TestAxios.get("/report", {
+        params: {
+          start: startDate,
+          end: endDate,
+        },
+      });
+
+      console.log(res);
+      setTabela(res.data);
+    } catch (err) {
+      console.log(err);
     }
+  }
 
-
-
-
-    //============================================ HANDLERI ZA FORME I VALUE INPUT CHANGED ===============================
-    
-    const valueInputChanged = (e) => {
-        const { name, value } = e.target;
-        console.log(name, value);
-        setParams((prevState) => ({
-             ...prevState,
-             [name]: value,
-         }));
-     };
-     const handleDateChange = (name, value) => {
-        setParams(prevState => ({
-            ...prevState,
-            [name]: new Date(value) // Convert the value to a Date object
-        }));
-    };
-
-
-    {/* ================================================ RENDER TABELE ========================================= */ }
-    //=============================================================================================================
-    const renderTabela = () => {
-        return tabela.map((klasa, index) => {
-            return (
-                <tr key={klasa.movieId}>
-                    <td>{klasa.movieName}</td>
-                    <td>{klasa.totalProjections}</td>
-                    <td>{klasa.totalTickets}</td>
-                    <td>{klasa.totalPrice}</td>
-                    
-                </tr>
-            )
-        })
-    }
-
-
-    //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    return (
-        <div>
-            <h1>Report</h1>
-            <div>
-                <Row>
-                    <p>Please select dates, in order to generate Report for that period.</p>
-                </Row>
-                <Row>
+  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+  return (
+    <div>
+      <h1>Report</h1>
+      <div>
+        <Row>
+          <p>
+            Please select dates, in order to generate Report for that period.
+          </p>
+        </Row>
+        {/* <Row>
                     <Col md={2}>
                     <FormGroup>
                         <FormLabel htmlFor='start'>Start date</FormLabel>
@@ -123,38 +149,61 @@ const AdminReport = () => {
                       <Col>
                       <Button type='button' className='btn btn-warning' style={{marginTop: '30px'}} onClick={getZadaci}>Generate</Button>
                       </Col>
-                </Row>
+                </Row> */}
+        <form onSubmit={handleSubmit}>
+          <Row>
+            <Col>
+              <input
+                type="date"
+                name="start"
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setStartDate(e.target.value);
+                }}
+              />
+            </Col>
+            <Col>
+              <input
+                type="date"
+                name="end"
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setEndDate(e.target.value);
+                }}
+              />
+            </Col>
+            <Col>
+              <Button
+                type="submit"
+                className="btn btn-warning"
+                // onClick={getZadaci}
+              >
+                Generate
+              </Button>
+            </Col>
+          </Row>
+        </form>
+      </div>
 
-               
+      <Row>
+        <Col>
+          <Table id="movies-table">
+            <thead>
+              <tr>
+                {/* ================================== ZAGLAVLJE TABELE ================= */}
+                <th>Movie</th>
+                <th>Total projections</th>
+                <th>Total tickets sold</th>
+                <th>Total price</th>
+              </tr>
+            </thead>
+            {/* ================================== TELO TABELE  ================= */}
+            <tbody>{tabela.length > 0 && renderTabela()}</tbody>
+          </Table>
+        </Col>
+      </Row>
+    </div>
+  );
+};
 
-                   
-            </div>
-
-
-            <Row><Col>
-                <Table id="movies-table">
-                    <thead>
-                        <tr>
-                            {/* ================================== ZAGLAVLJE TABELE ================= */}
-                            <th>Movie</th>
-                            <th>Total projections</th>
-                            <th>Total tickets sold</th>
-                            <th>Total price</th>
-                            
-                        </tr>
-                    </thead>
-                    {/* ================================== TELO TABELE  ================= */}
-                    <tbody>
-                        {
-                        tabela.length > 0 &&
-                        renderTabela()}
-                    </tbody>
-                </Table>
-            </Col></Row>
-
-        </div>
-    )
-
-}
-
-export default AdminReport
+export default AdminReport;
