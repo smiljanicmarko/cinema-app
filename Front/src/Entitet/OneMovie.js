@@ -116,7 +116,7 @@ const OneMovie = () => {
                     <th>Actors: </th> <td>{movie.actors}</td>
                     </tr>
                     <tr>
-                    <th>Genre: </th> <td>{getGenresStringFromMap(movie.genres)}</td>
+                    <th>Genre: </th> <td>{movie.genres}</td>
                     </tr>
                     <tr>
                     <th>Duration: </th> <td>{movie.duration}</td>

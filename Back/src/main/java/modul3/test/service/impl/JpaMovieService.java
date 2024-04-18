@@ -17,7 +17,6 @@ import modul3.test.model.Movie;
 import modul3.test.model.Projection;
 import modul3.test.repository.MovieRepository;
 import modul3.test.repository.ProjectionRepository;
-import modul3.test.repository.TicketRepository;
 import modul3.test.service.MovieService;
 import modul3.test.web.dto.MovieReportDTO;
 
@@ -28,8 +27,7 @@ public class JpaMovieService implements MovieService {
 	private MovieRepository r;
 	@Autowired
 	private ProjectionRepository projectionRepository;
-	@Autowired
-	private TicketRepository ticketRepository;
+	
 
 	@Override
 	public Movie findOneById(Long id) {
@@ -67,7 +65,7 @@ public class JpaMovieService implements MovieService {
 	@Override
 	public Page<Movie> searchMovies(String name, String distributor, String country, String genres, Integer durationFrom,
 			Integer durationTo, Integer yearFrom, Integer yearTo, int pageNo) {
-		
+
 		return r.searchMovies(name, distributor, country, genres, durationFrom, durationTo, yearFrom, yearTo, PageRequest.of(pageNo, 8));
 	}
 
@@ -95,16 +93,13 @@ public class JpaMovieService implements MovieService {
 
 	@Override
 	public List<MovieReportDTO> report(LocalDate start, LocalDate end) {
-
-		System.out.println("iz SERVISAAAAAAAAAAAAAAAAAAAAA: ");
+		
 
 
 		LocalDateTime startTime = start.atStartOfDay();
 		LocalDateTime endTime = end.atTime(23, 59, 59);	
-		System.out.println(startTime);
-		System.out.println(endTime);
-		List<Projection> projections = projectionRepository.findByTimeBetween(startTime, endTime);
-		System.out.println("VELICINA LISTEEE "+projections.size());
+		
+		List<Projection> projections = projectionRepository.findByTimeBetween(startTime, endTime);		
 		List<MovieReportDTO> dtoList = new ArrayList<MovieReportDTO>();
 
 		Set<Movie>movies = new HashSet<Movie>();
@@ -116,20 +111,27 @@ public class JpaMovieService implements MovieService {
 			MovieReportDTO dto= new MovieReportDTO();
 			dto.setMovieId(m.getId());
 			dto.setMovieName(m.getName());
-			dto.setTotalProjections(m.getProjections().size());
-			dto.setTotalTickets(ticketRepository.countTicketsByProjectionMovieId(m.getId()));
+
+
+			int projectionsNumber = 0;
+			int  ticketsNumber = 0;
 			Double totalPrice = 0.0;
 
-			for (Projection p : m.getProjections()) {
-				totalPrice += p.getPrice() * p.getTickets().size();
-			}
+			for (Projection p : projections) {
+				if (p.getMovie().getId() == m.getId()) {
 
+					projectionsNumber ++;
+					ticketsNumber += p.getTickets().size();
+					totalPrice += p.getTickets().size() * p.getPrice();
+				}
+			}		
+
+			dto.setTotalProjections(projectionsNumber);			
+			dto.setTotalTickets(ticketsNumber);
 			dto.setTotalPrice(totalPrice);
 
 			dtoList.add(dto);
-
 		}
-
 
 		return dtoList;
 	}
@@ -156,13 +158,13 @@ public class JpaMovieService implements MovieService {
 		if (m != null) {
 			projectionsNumber = m.getProjections().size();
 		}
-		
+
 		return projectionsNumber;
 	}
 
-	
 
-	
+
+
 
 
 

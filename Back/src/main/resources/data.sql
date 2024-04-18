@@ -69,19 +69,19 @@ INSERT INTO movie (id, name, director, actors, duration, distributor, country, y
 
 
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (1, 1, 1, '2024-04-15 20:00', 500, 1 );
+VALUES (1, 1, 1, '2024-04-18 20:00', 500, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (1, 1, 2, '2024-04-17 21:00', 500, 1 );
+VALUES (1, 1, 2, '2024-04-19 21:00', 500, 1 );
 
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (2, 1, 2, '2024-04-15 20:00', 500, 1 );
+VALUES (2, 1, 2, '2024-04-18 20:00', 500, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (2, 1, 1, '2024-04-18 20:00', 500, 1 );
+VALUES (2, 1, 1, '2024-04-20 20:00', 500, 1 );
 
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
 VALUES (3, 2, 1, '2024-04-26 20:00', 600, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (3, 3, 3, '2024-04-14 20:00', 700, 1 );
+VALUES (3, 3, 3, '2024-04-19 20:00', 700, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
 VALUES (3, 3, 3, '2024-04-17 20:00', 700, 1 );
 
