@@ -20,13 +20,12 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	
 
 	@Query(
-			"SELECT DISTINCT  p FROM Movie p " +
-		       "JOIN p.genres g " +
-		       "WHERE " 			
+			"SELECT p FROM Movie p WHERE "  
+		     	
 			+ "(:name IS NULL OR p.name like %:name%) AND " 			
 			+ "(:distributor IS NULL OR p.distributor like %:distributor%) AND " 
 			+ "(:country IS NULL OR p.country like %:country%) AND " 
-			+ "(:genreId IS NULL OR g.id = :genreId) AND"
+			+ "(:genres IS NULL OR p.genres like %:genres%) AND"
 			+ "(:durationFrom IS NULL OR p.duration >= :durationFrom) AND"
 			+ "(:durationTo IS NULL OR p.duration <= :durationTo) AND"
 			
@@ -36,7 +35,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 			@Param("name")String name, 			
 			@Param("distributor")String distributor, 
 			@Param("country")String country, 
-			@Param("genreId") Long genreId,
+			@Param("genres") String genres,
 			@Param("durationFrom")Integer durationFrom,
 			@Param("durationTo")Integer durationTo,
 			@Param("yearFrom")Integer yearFrom,

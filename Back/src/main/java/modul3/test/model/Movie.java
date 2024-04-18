@@ -1,10 +1,8 @@
 package modul3.test.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,9 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -34,10 +29,8 @@ public class Movie {
 	//Ukoliko kasnije bude trebalo, postoji mogucnost za pravljenje objekata
 
 	private String actors;
-	@ManyToMany
-    @JoinTable(name = "movie_genre", joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
-	private Set<Genre>genres = new HashSet<>();
+	
+	private String genres;
 
 	@Column(nullable = false)
 	private Integer duration;
@@ -97,12 +90,15 @@ public class Movie {
 	}
 
 
-	public Set<Genre> getGenres() {
+
+
+
+	public String getGenres() {
 		return genres;
 	}
 
 
-	public void setGenres(Set<Genre> genres) {
+	public void setGenres(String genres) {
 		this.genres = genres;
 	}
 

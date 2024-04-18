@@ -23,7 +23,7 @@ public interface MovieService {
     Boolean logicallyDelete (Long id);
 
     Page<Movie> searchMovies (String name, String distributor, String country, 
-    							Long genreId,Integer durationFrom, Integer durationTo, 
+    							String genres,Integer durationFrom, Integer durationTo, 
     							Integer yearFrom, Integer yearTo, int pageNo);
 
     Boolean movieAvailable (Long movieId);

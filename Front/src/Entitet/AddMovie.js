@@ -13,7 +13,7 @@ const AddMovie = () => {
         name: '',
         director: '',
         actors: '',
-        genres: [],
+        genres: '',
         duration: '',
         distributor: '',
         country: '',
@@ -28,15 +28,10 @@ const AddMovie = () => {
 
     var navigate = useNavigate();
     // ==================================== GLAVNA AXIOS FUNKCIJA ZA KREIRANJE ============================================
-    const create = () => {
-        const genreMap = {};
-        objekat.genres.forEach(genreId => {
-            genreMap[genreId] = null;
-        });
+    const create = () => {       
 
         const params = {
-            ...objekat,
-            genres: genreMap
+            ...objekat,           
         }
         TestAxios.post('/movies', params)
             .then(res => {
@@ -63,25 +58,7 @@ const AddMovie = () => {
     };
 
 
-    // ======================== DOBAVLJANJE PODATAKA ZA SELECT================================
-    const dobaviPodatke = useCallback(() => {
-        TestAxios.get('/genres')
-            .then(res => {
 
-                console.log(res);
-                setRezultat(res.data)
-            })
-            .catch(error => {
-
-                console.log(error);
-                alert('Greska u dobaviPodatke');
-            });
-    }, []);
-
-
-    useEffect(() => {
-        dobaviPodatke();
-    }, []);
 
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -142,15 +119,9 @@ const AddMovie = () => {
                             <Form.Control as ='textarea' id='description' name='description' onChange={valueInputChanged}></Form.Control>
                         </FormGroup>     
                         <FormGroup>
-                            <FormLabel htmlFor=''>Genres</FormLabel>
-                            <Multiselect
-                                options={rezultat.map(obj => ({ id: obj.id, name: obj.name }))}
-                                displayValue="name"
-                                onSelect={(selectedList) => setObjekat(prevState => ({ ...prevState, genres: selectedList.map(item => item.id) }))}
-                                onRemove={(selectedList) => setObjekat(prevState => ({ ...prevState, genres: selectedList.map(item => item.id) }))}
-                                placeholder="Select genres"
-                            />
-                        </FormGroup>   
+                            <FormLabel htmlFor='genres'>Genres</FormLabel>
+                            <Form.Control type='text' id='genres' name='genres' onChange={valueInputChanged}></Form.Control>
+                        </FormGroup>
                         
                         </Col>
                         </Row>

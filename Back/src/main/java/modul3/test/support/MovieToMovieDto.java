@@ -2,15 +2,12 @@ package modul3.test.support;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import modul3.test.model.Genre;
 import modul3.test.model.Movie;
 import modul3.test.service.MovieService;
 import modul3.test.web.dto.MovieDTO;
@@ -33,16 +30,8 @@ public class MovieToMovieDto implements Converter<Movie, MovieDTO> {
     	dto.setDuration(e.getDuration());
     	dto.setId(e.getId());
     	dto.setName(e.getName());
-    	dto.setYear(e.getYear());
-    	
-    	Map<Long, String> genres = new HashMap<Long, String>();
-    	if (e.getGenres()!=null) {
-    		for (Genre g : e.getGenres()) {
-    			genres.put(g.getId(), g.getName());
-    		}
-    	}    	
-    	
-    	dto.setGenres(genres);
+    	dto.setYear(e.getYear());     	
+    	dto.setGenres(e.getGenres());
     	dto.setDeleted(e.getDeleted());
     	dto.setProjectionsNumber(movieService.numberOfProjectionsForMovie(e.getId()));
     	

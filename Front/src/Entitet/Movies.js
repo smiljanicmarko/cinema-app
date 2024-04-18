@@ -16,7 +16,7 @@ const Movies = () => {
         name: '',
         distributor: '',
         country: '',
-        genreId: '',
+        genres: '',
         durationFrom: '',
         durationTo: '',
         yearFrom: '',
@@ -29,16 +29,14 @@ const Movies = () => {
     const [totalPages, setTotalPages] = useState(0)
     const [prikaziFormu, setPrikaziFormu] = useState(false);
     const [pretraga, setPretraga] = useState(pretragaObjekat)
-    const [genres, setGenres] = useState([])
+   
     // /////////////////////////////////////////////////////// J A V A  S C R I P T  F U N K C I J E \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //======================== USE EFFECT ============================================
     useEffect(() => {
         getZadaci();
     }, [pageNo]);
 
-    useEffect(() => {
-        getGenres();
-    }, [])
+   
 
 
     // ======================== DOBAVLJANJE PODATAKA ================================
@@ -64,18 +62,7 @@ const Movies = () => {
             });
     }, [pageNo, pretraga]);
 
-
-    const getGenres = useCallback(() => {
-        TestAxios.get('/genres')
-            .then(res => {
-                console.log(res);
-                setGenres(res.data)
-            })
-            .catch(error => {
-                console.log(error);
-                alert('Error occured please try again!');
-            });
-    }, []);
+    
     //======================== NAVIGATE ============================================
     var navigate = useNavigate()
 
@@ -85,22 +72,7 @@ const Movies = () => {
 
 
     // ======================== BRISANJE ===========================================
-    const izbrisi = (id) => {
-        TestAxios.delete('/movies/' + id)
-            .then(res => {
-                // handle success
-                console.log(res);
-                alert('Brisanje je uspesno izvrseno!');
-                setTabela(tabela.filter(el => el.id !== id))
-                // window.location.reload();
-
-            })
-            .catch(error => {
-                // handle error
-                console.log(error);
-                alert('Doslo je do greske, molimo pokusajte ponovo!');
-            });
-    }
+   
 
     //============================================ HANDLERI ZA FORME I VALUE INPUT CHANGED ===============================
     const formaHandler = () => {
@@ -120,12 +92,7 @@ const Movies = () => {
         getZadaci();
     }
 
-    const getGenresStringFromMap = (genresMap) => {
-        if (!genresMap || typeof genresMap !== 'object') {
-            return '';
-        }
-        return Object.values(genresMap).join(', ');
-    };
+   
     {/* ================================================ RENDER TABELE ========================================= */ }
     //=============================================================================================================
     const renderTabela = () => {
@@ -135,7 +102,7 @@ const Movies = () => {
             return (
                 <tr key={klasa.id}>
                     <td>{klasa.name}</td>
-                    <td>{getGenresStringFromMap(klasa.genres)}</td>
+                    <td>{klasa.genres}</td>
                     <td>{klasa.duration}</td>
                     <td>{klasa.country}</td>
                     <td>{klasa.year}</td>
@@ -175,17 +142,8 @@ const Movies = () => {
 
                         <Col md={2}>
                             <FormGroup>
-                                <FormLabel htmlFor="genreId">Genre</FormLabel>
-                                <Form.Control as='select' name="genreId" id="genreId" onChange={valueInputChanged}>
-                                    <option value=''>Choose genre</option>
-                                    {
-                                        genres.map((obj, index) => {
-                                            return (
-                                                <option key={obj.id} value={obj.id}> {obj.name} </option>
-                                            )
-                                        })
-                                    }
-                                </Form.Control>
+                                <FormLabel htmlFor="genres">Genres</FormLabel>
+                                <Form.Control type='text' name="genres" id="genres" onChange={valueInputChanged}></Form.Control>
                             </FormGroup>
                         </Col>
                     </Row>

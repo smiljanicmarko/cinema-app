@@ -50,15 +50,18 @@ public class MovieController {
 			@RequestParam(required=false) String name,
 			@RequestParam(required=false) String distributor,
 			@RequestParam(required=false) String country,			
-			@RequestParam(required=false) Long genreId,
+			@RequestParam(required=false) String genres,
 			@RequestParam(required=false) Integer durationFrom,
 			@RequestParam(required=false) Integer durationTo,
 			@RequestParam(required=false) Integer yearFrom,
 			@RequestParam(required=false) Integer yearTo,
 			@RequestParam(defaultValue="0") int pageNo) {
-
-		Page<Movie> stranice = movieService.searchMovies(name, distributor, country, 
-				genreId, durationFrom, durationTo, yearFrom, yearTo, pageNo);
+		
+		if (genres != null) {
+			genres = genres.trim();
+		}
+		
+		Page<Movie> stranice = movieService.searchMovies(name, distributor, country, genres, durationFrom, durationTo, yearFrom, yearTo, pageNo);
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set("Total-Pages", stranice.getTotalPages() + "");
@@ -81,16 +84,7 @@ public class MovieController {
 	}
 
 
-	//		@GetMapping("/report")
-	//		public ResponseEntity<List<MovieDTO>> getReport(@ RequestParam LocalDate start, @RequestParam LocalDate end) {
-	//
-	//			List<Movie> stranice = movieService.findAll();
-	//
-	//		
-	//			return new ResponseEntity<>(toDto.convert(stranice), HttpStatus.OK);
-	//
-	//		}
-
+	
 
 	//GET BY ID
 

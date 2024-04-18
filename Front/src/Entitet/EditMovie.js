@@ -11,10 +11,11 @@ const EditMovie = () => {
     var navigate = useNavigate()
     //========================================= promenljiva =======================================
     var obj = {
+        id: '',
         name: '',
         director: '',
         actors: '',
-        genres: [],
+        genres: '',
         duration: '',
         distributor: '',
         country: '',
@@ -32,6 +33,7 @@ const EditMovie = () => {
                 // handle success
                 console.log(res);
                 setEditObj({
+                    id: res.data.id,
                     name: res.data.name,
                     director: res.data.director,
                     actors: res.data.actors,
@@ -40,12 +42,9 @@ const EditMovie = () => {
                     distributor: res.data.distributor,
                     country: res.data.country,
                     year: res.data.year,
-                    description: res.data.description,
+                    description: res.data.description
                 });
-                console.log("OVOOOO: ")
-                console.log(Object.keys(res.data.genres))
-                console.log("ovde su res.data.genres")
-                console.log(res.data.genres)
+               
             })
             .catch(error => {
                 // handle error
@@ -59,24 +58,7 @@ const EditMovie = () => {
 
     }, []);
 
-    const dobaviPodatke = useCallback(() => {
-        TestAxios.get('/genres')
-            .then(res => {
-
-                console.log(res);
-                setRezultat(res.data)
-            })
-            .catch(error => {
-
-                console.log(error);
-                alert('Greska u dobaviPodatke');
-            });
-    }, []);
-
-
-    useEffect(() => {
-        dobaviPodatke();
-    }, []);
+   
 
 
     //============================== HANDLERI =============================
@@ -95,11 +77,11 @@ const EditMovie = () => {
             ...editObj
         };
 
-        TestAxios.put('/poruke/' + editObj.id, params)
+        TestAxios.put('/movies/' + trazeniId, params)
             .then(res => {
                 console.log(res);
-                alert('Izmena je uspesno izvrsena!');
-                navigate('/zadaci');
+                alert('Movie has been edited!');
+                navigate('/movies');
             })
             .catch(error => {
                 // handle error
@@ -166,25 +148,10 @@ const EditMovie = () => {
                                     <FormLabel htmlFor='description'>Description</FormLabel>
                                     <Form.Control as='textarea' value={editObj.description} id='description' name='description' onChange={valueInputChanged}></Form.Control>
                                 </FormGroup>
+
                                 <FormGroup>
-
-                                {/* I can't get selected genres! */}
-
-                                    <FormLabel htmlFor=''>Genres</FormLabel>
-                                    <Multiselect
-                                        options={rezultat.map(obj => ({ id: obj.id, name: obj.name }))}
-                                        displayValue="name"
-                                        selected={rezultat.filter(genre => Object.keys(editObj.genres).includes(genre.id))}
-                                        onSelect={(selectedList) => {
-                                            console.log("Selected genres:", selectedList);
-                                            setEditObj(prevState => ({ ...prevState, genres: selectedList.map(item => item.id) }));
-                                        }}
-                                        onRemove={(selectedList) => {
-                                            console.log("Removed genres:", selectedList);
-                                            setEditObj(prevState => ({ ...prevState, genres: selectedList.map(item => item.id) }));
-                                        }}
-                                        placeholder="Select genres"
-                                    />
+                                    <FormLabel htmlFor='genres'>Genres</FormLabel>
+                                    <Form.Control type='text' value={editObj.genres} id='genres' name='genres' onChange={valueInputChanged}></Form.Control>
                                 </FormGroup>
 
 
@@ -193,7 +160,7 @@ const EditMovie = () => {
 
                         <Row>
                             <Col className="text-right">
-                                {/* <Button type="button" className="btn btn-success" style={{ float: 'right' }} onClick={() => create()}>Add movie</Button> */}
+                               <Button type="button" className="btn btn-success" style={{ marginTop: '20px' }} onClick={() => edit()}>Edit movie</Button> 
                             </Col>
                         </Row>
 

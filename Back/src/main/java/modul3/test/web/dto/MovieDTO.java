@@ -1,8 +1,5 @@
 package modul3.test.web.dto;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.validation.constraints.Min;
 
 public class MovieDTO {
@@ -15,7 +12,7 @@ public class MovieDTO {
 	
 	private String actors;
 
-	private Map<Long, String>genres = new HashMap<Long, String>();
+	private String genres;
 	
 	@Min(0)
 	private Integer duration;
@@ -69,11 +66,12 @@ public class MovieDTO {
 
 
 
-	public Map<Long, String> getGenres() {
+
+	public String getGenres() {
 		return genres;
 	}
 
-	public void setGenres(Map<Long, String> genres) {
+	public void setGenres(String genres) {
 		this.genres = genres;
 	}
 

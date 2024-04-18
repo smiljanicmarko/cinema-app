@@ -65,10 +65,10 @@ public class JpaMovieService implements MovieService {
 	}
 
 	@Override
-	public Page<Movie> searchMovies(String name, String distributor, String country, Long genreId, Integer durationFrom,
+	public Page<Movie> searchMovies(String name, String distributor, String country, String genres, Integer durationFrom,
 			Integer durationTo, Integer yearFrom, Integer yearTo, int pageNo) {
-
-		return r.searchMovies(name, distributor, country, genreId, durationFrom, durationTo, yearFrom, yearTo, PageRequest.of(pageNo, 8));
+		
+		return r.searchMovies(name, distributor, country, genres, durationFrom, durationTo, yearFrom, yearTo, PageRequest.of(pageNo, 8));
 	}
 
 	@Override
@@ -159,6 +159,8 @@ public class JpaMovieService implements MovieService {
 		
 		return projectionsNumber;
 	}
+
+	
 
 	
 
