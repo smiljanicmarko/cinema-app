@@ -65,6 +65,34 @@ const OneMovie = () => {
         }
         navigate("/projections/movie/" +id)
     }
+
+    const deleteMovie = (id) =>{
+        movie.projectionsNumber > 0 ?
+
+       ( TestAxios.delete('/movies/' + id + '/logically')
+        .then(res => {           
+            console.log(res);
+            alert('Movie was deleted successfully!');
+           navigate('/movies')
+ 		
+        })
+        .catch(error => {           
+            console.log(error);
+            alert('Error occured please try again!');
+         })) :
+
+         ( TestAxios.delete('/movies/' + id)
+        .then(res => {            
+            console.log(res);
+            alert('Movie was deleted successfully!');
+            navigate('/movies')
+        })
+        .catch(error => {          
+            console.log(error);
+            alert('Error occured please try again!');
+         }))
+    }
+
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     return (
@@ -72,7 +100,7 @@ const OneMovie = () => {
 
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h1 class="display-4">{movie.name}</h1>
+                    <h1 class="display-4">{movie.name} - {movie.deleted? 'D E L E T E D' : <></>}</h1>
                     <p class="lead">Duration: {movie.duration} min. | Genre: {getGenresStringFromMap(movie.genres)}</p>
                 </div>
             </div>
@@ -122,9 +150,9 @@ const OneMovie = () => {
                     isAdmin? 
                     <Row>
                         <Col>
-                        <Button className="btn btn-warning" style={{ marginRight: '10px' }}
+                        <Button disabled={movie.deleted} className="btn btn-warning" style={{ marginRight: '10px' }}
                          onClick={()=>{goToEditMovie(movieId)}}>Edit movie</Button>
-                        <Button className="btn btn-danger" >
+                        <Button disabled={movie.deleted} className="btn btn-danger" onClick={()=>deleteMovie(movie.id)}>
                             
                             Delete</Button>
                         </Col>                        

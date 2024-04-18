@@ -151,7 +151,9 @@ return(
                         <Form.Control as='select' id='movieId' name='movieId' onChange={valueInputChanged}>
                         <option value=''>Choose movie</option>
                         {
-                            movies.map((obj, index) =>{
+                            movies
+                            .filter(movie => !movie.deleted)
+                            .map((obj, index) =>{
                                 return (
                                     <option key={obj.id} value={obj.id}> {obj.name} </option>
                                 )

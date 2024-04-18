@@ -37,14 +37,14 @@ public class MovieController {
 	private MovieToMovieDto toDto;
 	@Autowired
 	private MovieDtoToMovie toClass;
-	
-	
+
+
 	//  @PreAuthorize("hasAnyRole('KORISNIK', 'ADMIN')")
-	 // @PreAuthorize("hasRole('ADMIN')")
-	
-	
+	// @PreAuthorize("hasRole('ADMIN')")
+
+
 	//GET ALL
-	
+
 	@GetMapping
 	public ResponseEntity<List<MovieDTO>> getAll(
 			@RequestParam(required=false) String name,
@@ -67,31 +67,31 @@ public class MovieController {
 
 	}
 
-	
+
 	//GET ALL LISTA
-	
-		@GetMapping("/all")
-		public ResponseEntity<List<MovieDTO>> getAll() {
 
-			List<Movie> stranice = movieService.findAll();
+	@GetMapping("/all")
+	public ResponseEntity<List<MovieDTO>> getAll() {
 
-		
-			return new ResponseEntity<>(toDto.convert(stranice), HttpStatus.OK);
+		List<Movie> stranice = movieService.findAll();
 
-		}
-		
-		
-//		@GetMapping("/report")
-//		public ResponseEntity<List<MovieDTO>> getReport(@ RequestParam LocalDate start, @RequestParam LocalDate end) {
-//
-//			List<Movie> stranice = movieService.findAll();
-//
-//		
-//			return new ResponseEntity<>(toDto.convert(stranice), HttpStatus.OK);
-//
-//		}
-	
-	
+
+		return new ResponseEntity<>(toDto.convert(stranice), HttpStatus.OK);
+
+	}
+
+
+	//		@GetMapping("/report")
+	//		public ResponseEntity<List<MovieDTO>> getReport(@ RequestParam LocalDate start, @RequestParam LocalDate end) {
+	//
+	//			List<Movie> stranice = movieService.findAll();
+	//
+	//		
+	//			return new ResponseEntity<>(toDto.convert(stranice), HttpStatus.OK);
+	//
+	//		}
+
+
 	//GET BY ID
 
 	@GetMapping("/{id}")
@@ -104,8 +104,8 @@ public class MovieController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-//  @PreAuthorize("hasAnyRole('KORISNIK', 'ADMIN')")
+
+	//  @PreAuthorize("hasAnyRole('KORISNIK', 'ADMIN')")
 	@GetMapping("/{id}/available")
 	public ResponseEntity <MovieAvailableDTO> isMovieAvailable (@PathVariable Long id) {
 		Boolean available = movieService.movieAvailable(id);
@@ -119,8 +119,8 @@ public class MovieController {
 		}else {
 			return new ResponseEntity<MovieAvailableDTO>(HttpStatus.BAD_REQUEST);
 		}
-			
-		
+
+
 	}
 
 
@@ -150,10 +150,11 @@ public class MovieController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@DeleteMapping("/{id}/logically")
 	public ResponseEntity<Void> deleteLogically(@PathVariable Long id){
-		Movie obrisan = movieService.logicallyDelete(id);
+		Boolean obrisan = movieService.logicallyDelete(id);
+
 
 		if(obrisan != null) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -164,19 +165,19 @@ public class MovieController {
 
 	//UPDATE
 	//@PreAuthorize("hasRole('ADMIN')")
-	 @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
-	    public ResponseEntity<MovieDTO> update(@PathVariable Long id, @Valid @RequestBody MovieDTO dto){
+	@PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<MovieDTO> update(@PathVariable Long id, @Valid @RequestBody MovieDTO dto){
 
-	        if(!id.equals(dto.getId())) {
-	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	        }
+		if(!id.equals(dto.getId())) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 
-	        Movie linija = toClass.convert(dto);
-	        Movie saved = movieService.update(linija);
+		Movie linija = toClass.convert(dto);
+		Movie saved = movieService.update(linija);
 
-	        return new ResponseEntity<>(toDto.convert(saved),HttpStatus.OK);
-	    }
+		return new ResponseEntity<>(toDto.convert(saved),HttpStatus.OK);
+	}
 
-	 
-	 
+
+
 }

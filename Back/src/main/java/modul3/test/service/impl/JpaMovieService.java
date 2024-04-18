@@ -135,13 +135,16 @@ public class JpaMovieService implements MovieService {
 	}
 
 	@Override
-	public Movie logicallyDelete(Long id) {
+	public Boolean logicallyDelete(Long id) {
 		Movie m = r.findOneById(id);
 		if (m!= null) {
 			m.setDeleted(true);	
 			r.save(m);
 		}
-		return m;
+		if (m== null) {
+			return false;
+		}
+		return true;
 
 
 	}

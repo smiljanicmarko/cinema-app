@@ -129,7 +129,9 @@ const Movies = () => {
     {/* ================================================ RENDER TABELE ========================================= */ }
     //=============================================================================================================
     const renderTabela = () => {
-        return tabela.map((klasa, index) => {
+        return tabela
+        .filter(movie => !movie.deleted)
+        .map((klasa, index) => {
             return (
                 <tr key={klasa.id}>
                     <td>{klasa.name}</td>
