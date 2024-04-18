@@ -66,41 +66,45 @@ INSERT INTO movie (id, name, director, actors, duration, distributor, country, y
 --Insert Into movie (id, name, director, actors, duration, distributor, country, year, description) Values (15, 'Runolfsdottir, Macejkovic and Wiza', 'Bradford Price', 'Rosalie Spinka', 120, 'O\'Hara, Rau and Stroman', 'Cayman Islands', 1992, 'Aliquam sapiente veniam quod mollitia necessitatibus error praesentium nam. Neque consectetur occaecati incidunt perferendis nesciunt tempora atque autem. Iste minus iure.');  
 --Insert Into movie (id, name, director, actors, duration, distributor, country, year, description) Values (16, 'Bogisich and Sons', 'Clayton Terry', 'Roberta Wiegand', 80, 'Robel, Goyette and Cruickshank', 'Micronesia', 2018, 'Repellendus harum quisquam voluptatem natus id incidunt. Dolorum suscipit facere. Unde sed voluptatum consequuntur quaerat similique possimus dolorem sed.');  
 
+-- ============================================================ PROJECTIONS ============================================================
 
-
+-- MARATONCI
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (1, 1, 1, '2024-04-18 20:00', 500, 1 );
+VALUES (1, 1, 1, '2024-03-18 20:00', 500, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (1, 1, 2, '2024-04-19 21:00', 500, 1 );
-
+VALUES (1, 1, 2, '2024-03-19 21:00', 500, 1 );
+--INTO THE WILD
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
 VALUES (2, 1, 2, '2024-04-18 20:00', 500, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
 VALUES (2, 1, 1, '2024-04-20 20:00', 500, 1 );
-
+--ROCKY
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
 VALUES (3, 2, 1, '2024-04-26 20:00', 600, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (3, 3, 3, '2024-04-19 20:00', 700, 1 );
+VALUES (3, 3, 3, '2024-03-19 20:00', 300, 1 );
 INSERT INTO projection (movie_id, projection_type_id, theater_id, time, price, admin_id)
-VALUES (3, 3, 3, '2024-04-17 20:00', 700, 1 );
+VALUES (3, 3, 3, '2024-03-17 20:00', 700, 1 );
 
 
+
+-- ============================================================TICKETS============================================================
+--PROJEKCIJA 1
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
 VALUE (1, 1, '2024-04-01 14:00', 2);
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
 VALUE (1, 2, '2024-04-03 17:00', 3);
-
+--PROJEKCIJA 2
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
 VALUE (2, 6, '2024-04-01 20:00', 2);
-
+--PROJEKCIJA 3
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
 VALUE (3, 6, '2024-04-03 18:00', 3);
-
+--PROJEKCIJA 4
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
 VALUE (4, 2, '2024-04-01 20:00', 2);
 
-
+--PROJEKCIJA 7
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
 VALUE (7, 1, '2024-04-01 14:00', 2);
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
@@ -122,7 +126,8 @@ VALUE (5, 2, '2024-04-03 17:00', 3);
 INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
 VALUE (5, 3, '2024-04-01 14:00', 2);
 
-
+INSERT INTO ticket (projection_id, seat_id, purchase_time, user_id)
+VALUE (6, 3, '2024-04-01 14:00', 2);
 
 --'2020-06-21 20:00'
 --'2020-07-22 21:00'
