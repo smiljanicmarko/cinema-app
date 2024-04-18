@@ -43,9 +43,7 @@ const OneProjection = () => {
         return Object.values(genresMap).join(', ');
     };
 
-    const goToEditMovie = (id) => {
-        navigate("/edit-movie/" + id)
-    }
+    
 
     const today = new Date();
     const projectionTime = new Date(projection.time)
@@ -53,7 +51,7 @@ const OneProjection = () => {
 
     // ======================== BRISANJE ===========================================
     const deleteProjection = (id) => {
-        projection.ticketsSold == 0 ? (
+        projection.ticketsSold === 0 ? (
             TestAxios.delete("/projections/" + projection.id)
                 .then(res => {
                     alert('Projection successfully deleted!');
@@ -132,6 +130,10 @@ const OneProjection = () => {
         )
     }
     const goToChooseSeat = (id)=>{
+        if (!isKorisnik){
+            alert('Please log in first!')
+            navigate('/login')
+        }
         navigate('/projections/' + id + '/seat')
        }
 
@@ -140,10 +142,10 @@ const OneProjection = () => {
     return (
         <div>
 
-            <div class="jumbotron jumbotron-fluid">
-                <div class="container">
-                    <h1 class="display-4">Projection details</h1>
-                    <p class="lead"></p>
+            <div className="jumbotron jumbotron-fluid">
+                <div className="container">
+                    <h1 className="display-4">Projection details</h1>
+                    <p className="lead">{projection.deleted ? 'DELETED' : <></>}</p>
                 </div>
             </div>
 
@@ -178,14 +180,16 @@ const OneProjection = () => {
 
                 {
 
-                    (isKorisnik && projection.seatsAvailable > 0 && today < projectionTime) ?
+                    ((isKorisnik || !isAdmin) &&  projection.seatsAvailable > 0 && today < projectionTime) ?
                         (<Row>
                             <Col>
-                                <Button className="btn btn-success" onClick={()=>goToChooseSeat(projection.id)}>Buy tickets</Button>
+                                <Button disabled={projection.deleted} className="btn btn-success" onClick={()=>goToChooseSeat(projection.id)}>Buy tickets</Button>
                             </Col>
-                        </Row>) : (!isAdmin? <span>Can't but tickets for this projection.</span> : <></>)
+                        </Row>) : (<></>)
 
                 }
+               
+
                 {
                     (isAdmin) ?
                         <Row>

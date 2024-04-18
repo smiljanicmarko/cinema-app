@@ -150,11 +150,11 @@ public class MovieController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	//@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}/logically")
 	public ResponseEntity<Void> deleteLogically(@PathVariable Long id){
+		
 		Boolean obrisan = movieService.logicallyDelete(id);
-
 
 		if(obrisan != null) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);

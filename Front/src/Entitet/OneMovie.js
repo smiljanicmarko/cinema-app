@@ -100,7 +100,7 @@ const OneMovie = () => {
 
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h1 class="display-4">{movie.name} - {movie.deleted? 'D E L E T E D' : <></>}</h1>
+                    <h1 class="display-4">{movie.name}  {movie.deleted? '- D E L E T E D' : <></>}</h1>
                     <p class="lead">Duration: {movie.duration} min. | Genre: {getGenresStringFromMap(movie.genres)}</p>
                 </div>
             </div>
