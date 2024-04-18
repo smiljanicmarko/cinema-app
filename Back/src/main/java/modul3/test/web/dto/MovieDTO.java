@@ -1,17 +1,18 @@
 package modul3.test.web.dto;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 public class MovieDTO {
 
 	private Long id;
-	
+	@NotBlank
 	private String name;
 
 	private String director;
 	
 	private String actors;
-
+	@NotBlank
 	private String genres;
 	
 	@Min(0)

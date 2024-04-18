@@ -4,6 +4,7 @@ import { formatDate, formatOnlyDate } from '../services/formatDate';
 import TestAxios from '../apis/TestAxios';
 import { Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+import BigCard from '../Entitet/BigCard';
 
 const Home = () =>{
   const token = localStorage.getItem("jwt");
@@ -83,6 +84,11 @@ if (projections.length>0){
 
     <h1 style={{align: 'center'}}>Today ({formatOnlyDate(new Date())}) on Repertoire</h1>
     
+    <BigCard title = { <h1 className="display-4">{usernameToken?  (usernameToken + ', ')  : ''} Welcome to our Cinema!</h1>}
+    render = {renderTabela()}
+    
+    
+    ></BigCard>
 
     <Row><Col>
                 <Table id="movies-table">

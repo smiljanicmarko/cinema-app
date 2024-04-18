@@ -2,22 +2,26 @@ package modul3.test.web.dto;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class ProjectionDTO {
 
 	private Long id;	
 	
+	@NotNull
 	private Long movieId;
 	private String movieName;
-	
+	@NotNull
 	private Long projectionTypeId;
 	private String projectionType;	
-	
+	@NotNull
 	private Long theaterId;
 	
 	private String theaterName;
 	
 	private LocalDateTime time;
-	
+	@Min(0)
 	private Double price;	
 
 	private String username;
