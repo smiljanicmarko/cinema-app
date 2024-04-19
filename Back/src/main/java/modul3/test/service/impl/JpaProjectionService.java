@@ -121,7 +121,10 @@ public class JpaProjectionService implements ProjectionService {
 		Movie movie = projection.getMovie();
 		Projection newProjection = null;
 
-				
+		System.out.println("ovooooooooooooooooooooooooo");
+		System.out.println("projekcija tip:" + type);
+		
+		System.out.println("Za salu:" + theater.getProjectionTypes());
 		
 		if (time == null || type == null || theater == null	|| movie == null) {
 			return null;
@@ -145,7 +148,7 @@ public class JpaProjectionService implements ProjectionService {
 				if (projection.getTime().isBefore(p.getTime().plusMinutes(p.getMovie().getDuration())) &&
 						projection.getTime().plusMinutes(movie.getDuration()).isAfter(p.getTime())) {
 					collision = true;
-					throw new IllegalArgumentException("The theater you chose, doesn't have that projection type!");
+					throw new IllegalArgumentException("The projection time can't be in the past!");
 				}
 			}
 
