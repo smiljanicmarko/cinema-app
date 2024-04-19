@@ -29,7 +29,8 @@ const Movies = () => {
     const [totalPages, setTotalPages] = useState(0)
     const [prikaziFormu, setPrikaziFormu] = useState(false);
     const [pretraga, setPretraga] = useState(pretragaObjekat)
-   
+    const [sortBy, setSortBy] = useState('')
+    const [orderBy, setOrderBy] = useState('')
     // /////////////////////////////////////////////////////// J A V A  S C R I P T  F U N K C I J E \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //======================== USE EFFECT ============================================
     useEffect(() => {
@@ -176,14 +177,14 @@ const Movies = () => {
                         </Col>
                     </Row>
 
-                    {/*============== S E L E C T  /   PADAJUCI MENI ======= onChange NIKAKO U LABEL!!! =========== */}
+                    
                     <div style={{ marginTop: '23px'}}>
                         <Row>
                             <Col md={3}>
                                 <Button type="button" onClick={pretragaClickHandler}>Search</Button>
                             </Col>
 
-                            {/*============== S E L E C T  /   PADAJUCI MENI ======= onChange NIKAKO U LABEL!!! =========== */}
+                          
 
                         </Row>
                     </div>
@@ -192,9 +193,44 @@ const Movies = () => {
 
         )
     }
+    useEffect(()=>{
+        console.log('SortBy: ' +sortBy)
+    },[sortBy])
 
+    useEffect(()=>{
+        console.log('orderBy: ' +orderBy)
+    },[orderBy])
 
-
+    const renderSort = () =>{
+        return (<Row>
+            <Col md={2}>
+            <FormGroup>
+              <FormLabel htmlFor="sortBy"></FormLabel>
+              <Form.Control as='select' name="sortBy" id="sortBy" onChange={(e)=>{setSortBy(e.target.value)}}>
+                <option value=''>Sort by</option>
+                <option value='name'>Movie name</option> 
+                <option value='genres'>Genres</option>   
+                <option value='duration'>Duration</option>   
+                <option value='country'>Country</option>                        
+                <option value='year'>Year</option>   
+                <option value='distributor'>Distributor</option>               
+              </Form.Control>
+            </FormGroup>
+          </Col>
+    
+          <Col md={2}>
+            <FormGroup>
+              <FormLabel htmlFor="orderBy"></FormLabel>
+              <Form.Control as='select' name="orderBy" id="orderBy" onChange={(e)=>{setOrderBy(e.target.value)}}>
+                <option value=''>Order by</option>
+                <option value='ascending'>Ascending</option> 
+                <option value='descending'>Descending</option>                        
+              </Form.Control>
+            </FormGroup>
+          </Col>
+          </Row> )
+       
+    }
 
 
 
@@ -235,6 +271,7 @@ const Movies = () => {
                 </Row>
             </div>
             <Row><Col>
+            {renderSort()}
                 <Table id="movies-table">
                     <thead>
                         <tr>
