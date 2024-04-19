@@ -160,12 +160,7 @@ public class Movie {
 
 	public void setProjections(List<Projection> projections) {
 		this.projections = projections;
-	}
-	
-	
-
-
-	
+	}	
 
 
 	public Boolean getDeleted() {

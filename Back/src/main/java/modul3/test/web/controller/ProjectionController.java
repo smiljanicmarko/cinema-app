@@ -160,7 +160,8 @@ public class ProjectionController {
 	public ResponseEntity<ProjectionDTO> create(@Valid @RequestBody ProjectionDTO dto){
 
 		Projection obj = toClass.convert(dto);
-		Projection saved = projectionService.save(obj);
+		System.out.println(obj.getDeleted());
+		Projection saved = projectionService.createProjection(obj);
 
 		return new ResponseEntity<>(toDto.convert(saved), HttpStatus.CREATED);
 	}

@@ -1,6 +1,5 @@
 package modul3.test.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,7 +23,8 @@ public interface ProjectionService {
 
     Page<Projection> searchProjections (String movie, LocalDateTime start, LocalDateTime end, Long projectionTypeId, 
     									Long theaterId, Double priceFrom, Double priceTo, int pageNo);
-
+    
+    Projection createProjection (Projection projection);
     
     List<Projection> todaysProjections (LocalDateTime startOfDay, LocalDateTime endOfDay);
     

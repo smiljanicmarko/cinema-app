@@ -30,7 +30,7 @@ public class ProjectionDTO {
 	
 	private Integer ticketsSold;
 
-	private Boolean deleted;
+	private Boolean deleted = false;
 	
 	public Boolean getDeleted() {
 		return deleted;

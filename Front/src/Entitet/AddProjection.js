@@ -43,7 +43,9 @@ const [currentTheater, setCurrentTheater] = useState(null)
         })
         .catch(error => {           
             console.log(error);
-            alert('Doslo je do greske, molimo pokusajte ponovo!');
+            error.response.data.message?
+            alert(error.response.data.message):
+            alert('Error, please try again!');
          });
     }
 

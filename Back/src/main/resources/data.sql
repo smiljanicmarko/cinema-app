@@ -39,22 +39,22 @@ INSERT INTO seat (theater_id, number) VALUES ( 3, 3);
 INSERT INTO seat (theater_id, number) VALUES ( 3, 4);
 INSERT INTO seat (theater_id, number) VALUES ( 3, 5);
 
-INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description, genres) VALUES (1, "Maratonci", "Slobodan Sijan", 
-"Bogdan Diklic, Bata Stojkovic, Pavle Vujisic", 92, "Yugo-film", "Jugoslavija", 1982, "The Topalovic family has been in the burial business for generations. When the old (150 yrs old) Pantelija dies, five generations of his heirs start to fight for the inheritance.", "Comedy, Drama");
+INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description, genres, deleted) VALUES (1, "Maratonci", "Slobodan Sijan", 
+"Bogdan Diklic, Bata Stojkovic, Pavle Vujisic", 92, "Yugo-film", "Jugoslavija", 1982, "The Topalovic family has been in the burial business for generations. When the old (150 yrs old) Pantelija dies, five generations of his heirs start to fight for the inheritance.", "Comedy, Drama", 0);
 
-INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description, genres) VALUES (2, "Into the wild", "Sean Penn", 
-"Emilie Hirsch, Vince Vaughn, Catherine Keener", 148, "Paramount Vantage", "USA", 2007, "After graduating from Emory University, top student and athlete Christopher McCandless abandons his possessions and esaceps to Alaska", "Adventure, Biography");
+INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description, genres, deleted) VALUES (2, "Into the wild", "Sean Penn", 
+"Emilie Hirsch, Vince Vaughn, Catherine Keener", 148, "Paramount Vantage", "USA", 2007, "After graduating from Emory University, top student and athlete Christopher McCandless abandons his possessions and esaceps to Alaska", "Adventure, Biography", 0);
 
-INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description, genres) VALUES (3, "Rocky", "John G. Avildsen", 
-"Sylvester Stallone, Talia Shire", 120, "United Artists", "USA", 1976, "A small-time Philadelphia boxer gets a supremely rare chance to fight the world heavyweight champion in a bout in which he strives to go the distance for his self-respect.", "Sport, Drama, Fighting");
+INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description, genres, deleted) VALUES (3, "Rocky", "John G. Avildsen", 
+"Sylvester Stallone, Talia Shire", 120, "United Artists", "USA", 1976, "A small-time Philadelphia boxer gets a supremely rare chance to fight the world heavyweight champion in a bout in which he strives to go the distance for his self-respect.", "Sport, Drama, Fighting", 0);
 
-INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description, genres) VALUES (4, "Dune, part one", "Denis Villeneuve",
-"Timothée Chalamet, Rebecca Ferguson, Zendaya", 155, "Warner-Bros", "USA", 2021, "A noble family becomes embroiled in a war for control over the galaxy's most valuable asset while its heir becomes troubled by visions of a dark future.", "Sci-fi, Epic");
-INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description, genres) VALUES (5, "Kad porastem bicu Kengur", "Radivoje Andric",
-"Sergej Trifunovic, Marija Karan, Nebojsa Glogovac", 92, "Yodi Movie Craftsman", "Srbija", 2004, "During one peculiar night, the lives of several interconnected people are changed, as they rapidly experience love, disappointment, joy, greed and remorse.", "Comedy");
+INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description, genres, deleted) VALUES (4, "Dune, part one", "Denis Villeneuve",
+"Timothée Chalamet, Rebecca Ferguson, Zendaya", 155, "Warner-Bros", "USA", 2021, "A noble family becomes embroiled in a war for control over the galaxy's most valuable asset while its heir becomes troubled by visions of a dark future.", "Sci-fi, Epic", 0);
+INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description, genres, deleted) VALUES (5, "Kad porastem bicu Kengur", "Radivoje Andric",
+"Sergej Trifunovic, Marija Karan, Nebojsa Glogovac", 92, "Yodi Movie Craftsman", "Srbija", 2004, "During one peculiar night, the lives of several interconnected people are changed, as they rapidly experience love, disappointment, joy, greed and remorse.", "Comedy", 0);
 
-INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description, genres) VALUES (6, "Oppenheimer", "Christopher Nolan", 
-"Cillian Murphy, Emily Blunt, Matt Damon", 180, "Universal Pictures", "USA", 2023, "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.", "Historical, Drama");
+INSERT INTO movie (id, name, director, actors, duration, distributor, country, year, description, genres, deleted) VALUES (6, "Oppenheimer", "Christopher Nolan", 
+"Cillian Murphy, Emily Blunt, Matt Damon", 180, "Universal Pictures", "USA", 2023, "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.", "Historical, Drama", 0);
 --Insert Into movie (id, name, director, actors, duration, distributor, country, year, description) Values (7, 'Bruen and Sons', 'Dr. Lloyd Metz-Schimmel Jr.', 'Geraldine Wiza', 153, 'Ledner - Skiles', 'Saint Barthelemy', 2019, 'Culpa laudantium ipsum possimus eos. Ratione consequatur voluptatem ut distinctio libero nobis eligendi provident. Ratione repellat deserunt.');  
 --Insert Into movie (id, name, director, actors, duration, distributor, country, year, description) Values (8, 'Maggio, O\'Hara and Donnelly', 'Joe McKenzie', 'Julius Weissnat', 107, 'Littel Inc', 'Nicaragua', 2004, 'Pariatur delectus et eaque rerum optio autem magnam optio. Eius consequatur nobis cum iure ab maxime quas. Reprehenderit eum provident recusandae placeat nesciunt quos adipisci.');  
 --Insert Into movie (id, name, director, actors, duration, distributor, country, year, description) Values (9, 'Stoltenberg LLC', 'Roosevelt Nolan', 'Trevor Jaskolski', 168, 'Berge - Becker', 'France', 2024, 'Voluptatum deserunt voluptatum repellendus debitis accusamus blanditiis commodi adipisci deserunt. Natus suscipit rerum. Ab placeat quibusdam consectetur assumenda aliquid eveniet necessitatibus.');  
