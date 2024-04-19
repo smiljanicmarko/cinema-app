@@ -177,7 +177,7 @@ const Movies = () => {
                     </Row>
 
                     {/*============== S E L E C T  /   PADAJUCI MENI ======= onChange NIKAKO U LABEL!!! =========== */}
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <div style={{ marginTop: '23px'}}>
                         <Row>
                             <Col md={3}>
                                 <Button type="button" onClick={pretragaClickHandler}>Search</Button>
