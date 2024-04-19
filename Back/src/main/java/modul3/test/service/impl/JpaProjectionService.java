@@ -121,7 +121,8 @@ public class JpaProjectionService implements ProjectionService {
 		Movie movie = projection.getMovie();
 		Projection newProjection = null;
 
-
+				
+		
 		if (time == null || type == null || theater == null	|| movie == null) {
 			return null;
 		}

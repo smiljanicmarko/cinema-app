@@ -82,6 +82,11 @@ public class ProjectionType {
 		return Objects.equals(id, other.id);
 	}
 
+	@Override
+	public String toString() {
+		return "ProjectionType [id=" + id + ", type=" + type + "]";
+	}
+
 	
 
 	

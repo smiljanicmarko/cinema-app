@@ -25,10 +25,12 @@ const [types, setTypes] = useState([])
 const [movies, setMovies] = useState([]) 
 const [theatres, setTheatres] = useState([]) 
 const [currentTheater, setCurrentTheater] = useState(null)
+const [errors, setErrors] = useState({});
 
     var navigate = useNavigate();
 // ==================================== GLAVNA AXIOS FUNKCIJA ZA KREIRANJE ============================================
     const create = () => {
+        if (!validate()) return;
         var params = {
             ...objekat,
             username: usernameToken
@@ -121,6 +123,26 @@ const [currentTheater, setCurrentTheater] = useState(null)
         if (currentTheater)
         getTypes();
     }, [currentTheater]);
+
+    const validate = () => {
+        let tempErrors = {};
+        tempErrors.time = objekat.time ? "" : "This field can't be empty!";
+        tempErrors.price = objekat.price ? "" : "This field can't be empty!";
+        if (objekat.price < 0){            
+            tempErrors.price =   "Price can't be negative!";
+        }
+       
+        if (new Date(objekat.time) < new Date()) {
+            tempErrors.time =  "Date and time can't be in the past!";
+        }
+       
+        tempErrors.movieId = objekat.movieId ? "" : "You must choose a movie!";
+        tempErrors.theaterId = objekat.theaterId ? "" : "You must choose a theater!";
+        tempErrors.projectionTypeId = objekat.projectionTypeId ? "" : "You must choose a projection type!";
+        setErrors(tempErrors);
+        return Object.values(tempErrors).every(x => x === "");
+    };
+
 //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 return(
@@ -136,12 +158,14 @@ return(
                         
                     <FormGroup>
                         <FormLabel htmlFor='time'>Date and time</FormLabel>
-                        <Form.Control type='datetime-local' id='time' name='time' onChange={valueInputChanged}></Form.Control>
+                        <Form.Control isInvalid={!!errors.time} type='datetime-local' id='time' name='time' onChange={valueInputChanged}></Form.Control>
+                        <Form.Control.Feedback type="invalid">{errors.time} </Form.Control.Feedback> 
                       </FormGroup>
 
                       <FormGroup>
                         <FormLabel htmlFor='price'>Price</FormLabel>
-                        <Form.Control type='number' id='price' name='price' onChange={valueInputChanged}></Form.Control>
+                        <Form.Control isInvalid={!!errors.price} type='number' id='price' name='price' onChange={valueInputChanged}></Form.Control>
+                        <Form.Control.Feedback type="invalid">{errors.price} </Form.Control.Feedback> 
                       </FormGroup>
 
                      
@@ -150,7 +174,7 @@ return(
  {/*===================================== S E L E C T  /   PADAJUCI MENI ======= onChange NIKAKO U LABEL!!! ========================== */} 
                       <FormGroup>
                         <FormLabel htmlFor='movieId'>Movie</FormLabel>
-                        <Form.Control as='select' id='movieId' name='movieId' onChange={valueInputChanged}>
+                        <Form.Control isInvalid={!!errors.movieId} as='select' id='movieId' name='movieId' onChange={valueInputChanged}>
                         <option value=''>Choose movie</option>
                         {
                             movies
@@ -162,11 +186,12 @@ return(
                             })
                         }
                         </Form.Control>
+                        <Form.Control.Feedback type="invalid">{errors.movieId} </Form.Control.Feedback> 
                       </FormGroup>
   {/*===================================== S E L E C T  /   PADAJUCI MENI ======= onChange NIKAKO U LABEL!!! ========================== */} 
                          <FormGroup>
                         <FormLabel htmlFor='theaterId'>Theater</FormLabel>
-                        <Form.Control as='select' id='theaterId' name='theaterId' onChange={valueInputChanged}>
+                        <Form.Control isInvalid={!!errors.theaterId} as='select' id='theaterId' name='theaterId' onChange={valueInputChanged}>
                         <option value=''>Choose theater</option>
                         {
                             theatres.map((obj, index) =>{
@@ -176,11 +201,12 @@ return(
                             })
                         }
                         </Form.Control>
+                        <Form.Control.Feedback type="invalid">{errors.theaterId} </Form.Control.Feedback> 
                       </FormGroup>
                     
                       <FormGroup>
                         <FormLabel htmlFor='projectionTypeId'>Projection Type</FormLabel>
-                        <Form.Control as='select' id='projectionTypeId' name='projectionTypeId' onChange={valueInputChanged}>
+                        <Form.Control isInvalid={!!errors.projectionTypeId} as='select' id='projectionTypeId' name='projectionTypeId' onChange={valueInputChanged}>
                         <option value=''>Choose type</option>
                         {types.length > 0 &&
                             types.map((obj, index) =>{
@@ -190,6 +216,7 @@ return(
                             })
                         }
                         </Form.Control>
+                        <Form.Control.Feedback type="invalid">{errors.projectionTypeId} </Form.Control.Feedback> 
                       </FormGroup>
            
 
