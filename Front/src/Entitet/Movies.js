@@ -35,21 +35,15 @@ const Movies = () => {
     //======================== USE EFFECT ============================================
     useEffect(() => {
         getZadaci();
-    }, [pageNo]);
+    }, [pageNo, pretraga, sortBy, orderBy]);
 
    
-
-
-    // ======================== DOBAVLJANJE PODATAKA ================================
-    // Kada budes ubacivao pretragu,  nakon (?pageNo=${pageNo}`)) stavis ZAREZ i onda {objekat}, da bi se sve slalo u istom zahtevu, i paginacija nastavila da radi.
-    //u dependeci tu i iznad u useEffectu obavezno dodati parametar 'pretraga' , i tako imamo live search! 
-
-    // Ako mora na dugme, onda f-ja pretragaClickHandler, useEffect ostaje samo pageNo, a u getZadaci pageNo i pretraga. 
-
     const getZadaci = useCallback(() => {
         TestAxios.get(`/movies?pageNo=${pageNo}`, {
             params: {
-                ...pretraga
+                ...pretraga,
+                orderBy: orderBy,
+                sortBy: sortBy
             }
         })
             .then(res => {
@@ -61,7 +55,7 @@ const Movies = () => {
                 console.log(error);
                 alert('Error occured please try again!');
             });
-    }, [pageNo, pretraga]);
+    }, [pageNo, pretraga, orderBy, sortBy]);
 
     
     //======================== NAVIGATE ============================================
@@ -93,7 +87,7 @@ const Movies = () => {
         getZadaci();
     }
 
-   
+
     {/* ================================================ RENDER TABELE ========================================= */ }
     //=============================================================================================================
     const renderTabela = () => {
@@ -205,8 +199,8 @@ const Movies = () => {
         return (<Row>
             <Col md={2}>
             <FormGroup>
-              <FormLabel htmlFor="sortBy"></FormLabel>
-              <Form.Control as='select' name="sortBy" id="sortBy" onChange={(e)=>{setSortBy(e.target.value)}}>
+              <FormLabel htmlFor="sortBy">Sort by:</FormLabel>
+              <Form.Control as='select' name="sortBy" id="sortBy" onChange={sortByChangeHandler}>
                 <option value=''>Sort by</option>
                 <option value='name'>Movie name</option> 
                 <option value='genres'>Genres</option>   
@@ -220,19 +214,26 @@ const Movies = () => {
     
           <Col md={2}>
             <FormGroup>
-              <FormLabel htmlFor="orderBy"></FormLabel>
-              <Form.Control as='select' name="orderBy" id="orderBy" onChange={(e)=>{setOrderBy(e.target.value)}}>
+              <FormLabel htmlFor="orderBy">Order by:</FormLabel>
+              <Form.Control as='select' name="orderBy" id="orderBy" onChange={orderByChangeHandler}>
                 <option value=''>Order by</option>
-                <option value='ascending'>Ascending</option> 
-                <option value='descending'>Descending</option>                        
+                <option value='ASC'>Ascending</option> 
+                <option value='DESC'>Descending</option>                        
               </Form.Control>
             </FormGroup>
           </Col>
+          
           </Row> )
        
     }
 
-
+    const sortByChangeHandler = (e) => {
+        setSortBy(e.target.value);
+    };
+    
+    const orderByChangeHandler = (e) => {
+        setOrderBy(e.target.value);
+    };
 
 
 

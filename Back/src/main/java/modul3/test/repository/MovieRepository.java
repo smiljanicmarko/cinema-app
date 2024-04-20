@@ -27,7 +27,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 			+ "(:country IS NULL OR p.country like %:country%) AND " 
 			+ "(:genres IS NULL OR p.genres like %:genres%) AND"
 			+ "(:durationFrom IS NULL OR p.duration >= :durationFrom) AND"
-			+ "(:durationTo IS NULL OR p.duration <= :durationTo) AND"			
+			+ "(:durationTo IS NULL OR p.duration <= :durationTo) AND"
+			
 			+ "(:yearFrom IS NULL OR p.year >= :yearFrom) AND"
 			+ "(:yearTo IS NULL OR p.year <= :yearTo)")
 	Page<Movie> searchMovies (

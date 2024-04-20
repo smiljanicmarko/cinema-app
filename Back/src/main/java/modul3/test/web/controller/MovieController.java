@@ -55,13 +55,17 @@ public class MovieController {
 			@RequestParam(required=false) Integer durationTo,
 			@RequestParam(required=false) Integer yearFrom,
 			@RequestParam(required=false) Integer yearTo,
+			
+			@RequestParam(required=false, defaultValue = "ASC") String orderBy,
+			@RequestParam(required=false, defaultValue = "name") String sortBy,
+			
 			@RequestParam(defaultValue="0") int pageNo) {
 		
 		if (genres != null) {
 			genres = genres.trim();
 		}
 		
-		Page<Movie> stranice = movieService.searchMovies(name, distributor, country, genres, durationFrom, durationTo, yearFrom, yearTo, pageNo);
+		Page<Movie> stranice = movieService.searchMovies(name, distributor, country, genres, durationFrom, durationTo, yearFrom, yearTo, pageNo, sortBy, orderBy);
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set("Total-Pages", stranice.getTotalPages() + "");

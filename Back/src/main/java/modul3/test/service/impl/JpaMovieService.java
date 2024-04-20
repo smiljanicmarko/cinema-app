@@ -64,13 +64,7 @@ public class JpaMovieService implements MovieService {
 		return m;
 	}
 
-	@Override
-	public Page<Movie> searchMovies(String name, String distributor, String country, String genres, Integer durationFrom,
-			Integer durationTo, Integer yearFrom, Integer yearTo, int pageNo) {
-		
-		
-		return r.searchMovies(name, distributor, country, genres, durationFrom, durationTo, yearFrom, yearTo, PageRequest.of(pageNo, 8));
-	}
+	
 
 	@Override
 	public Boolean movieAvailable(Long movieId) {
@@ -163,6 +157,17 @@ public class JpaMovieService implements MovieService {
 		}
 
 		return projectionsNumber;
+	}
+
+	@Override
+	public Page<Movie> searchMovies(String name, String distributor, String country, String genres,
+			Integer durationFrom, Integer durationTo, Integer yearFrom, Integer yearTo, int pageNo, String sortBy,
+			String orderBy) {
+		
+			 	Sort sort = Sort.by(Sort.Direction.fromString(orderBy), sortBy);
+			    Pageable customPageable = PageRequest.of(pageNo, 8, sort);
+			return r.searchMovies(name, distributor, country, genres, durationFrom, durationTo, yearFrom, yearTo, customPageable);		
+		
 	}
 
 
