@@ -13,8 +13,13 @@ const UserDetailsAdmin = () => {
       const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
       const isKorisnik = decoded?.role?.authority === "ROLE_KORISNIK";
       const usernameToken = decoded?.sub
+      
+      
+      const navigate = useNavigate()
 
-    const navigate = useNavigate()
+    {!isAdmin? 
+    navigate('/') : <></>}
+
 
     const urlParams = useParams()
     const userId = urlParams.id

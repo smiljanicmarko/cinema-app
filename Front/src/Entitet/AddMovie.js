@@ -3,9 +3,20 @@ import { useNavigate } from "react-router-dom";
 import TestAxios from '../apis/TestAxios';
 import { FormGroup, FormLabel, Row, Col, Form, Button } from 'react-bootstrap';
 import { Multiselect } from 'multiselect-react-dropdown'
-
+import { jwtDecode } from "jwt-decode";
 
 const AddMovie = () => {
+    const token = localStorage.getItem("jwt");
+    const decoded = token ? jwtDecode(token) : null;
+    const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
+
+    var navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isAdmin) {
+            navigate('/');
+        }
+    }, [isAdmin]); 
 
     //DEKLARACIJA OBJEKTA, SA IMENIMA IZ DTO! OBAVEZNO ISTA IMENA U NAME ATRIBUT U HTML!
     var kostur = {
@@ -26,7 +37,7 @@ const AddMovie = () => {
     const [rezultat, setRezultat] = useState([]) // STATE ZA SELECT OPCIJU
     const [objekat, setObjekat] = useState(kostur);
 
-    var navigate = useNavigate();
+   
     // ==================================== GLAVNA AXIOS FUNKCIJA ZA KREIRANJE ============================================
     const create = () => {       
 

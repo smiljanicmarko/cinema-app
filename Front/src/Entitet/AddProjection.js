@@ -10,6 +10,17 @@ const AddProjection = () => {
     const decoded = token ? jwtDecode(token) : null;
     const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
     const usernameToken = decoded?.sub
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isAdmin) {
+            navigate('/');
+        }
+    }, [isAdmin]); 
+
+
+
 //DEKLARACIJA OBJEKTA, SA IMENIMA IZ DTO! OBAVEZNO ISTA IMENA U NAME ATRIBUT U HTML!
     var kostur = {
     movieId: '',    
@@ -27,7 +38,7 @@ const [theatres, setTheatres] = useState([])
 const [currentTheater, setCurrentTheater] = useState(null)
 const [errors, setErrors] = useState({});
 
-    var navigate = useNavigate();
+    
 // ==================================== GLAVNA AXIOS FUNKCIJA ZA KREIRANJE ============================================
     const create = () => {
         if (!validate()) return;

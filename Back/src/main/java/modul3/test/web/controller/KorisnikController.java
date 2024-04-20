@@ -201,6 +201,12 @@ public class KorisnikController {
     @PreAuthorize("permitAll()")
     @RequestMapping(path = "/auth", method = RequestMethod.POST)
     public ResponseEntity authenticateUser(@RequestBody AuthKorisnikDto dto) {
+    	
+    	Korisnik user = korisnikService.findByKorisnickoIme(dto.getUsername());
+    	if (user.getDeleted() == true) {
+    		return ResponseEntity.notFound().build();
+    	}
+    	
         // Perform the authentication
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
@@ -220,7 +226,7 @@ public class KorisnikController {
   	@DeleteMapping("/{id}")
   	public ResponseEntity<Void> delete(@PathVariable Long id){
   		Korisnik obrisan = korisnikService.logicalDelete(id);
-  		System.out.println("Korisnik " +obrisan.getIme() +" deleted parametar je " +obrisan.getDeleted());
+  		
   		if(obrisan != null) {
   			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   		} else {

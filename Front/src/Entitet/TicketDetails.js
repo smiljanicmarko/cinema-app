@@ -12,8 +12,13 @@ const TicketDetails = () => {
     const decoded = token ? jwtDecode(token) : null;
     const isAdmin = decoded?.role?.authority === "ROLE_ADMIN";
     const isKorisnik = decoded?.role?.authority === "ROLE_KORISNIK";
-
+    const usernameToken = decoded?.sub
     const navigate = useNavigate()
+
+
+ 
+
+
 
     const urlParams = useParams()
     const ticketId = urlParams.id
@@ -37,6 +42,12 @@ const TicketDetails = () => {
         getTicket()
     }, [])
    
+    useEffect(()=>{
+        if (!isAdmin && usernameToken !== ticket.username){
+            navigate('/')
+        }
+    },[usernameToken, ticket])
+
 
     const deleteTicket = (id, userId) =>{
         TestAxios.delete('/tickets/' + id)
