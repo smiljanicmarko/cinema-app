@@ -37,7 +37,7 @@ const Movies = () => {
         getZadaci();
     }, [pageNo, pretraga, sortBy, orderBy]);
 
-   
+
     const getZadaci = useCallback(() => {
         TestAxios.get(`/movies?pageNo=${pageNo}`, {
             params: {
@@ -57,7 +57,7 @@ const Movies = () => {
             });
     }, [pageNo, pretraga, orderBy, sortBy]);
 
-    
+
     //======================== NAVIGATE ============================================
     var navigate = useNavigate()
 
@@ -67,7 +67,7 @@ const Movies = () => {
 
 
     // ======================== BRISANJE ===========================================
-   
+
 
     //============================================ HANDLERI ZA FORME I VALUE INPUT CHANGED ===============================
     const formaHandler = () => {
@@ -92,21 +92,21 @@ const Movies = () => {
     //=============================================================================================================
     const renderTabela = () => {
         return tabela
-        .filter(movie => !movie.deleted)
-        .map((klasa, index) => {
-            return (
-                <tr key={klasa.id}>
-                    <td>{klasa.name}</td>
-                    <td>{klasa.genres}</td>
-                    <td>{klasa.duration}</td>
-                    <td>{klasa.country}</td>
-                    <td>{klasa.year}</td>
-                    <td>{klasa.distributor}</td>
-                    {/* === DUGMICI ===*/}                   
-                    <td> <Button onClick={() => navigate("/movies/" + klasa.id)}>Details</Button> </td>
-                </tr>
-            )
-        })
+            .filter(movie => !movie.deleted)
+            .map((klasa, index) => {
+                return (
+                    <tr key={klasa.id}>
+                        <td>{klasa.name}</td>
+                        <td>{klasa.genres}</td>
+                        <td>{klasa.duration}</td>
+                        <td>{klasa.country}</td>
+                        <td>{klasa.year}</td>
+                        <td>{klasa.distributor}</td>
+                        {/* === DUGMICI ===*/}
+                        <td> <Button onClick={() => navigate("/movies/" + klasa.id)}>Details</Button> </td>
+                    </tr>
+                )
+            })
     }
 
     //========================================== RENDER FORME ZA PRETRAGU====================================================
@@ -171,14 +171,14 @@ const Movies = () => {
                         </Col>
                     </Row>
 
-                    
-                    <div style={{ marginTop: '23px'}}>
+
+                    <div style={{ marginTop: '23px' }}>
                         <Row>
                             <Col md={3}>
                                 <Button type="button" onClick={pretragaClickHandler}>Search</Button>
                             </Col>
 
-                          
+
 
                         </Row>
                     </div>
@@ -187,55 +187,64 @@ const Movies = () => {
 
         )
     }
-    useEffect(()=>{
-        console.log('SortBy: ' +sortBy)
-    },[sortBy])
+    useEffect(() => {
+        console.log('SortBy: ' + sortBy)
+    }, [sortBy])
 
-    useEffect(()=>{
-        console.log('orderBy: ' +orderBy)
-    },[orderBy])
+    useEffect(() => {
+        console.log('orderBy: ' + orderBy)
+    }, [orderBy])
 
-    const renderSort = () =>{
+    const renderSort = () => {
         return (<Row>
             <Col md={2}>
-            <FormGroup>
-              <FormLabel htmlFor="sortBy">Sort by:</FormLabel>
-              <Form.Control as='select' name="sortBy" id="sortBy" onChange={sortByChangeHandler}>
-                <option value=''>Sort by</option>
-                <option value='name'>Movie name</option> 
-                <option value='genres'>Genres</option>   
-                <option value='duration'>Duration</option>   
-                <option value='country'>Country</option>                        
-                <option value='year'>Year</option>   
-                <option value='distributor'>Distributor</option>               
-              </Form.Control>
-            </FormGroup>
-          </Col>
-    
-          <Col md={2}>
-            <FormGroup>
-              <FormLabel htmlFor="orderBy">Order by:</FormLabel>
-              <Form.Control as='select' name="orderBy" id="orderBy" onChange={orderByChangeHandler}>
-                <option value=''>Order by</option>
-                <option value='ASC'>Ascending</option> 
-                <option value='DESC'>Descending</option>                        
-              </Form.Control>
-            </FormGroup>
-          </Col>
-          
-          </Row> )
-       
+                <FormGroup>
+                    <FormLabel htmlFor="sortBy">Sort by:</FormLabel>
+                    <Form.Control as='select' name="sortBy" id="sortBy" onChange={sortByChangeHandler}>
+                        <option value=''>Sort by</option>
+                        <option value='name'>Movie name</option>
+                        <option value='genres'>Genres</option>
+                        <option value='duration'>Duration</option>
+                        <option value='country'>Country</option>
+                        <option value='year'>Year</option>
+                        <option value='distributor'>Distributor</option>
+                    </Form.Control>
+                </FormGroup>
+            </Col>
+
+            <Col md={2}>
+                <FormGroup>
+                    <FormLabel htmlFor="orderBy">Order by:</FormLabel>
+                    <Form.Control as='select' name="orderBy" id="orderBy" onChange={orderByChangeHandler}>
+                        <option value=''>Order by</option>
+                        <option value='ASC'>Ascending</option>
+                        <option value='DESC'>Descending</option>
+                    </Form.Control>
+                </FormGroup>
+            </Col>
+
+        </Row>)
+
     }
 
     const sortByChangeHandler = (e) => {
         setSortBy(e.target.value);
     };
-    
+
     const orderByChangeHandler = (e) => {
         setOrderBy(e.target.value);
     };
 
-
+    const handleSortClick = (field) => {
+        // If the clicked field is already the current sortBy, toggle the orderBy
+        if (sortBy === field) {
+            setOrderBy(orderBy === 'ASC' ? 'DESC' : 'ASC');
+        } else {
+            // Otherwise, change sortBy and set orderBy to 'ASC'
+            setSortBy(field);
+            setOrderBy('ASC');
+        }
+    };
 
 
     //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = GLAVNI RETURN = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -251,14 +260,14 @@ const Movies = () => {
                 <br />
             </div>
 
-            
+
 
 
 
             {/* ================================== ADD + PAGINACIJA IZNAD TABELE ================= */}
-           
-           {isAdmin?<Button className="btn btn-success" onClick={goToAdd} >+ New movie</Button> : <></> }
-            
+
+            {isAdmin ? <Button className="btn btn-success" onClick={goToAdd} >+ New movie</Button> : <></>}
+
 
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Row>
@@ -272,20 +281,21 @@ const Movies = () => {
                 </Row>
             </div>
             <Row><Col>
-            {renderSort()}
+                {renderSort()}
                 <Table id="movies-table">
                     <thead>
                         <tr>
                             {/* ================================== ZAGLAVLJE TABELE ================= */}
-                            <th>Name</th>
-                            <th>Genres</th>
-                            <th>Duration</th>
-                            <th>Country</th>
-                            <th>Year</th>
-                            <th>Distributor</th>
-                            <th></th>
-                            <th></th>
+                            <th onClick={() => handleSortClick('name')}>Name {sortBy === 'name' ? (orderBy === 'ASC' ? '↑' : '↓') : ''}</th>
+                            <th onClick={() => handleSortClick('genres')}>Genres {sortBy === 'genres' ? (orderBy === 'ASC' ? '↑' : '↓') : ''}</th>
+                            <th onClick={() => handleSortClick('duration')}>Duration {sortBy === 'duration' ? (orderBy === 'ASC' ? '↑' : '↓') : ''}</th>
+                            <th onClick={() => handleSortClick('country')}>Country {sortBy === 'country' ? (orderBy === 'ASC' ? '↑' : '↓') : ''}</th>
+                            <th onClick={() => handleSortClick('year')}>Year {sortBy === 'year' ? (orderBy === 'ASC' ? '↑' : '↓') : ''}</th>
+                            <th onClick={() => handleSortClick('distributor')}>Distributor {sortBy === 'distributor' ? (orderBy === 'ASC' ? '↑' : '↓') : ''}</th>
                         </tr>
+
+
+
                     </thead>
                     {/* ================================== TELO TABELE  ================= */}
                     <tbody>
