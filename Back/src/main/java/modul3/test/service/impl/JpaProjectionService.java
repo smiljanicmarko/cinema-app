@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import modul3.test.model.Movie;
@@ -107,9 +109,12 @@ public class JpaProjectionService implements ProjectionService {
 
 	@Override
 	public Page<Projection> searchProjections(String movie, LocalDateTime start, LocalDateTime end,
-			Long projectionTypeId, Long theaterId, Double priceFrom, Double priceTo, int pageNo) {
-		// TODO Auto-generated method stub
-		return r.searchProjections(movie, projectionTypeId, theaterId, priceFrom, priceTo, start, end,  PageRequest.of(pageNo, 5));
+			Long projectionTypeId, Long theaterId, Double priceFrom, Double priceTo, int pageNo, String sortBy, String orderBy) {
+		
+		Sort sort = Sort.by(Sort.Direction.fromString(orderBy), sortBy);
+	    Pageable customPageable = PageRequest.of(pageNo, 5, sort);
+		
+		return r.searchProjections(movie, projectionTypeId, theaterId, priceFrom, priceTo, start, end,  customPageable);
 	}
 
 	@Override

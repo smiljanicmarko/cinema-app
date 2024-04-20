@@ -22,7 +22,7 @@ public interface ProjectionService {
     Projection deleteLogically (Long id);
 
     Page<Projection> searchProjections (String movie, LocalDateTime start, LocalDateTime end, Long projectionTypeId, 
-    									Long theaterId, Double priceFrom, Double priceTo, int pageNo);
+    									Long theaterId, Double priceFrom, Double priceTo, int pageNo, String sortby, String orderBy);
     
     Projection createProjection (Projection projection);
     

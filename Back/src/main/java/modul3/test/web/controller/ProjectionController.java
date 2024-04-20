@@ -56,7 +56,11 @@ public class ProjectionController {
 			@RequestParam(required=false) Double priceFrom,
 			@RequestParam(required=false) Double priceTo,
 			@RequestParam(required=false) String dateFrom,
-			@RequestParam(required=false) String dateTo,			
+			@RequestParam(required=false) String dateTo,	
+			
+			@RequestParam(required=false, defaultValue = "ASC") String orderBy,
+			@RequestParam(required=false, defaultValue = "movie.name") String sortBy,
+			
 			@RequestParam(defaultValue="0") int pageNo) {
 		
 		LocalDateTime start = null;
@@ -78,7 +82,7 @@ public class ProjectionController {
 		}	 
 		
 		
-		Page<Projection> stranice = projectionService.searchProjections(movie, start, end, projectionTypeId, theaterId, priceFrom, priceTo, pageNo);
+		Page<Projection> stranice = projectionService.searchProjections(movie, start, end, projectionTypeId, theaterId, priceFrom, priceTo, pageNo, sortBy, orderBy);
 		
 		
 		HttpHeaders responseHeaders = new HttpHeaders();

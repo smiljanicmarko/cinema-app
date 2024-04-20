@@ -18,7 +18,10 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 
 	Projection findOneById(Long id);
 
-	@Query("SELECT p FROM Projection p WHERE "
+	@Query("SELECT p FROM Projection p "
+			+ "JOIN p.projectionType pt "
+		    + "JOIN p.theater t "
+			+ "WHERE "
 			+ "(:movie IS NULL OR p.movie.name like %:movie%) AND "       
 			+ "(:projectionTypeId IS NULL OR p.projectionType.id = :projectionTypeId) AND "
 			+ "(:priceFrom IS NULL OR p.price >= :priceFrom) AND"
@@ -37,7 +40,7 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 			@Param("end") LocalDateTime end,
 			Pageable pageable);
 
-
+	 
 
 
 	List<Projection> findByTimeBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);

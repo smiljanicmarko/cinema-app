@@ -32,11 +32,13 @@ const Projections = () => {
   const [prikaziFormu, setPrikaziFormu] = useState(false);
   const [pretraga, setPretraga] = useState(pretragaObjekat)
   const [theatres, setTheatres] = useState([])
+  const [sortBy, setSortBy] = useState('')
+  const [orderBy, setOrderBy] = useState('')
   // /////////////////////////////////////////////////////// J A V A  S C R I P T  F U N K C I J E \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   //======================== USE EFFECT ============================================
   useEffect(() => {
     getZadaci();
-  }, [pageNo]);
+  }, [pageNo, sortBy, orderBy]);
 
 
 
@@ -49,7 +51,9 @@ const Projections = () => {
   const getZadaci = useCallback(() => {
     TestAxios.get(`/projections?pageNo=${pageNo}`, {
       params: {
-        ...pretraga
+        ...pretraga,
+        orderBy: orderBy,
+        sortBy: sortBy
       }
     })
       .then(res => {
@@ -61,7 +65,7 @@ const Projections = () => {
         console.log(error);
         alert('1');
       });
-  }, [pageNo, pretraga]);
+  }, [pageNo, pretraga, orderBy, sortBy]);
 
   const getTheatres = useCallback(() => {
     TestAxios.get('/theatres')
@@ -103,7 +107,55 @@ const Projections = () => {
     setPageNo(0);
     getZadaci();
   }
+  const renderSort = () => {
+    return (<Row>
+        <Col md={2}>
+            <FormGroup>
+                <FormLabel htmlFor="sortBy">Sort by:</FormLabel>
+                <Form.Control as='select' name="sortBy" id="sortBy" onChange={sortByChangeHandler}>
+                    <option value=''>Sort by</option>
+                    <option value='movie.name'>Movie name</option>
+                    <option value='projectionType'>Projection type</option>
+                    <option value='theater.name'>Theater</option>
+                    <option value='time'>Date and time</option>
+                    <option value='price'>Price</option>                   
+                </Form.Control>
+            </FormGroup>
+        </Col>
 
+        <Col md={2}>
+            <FormGroup>
+                <FormLabel htmlFor="orderBy">Order by:</FormLabel>
+                <Form.Control as='select' name="orderBy" id="orderBy" onChange={orderByChangeHandler}>
+                    <option value=''>Order by</option>
+                    <option value='ASC'>Ascending</option>
+                    <option value='DESC'>Descending</option>
+                </Form.Control>
+            </FormGroup>
+        </Col>
+
+    </Row>)
+
+}
+
+const sortByChangeHandler = (e) => {
+    setSortBy(e.target.value);
+};
+
+const orderByChangeHandler = (e) => {
+    setOrderBy(e.target.value);
+};
+
+const handleSortClick = (field) => {
+    // If the clicked field is already the current sortBy, toggle the orderBy
+    if (sortBy === field) {
+        setOrderBy(orderBy === 'ASC' ? 'DESC' : 'ASC');
+    } else {
+        // Otherwise, change sortBy and set orderBy to 'ASC'
+        setSortBy(field);
+        setOrderBy('ASC');
+    }
+};
 
 
   {/* ================================================ RENDER TABELE ========================================= */ }
@@ -255,17 +307,17 @@ const Projections = () => {
         </Row>
       </div>
       <Row><Col>
+      {renderSort()}
         <Table className='table table-striped table-dark' id="movies-table">
           <thead>
             <tr>
               {/* ================================== ZAGLAVLJE TABELE ================= */}
-              <th>Movie name</th>
-              <th>Projection type</th>
-              <th>Theater</th>
-              <th>Date and time</th>
-              <th>Price</th>
-
-            </tr>
+              <th onClick={() => handleSortClick('movie.name')}>Movie name {sortBy === 'movie.name' ? (orderBy === 'ASC' ? '↑' : '↓') : ''}</th>
+              <th onClick={() => handleSortClick('projectionType')}>Projection type {sortBy === 'projectionType' ? (orderBy === 'ASC' ? '↑' : '↓') : ''}</th>
+              <th onClick={() => handleSortClick('theater.name')}>Theater {sortBy === 'theater.name' ? (orderBy === 'ASC' ? '↑' : '↓') : ''}</th>
+              <th onClick={() => handleSortClick('time')}>Date and time {sortBy === 'time' ? (orderBy === 'ASC' ? '↑' : '↓') : ''}</th>
+              <th onClick={() => handleSortClick('price')}>Price {sortBy === 'price' ? (orderBy === 'ASC' ? '↑' : '↓') : ''}</th>
+             </tr>
           </thead>
           {/* ================================== TELO TABELE  ================= */}
           <tbody>
