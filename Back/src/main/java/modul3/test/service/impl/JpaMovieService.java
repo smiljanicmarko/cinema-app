@@ -11,6 +11,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import modul3.test.model.Movie;
@@ -65,7 +67,8 @@ public class JpaMovieService implements MovieService {
 	@Override
 	public Page<Movie> searchMovies(String name, String distributor, String country, String genres, Integer durationFrom,
 			Integer durationTo, Integer yearFrom, Integer yearTo, int pageNo) {
-
+		
+		
 		return r.searchMovies(name, distributor, country, genres, durationFrom, durationTo, yearFrom, yearTo, PageRequest.of(pageNo, 8));
 	}
 

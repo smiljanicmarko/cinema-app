@@ -84,7 +84,7 @@ if (projections.length>0){
 
     <h1 style={{align: 'center'}}>Today ({formatOnlyDate(new Date())}) on Repertoire</h1>
     
-    <BigCard title = { <h1 className="display-4">{usernameToken?  (usernameToken + ', ')  : ''} Welcome to our Cinema!</h1>}
+    <BigCard title = { <h1 className="display-4"></h1>}
     render = {renderTabela()}
     
     
