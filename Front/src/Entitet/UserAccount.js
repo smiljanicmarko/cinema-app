@@ -72,7 +72,11 @@ const renderTickets = () => {
             return (
                 <tr key={klasa.id}>
                     <td>{klasa.id}</td>
-                    <td><Link to={'/tickets/'+klasa.id}>{formatDate(klasa.purchaseTime)}</Link></td>                    
+                    <td><Link to={'/tickets/'+klasa.id}>{formatDate(klasa.purchaseTime)}</Link></td>    
+                    <td>{klasa.movie}</td>
+                    <td>{klasa.theaterName}</td>
+                    <td>{klasa.seatNumber}</td>
+
                     {/* === DUGMICI ===*/}
                     {/* <td><Button className='btn btn-warning' onClick={() => navigate('/tickets/'+klasa.id)}>Details</Button></td> */}
                 </tr>
@@ -91,10 +95,10 @@ const formHandler = () => {
 
 const renderTable = () =>{
 return (
-    <Table className="table table-striped" style={{ width: '30%' }}>
+    <Table className="table table-striped" style={{ width: '60%' }}>
             <thead>
             <tr>
-            <th>Ticket id</th> <th>Purchase time</th>
+            <th>Ticket id</th><th>Purchase time</th><th>Movie</th><th>Theater</th><th>Seat number</th>
             </tr>
             </thead>
             <tbody>

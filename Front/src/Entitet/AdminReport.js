@@ -139,7 +139,9 @@ const AdminReport = () => {
               </tr>
             </thead>
             {/* ================================== TELO TABELE  ================= */}
-            <tbody>{tabela.length > 0 && renderTabela()}</tbody>
+            <tbody>{tabela.length > 0 && renderTabela()}
+            {tabela.length === 0? 'No projections for that period' : ''}
+            </tbody>
           </Table>
         </Col>
       </Row>

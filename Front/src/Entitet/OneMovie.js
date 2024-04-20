@@ -159,7 +159,7 @@ const OneMovie = () => {
                     </Row> :
                     <Row>
                         <Col>
-                         <Button disabled={!available} className="btn btn-success" onClick={()=>goToBuyTickets(movie.id)}>Buy tickets</Button>
+                         <Button disabled={!available || movie.deleted} className="btn btn-success" onClick={()=>goToBuyTickets(movie.id)}>Buy tickets</Button>
                          </Col>
                     </Row>
                 }
