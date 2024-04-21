@@ -11,8 +11,6 @@ public interface TheaterRepository extends JpaRepository<Theater, Long> {
 
 	Theater findOneById(Long id);
 
-
-
 }
 
 

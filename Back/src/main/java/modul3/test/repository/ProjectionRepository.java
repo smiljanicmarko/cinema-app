@@ -20,7 +20,7 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 
 	@Query("SELECT p FROM Projection p "
 			+ "JOIN p.projectionType pt "
-		    + "JOIN p.theater t "
+			+ "JOIN p.theater t "
 			+ "WHERE "
 			+ "(:movie IS NULL OR p.movie.name like %:movie%) AND "       
 			+ "(:projectionTypeId IS NULL OR p.projectionType.id = :projectionTypeId) AND "
@@ -40,7 +40,7 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 			@Param("end") LocalDateTime end,
 			Pageable pageable);
 
-	 
+
 
 
 	List<Projection> findByTimeBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
@@ -56,27 +56,3 @@ public interface ProjectionRepository extends JpaRepository<Projection, Long> {
 
 
 }
-
-
-
-//List<Linija> findByIdIn(List<Long> ids);  
-
-// ============================     neka dodatna pojasnjenja za pretragu
-
-////		@Query("SELECT f FROM Film f WHERE" +
-////     	   "(:filmNaziv = NULL OR f.naziv LIKE :filmNaziv)")
-////		List<Film> search(@Param("filmNaziv") String filmNaziv); */
-//    
-//		//f.naziv LIKE :filmNaziv - oznacava tacan naziv (case sensitive),  
-//		  //  a ova je (case insesnsitive!) @Query("SELECT f FROM Film f WHERE LOWER(f.naziv) LIKE LOWER(:filmNaziv)")
-//
-
-//@Query("SELECT p FROM Projekcija p WHERE" +
-//        "(p.datumIVreme BETWEEN :datumIVremeOd AND :datumIVremeDo) AND " +
-//        "(p.cenaKarte BETWEEN :cenaKarteOd AND :cenaKarteDo) AND "+
-//        "(:tip = NULL OR p.tip LIKE :tip) AND " +
-//        "(:filmId = NULL OR p.film.id = :filmId) AND " +
-//        "(:sala = NULL OR p.sala = :sala)")
-//List<Projekcija> search(@Param("datumIVremeOd") LocalDateTime datumIVremeOd,@Param("datumIVremeDo") LocalDateTime datumIVremeDo,
-//                        @Param("cenaKarteOd") Double cenaKarteOd, @Param("cenaKarteDo") Double cenaKarteDo,
-//                        @Param("tip") String tip, @Param("filmId") Long filmId, @Param("sala") Integer sala);
