@@ -132,7 +132,7 @@ public class ProjectionController {
 				}
 			}
 			
-			System.out.println("ovoooooooooooooooooooooooo: \n" + projections);
+			
 			if (projections != null) {
 				return new ResponseEntity<>(toDto.convert(projections), HttpStatus.OK);
 			}else {
