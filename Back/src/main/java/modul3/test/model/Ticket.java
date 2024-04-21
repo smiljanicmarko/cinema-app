@@ -80,7 +80,7 @@ public class Ticket {
 		}
 
 	  	
-	  	
+		//This method is removing all references connected to ticket object	  	
 		 public void removeReferences() {
 		        if (projection != null) {
 		            projection.getTickets().remove(this);
@@ -91,11 +91,6 @@ public class Ticket {
 		       
 		    }
 	  
-	  	
-	  	
-	  	
-	  	
-	  	
 	  	
 	  	
 }

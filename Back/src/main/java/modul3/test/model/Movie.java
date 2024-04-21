@@ -23,13 +23,10 @@ public class Movie {
 	@Column(nullable = false)
 	private String name;
 
-	private String director;
-
-	//iz liste prebaceni u obican String. 
-	//Ukoliko kasnije bude trebalo, postoji mogucnost za pravljenje objekata
+	private String director;	
 
 	private String actors;
-	
+
 	private String genres;
 
 	@Column(nullable = false)
@@ -42,9 +39,9 @@ public class Movie {
 	private Integer year;
 
 	private String description;     
-	
+
 	private Boolean deleted = false;
-	
+
 
 	@OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Projection>projections = new ArrayList<Projection>();
@@ -191,15 +188,6 @@ public class Movie {
 		return Objects.equals(id, other.id);
 	}
 
-
-
-	
-
-
-
-	//    @ManyToOne(fetch = FetchType.EAGER)
-	//    @JoinColumn(nullable = false)
-	//    private Film film;
 
 
 

@@ -20,18 +20,18 @@ import modul3.test.enumeration.ProjectionTypeEnum;
 @Entity
 public class ProjectionType {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private ProjectionTypeEnum type;
-    
-    @ManyToMany(mappedBy = "projectionTypes")
-    private Set<Theater> theaters;
-    
-    @OneToMany(mappedBy = "projectionType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Projection> projections = new ArrayList<Projection>();
+	@Enumerated(EnumType.STRING)
+	private ProjectionTypeEnum type;
+
+	@ManyToMany(mappedBy = "projectionTypes")
+	private Set<Theater> theaters;
+
+	@OneToMany(mappedBy = "projectionType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Projection> projections = new ArrayList<Projection>();
 
 	public Long getId() {
 		return id;
@@ -87,17 +87,6 @@ public class ProjectionType {
 		return "ProjectionType [id=" + id + ", type=" + type + "]";
 	}
 
-	
 
-	
-	
 
-   
-
-//    @OneToMany(mappedBy = "adresa", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//    private List<Korisnik> korisnici = new ArrayList<>();
-
-    
-    
-    
 }

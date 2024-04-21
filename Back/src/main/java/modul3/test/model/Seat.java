@@ -28,6 +28,8 @@ public class Seat {
 	 	@OneToMany(mappedBy = "seat")
 	 	private List<Ticket>tickets = new ArrayList<Ticket>();
 	 	
+	 	
+	 	
 		public Long getId() {
 			return id;
 		}
@@ -57,8 +59,7 @@ public class Seat {
 		@Override
 		public int hashCode() {
 			return Objects.hash(id);
-		}
-		
+		}	
 		
 
 		public List<Ticket> getTickets() {

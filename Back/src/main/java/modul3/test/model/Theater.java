@@ -20,84 +20,83 @@ import javax.persistence.OneToMany;
 @Entity
 public class Theater {
 
-		@Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Long id;
-	 
-		private String name;
-		
-		 @ManyToMany
-		    @JoinTable(name = "theater_projection_type",
-		               joinColumns = @JoinColumn(name = "theater_id"),
-		               inverseJoinColumns = @JoinColumn(name = "projection_type_id"))		
-		private List<ProjectionType>projectionTypes = new ArrayList<ProjectionType>();
-		 
-		 
-		
-		@OneToMany(mappedBy = "theater", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-		private Set<Seat> seats = new HashSet<Seat>();		 
-		 
-		@OneToMany(mappedBy = "theater", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-		private List<Projection>projections = new ArrayList<Projection>();
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-		public Long getId() {
-			return id;
-		}
+	private String name;
 
-		public void setId(Long id) {
-			this.id = id;
-		}
+	@ManyToMany
+	@JoinTable(name = "theater_projection_type",
+	joinColumns = @JoinColumn(name = "theater_id"),
+	inverseJoinColumns = @JoinColumn(name = "projection_type_id"))		
+	private List<ProjectionType>projectionTypes = new ArrayList<ProjectionType>();
 
-		public String getName() {
-			return name;
-		}
 
-		public void setName(String name) {
-			this.name = name;
-		}
+	@OneToMany(mappedBy = "theater", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Seat> seats = new HashSet<Seat>();		 
 
-		public List<ProjectionType> getProjectionTypes() {
-			return projectionTypes;
-		}
+	@OneToMany(mappedBy = "theater", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Projection>projections = new ArrayList<Projection>();
 
-		public void setProjectionTypes(List<ProjectionType> projectionTypes) {
-			this.projectionTypes = projectionTypes;
-		}
+	public Long getId() {
+		return id;
+	}
 
-		public Set<Seat> getSeats() {
-			return seats;
-		}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-		public void setSeats(Set<Seat> seats) {
-			this.seats = seats;
-		}
+	public String getName() {
+		return name;
+	}
 
-		public List<Projection> getProjections() {
-			return projections;
-		}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-		public void setProjections(List<Projection> projections) {
-			this.projections = projections;
-		}
+	public List<ProjectionType> getProjectionTypes() {
+		return projectionTypes;
+	}
 
-		@Override
-		public int hashCode() {
-			return Objects.hash(id);
-		}
+	public void setProjectionTypes(List<ProjectionType> projectionTypes) {
+		this.projectionTypes = projectionTypes;
+	}
 
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Theater other = (Theater) obj;
-			return Objects.equals(id, other.id);
-		}
+	public Set<Seat> getSeats() {
+		return seats;
+	}
 
-	
-		
-		
+	public void setSeats(Set<Seat> seats) {
+		this.seats = seats;
+	}
+
+	public List<Projection> getProjections() {
+		return projections;
+	}
+
+	public void setProjections(List<Projection> projections) {
+		this.projections = projections;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Theater other = (Theater) obj;
+		return Objects.equals(id, other.id);
+	}
+
+
+
+
 }

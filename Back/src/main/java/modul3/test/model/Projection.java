@@ -16,145 +16,138 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 @Entity
 public class Projection {	
-	
-		@Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-		private Long id;
-		
-		@ManyToOne(fetch = FetchType.EAGER)
-	    @JoinColumn(nullable = false) 	
-		private Movie movie;
-		
-		@ManyToOne(fetch = FetchType.EAGER)
-	    @JoinColumn(nullable = false, name = "projection_type_id") 	
-		private ProjectionType projectionType;
-		
-		@ManyToOne(fetch = FetchType.EAGER)
-	    @JoinColumn(nullable = false) 	
-		private Theater theater;
-		
-		private LocalDateTime time;
-		
-		private Double price;
-		
-		@ManyToOne(fetch = FetchType.EAGER)
-	    @JoinColumn(nullable = false, name = "admin_id") 	
-		private Korisnik admin;
-		
-		@OneToMany(mappedBy = "projection", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-		private List<Ticket>tickets = new ArrayList<Ticket>();
-		
-		private Boolean deleted = false;
 
-		public Long getId() {
-			return id;
-		}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-		public void setId(Long id) {
-			this.id = id;
-		}
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false) 	
+	private Movie movie;
 
-		public Movie getMovie() {
-			return movie;
-		}
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false, name = "projection_type_id") 	
+	private ProjectionType projectionType;
 
-		public void setMovie(Movie movie) {
-			this.movie = movie;
-		}
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false) 	
+	private Theater theater;
 
-		public ProjectionType getProjectionType() {
-			return projectionType;
-		}
+	private LocalDateTime time;
 
-		public void setProjectionType(ProjectionType projectionType) {
-			this.projectionType = projectionType;
-		}
+	private Double price;
 
-		public Theater getTheater() {
-			return theater;
-		}
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false, name = "admin_id") 	
+	private Korisnik admin;
 
-		public void setTheater(Theater theater) {
-			this.theater = theater;
-		}
+	@OneToMany(mappedBy = "projection", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Ticket>tickets = new ArrayList<Ticket>();
 
-		public LocalDateTime getTime() {
-			return time;
-		}
+	private Boolean deleted = false;
 
-		public void setTime(LocalDateTime time) {
-			this.time = time;
-		}
+	public Long getId() {
+		return id;
+	}
 
-		public Double getPrice() {
-			return price;
-		}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-		public void setPrice(Double price) {
-			this.price = price;
-		}
+	public Movie getMovie() {
+		return movie;
+	}
 
-		public Korisnik getAdmin() {
-			return admin;
-		}
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
 
-		public void setAdmin(Korisnik admin) {
-			this.admin = admin;
-		}
+	public ProjectionType getProjectionType() {
+		return projectionType;
+	}
 
-		public List<Ticket> getTickets() {
-			return tickets;
-		}
+	public void setProjectionType(ProjectionType projectionType) {
+		this.projectionType = projectionType;
+	}
 
-		public void setTickets(List<Ticket> tickets) {
-			this.tickets = tickets;
-		}
+	public Theater getTheater() {
+		return theater;
+	}
 
-		@Override
-		public int hashCode() {
-			return Objects.hash(id);
-		}
+	public void setTheater(Theater theater) {
+		this.theater = theater;
+	}
 
-		public Boolean getDeleted() {
-			return deleted;
-		}
+	public LocalDateTime getTime() {
+		return time;
+	}
 
-		public void setDeleted(Boolean deleted) {
-			this.deleted = deleted;
-		}
-		
-		public Integer getAvailableTickets (){
-			Integer seats = 0;			
-			
-				Integer totalNumber = this.getTheater().getSeats().size();			
-				seats = totalNumber - this.getTickets().size();
-				
-			return seats;
-		}
-		
+	public void setTime(LocalDateTime time) {
+		this.time = time;
+	}
 
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Projection other = (Projection) obj;
-			return Objects.equals(id, other.id);
-		}
+	public Double getPrice() {
+		return price;
+	}
 
-		@Override
-		public String toString() {
-			return "Projection [id=" + id + ", movie=" + movie.getName() + ", tickets=" + tickets.size() + "]";
-		}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 
-		
-		
-	
-		
-		
-		
-		
+	public Korisnik getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Korisnik admin) {
+		this.admin = admin;
+	}
+
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public Integer getAvailableTickets (){
+		Integer seats = 0;			
+
+		Integer totalNumber = this.getTheater().getSeats().size();			
+		seats = totalNumber - this.getTickets().size();
+
+		return seats;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Projection other = (Projection) obj;
+		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Projection [id=" + id + ", movie=" + movie.getName() + ", tickets=" + tickets.size() + "]";
+	}
+
 }
