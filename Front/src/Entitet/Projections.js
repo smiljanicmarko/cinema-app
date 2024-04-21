@@ -113,7 +113,7 @@ const Projections = () => {
             <FormGroup>
                 <FormLabel htmlFor="sortBy">Sort by:</FormLabel>
                 <Form.Control as='select' name="sortBy" id="sortBy" onChange={sortByChangeHandler}>
-                    <option value=''>Sort by</option>
+                    {/* <option value=''>Sort by</option> */}
                     <option value='movie.name'>Movie name</option>
                     <option value='projectionType'>Projection type</option>
                     <option value='theater.name'>Theater</option>
@@ -127,7 +127,7 @@ const Projections = () => {
             <FormGroup>
                 <FormLabel htmlFor="orderBy">Order by:</FormLabel>
                 <Form.Control as='select' name="orderBy" id="orderBy" onChange={orderByChangeHandler}>
-                    <option value=''>Order by</option>
+                    {/* <option value=''>Order by</option> */}
                     <option value='ASC'>Ascending</option>
                     <option value='DESC'>Descending</option>
                 </Form.Control>
