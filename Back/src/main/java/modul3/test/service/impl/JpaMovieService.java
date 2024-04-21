@@ -29,7 +29,7 @@ public class JpaMovieService implements MovieService {
 	private MovieRepository r;
 	@Autowired
 	private ProjectionRepository projectionRepository;
-	
+
 
 	@Override
 	public Movie findOneById(Long id) {
@@ -64,7 +64,7 @@ public class JpaMovieService implements MovieService {
 		return m;
 	}
 
-	
+
 
 	@Override
 	public Boolean movieAvailable(Long movieId) {
@@ -90,12 +90,12 @@ public class JpaMovieService implements MovieService {
 
 	@Override
 	public List<MovieReportDTO> report(LocalDate start, LocalDate end) {
-		
+
 
 
 		LocalDateTime startTime = start.atStartOfDay();
 		LocalDateTime endTime = end.atTime(23, 59, 59);	
-		
+
 		List<Projection> projections = projectionRepository.findByTimeBetween(startTime, endTime);		
 		List<MovieReportDTO> dtoList = new ArrayList<MovieReportDTO>();
 
@@ -163,11 +163,11 @@ public class JpaMovieService implements MovieService {
 	public Page<Movie> searchMovies(String name, String distributor, String country, String genres,
 			Integer durationFrom, Integer durationTo, Integer yearFrom, Integer yearTo, int pageNo, String sortBy,
 			String orderBy) {
-		
-			 	Sort sort = Sort.by(Sort.Direction.fromString(orderBy), sortBy);
-			    Pageable customPageable = PageRequest.of(pageNo, 8, sort);
-			return r.searchMovies(name, distributor, country, genres, durationFrom, durationTo, yearFrom, yearTo, customPageable);		
-		
+
+		Sort sort = Sort.by(Sort.Direction.fromString(orderBy), sortBy);
+		Pageable customPageable = PageRequest.of(pageNo, 8, sort);
+		return r.searchMovies(name, distributor, country, genres, durationFrom, durationTo, yearFrom, yearTo, customPageable);		
+
 	}
 
 

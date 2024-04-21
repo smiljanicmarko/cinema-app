@@ -17,13 +17,13 @@ public class JpaTheaterService implements TheaterService {
 	
 	@Override
 	public Theater findOneById(Long id) {
-		// TODO Auto-generated method stub
+		
 		return r.findOneById(id);
 	}
 
 	@Override
 	public List<Theater> findAll() {
-		// TODO Auto-generated method stub
+		
 		return r.findAll();
 	}
 

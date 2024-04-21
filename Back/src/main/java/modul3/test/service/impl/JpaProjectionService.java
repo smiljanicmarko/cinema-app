@@ -110,10 +110,10 @@ public class JpaProjectionService implements ProjectionService {
 	@Override
 	public Page<Projection> searchProjections(String movie, LocalDateTime start, LocalDateTime end,
 			Long projectionTypeId, Long theaterId, Double priceFrom, Double priceTo, int pageNo, String sortBy, String orderBy) {
-		
+
 		Sort sort = Sort.by(Sort.Direction.fromString(orderBy), sortBy);
-	    Pageable customPageable = PageRequest.of(pageNo, 5, sort);
-		
+		Pageable customPageable = PageRequest.of(pageNo, 5, sort);
+
 		return r.searchProjections(movie, projectionTypeId, theaterId, priceFrom, priceTo, start, end,  customPageable);
 	}
 
@@ -128,13 +128,13 @@ public class JpaProjectionService implements ProjectionService {
 
 		System.out.println("ovooooooooooooooooooooooooo");
 		System.out.println("projekcija tip:" + type);
-		
+
 		System.out.println("Za salu:" + theater.getProjectionTypes());
-		
+
 		if (time == null || type == null || theater == null	|| movie == null) {
 			return null;
 		}
-		
+
 		if (movie.getDeleted() == true) {
 			throw new IllegalArgumentException("That movie is not available anymore!");
 		}
@@ -166,7 +166,7 @@ public class JpaProjectionService implements ProjectionService {
 
 
 		return newProjection;
-		
+
 	}
 
 

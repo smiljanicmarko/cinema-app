@@ -32,8 +32,5 @@ public interface MovieService {
 	
     Integer numberOfProjectionsForMovie (Long movieId);
     
-//    Page<Film> findAll(Integer pageNo);
-//    Page<Film> find(String naziv, Long zanrId, Integer trajanjeOd, Integer trajanjeDo, int page);
-//    List<Film> findByZanrId(Long zanrId);
-//    List<Linija> nadjiPoId (List<Long>ids);
+
 }

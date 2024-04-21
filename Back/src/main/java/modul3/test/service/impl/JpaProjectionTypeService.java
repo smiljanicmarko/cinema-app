@@ -17,13 +17,13 @@ public class JpaProjectionTypeService implements ProjectionTypeService {
 
 	@Override
 	public ProjectionType findById(Long id) {
-		// TODO Auto-generated method stub
+		
 		return r.findOneById(id);
 	}
 
 	@Override
 	public List<ProjectionType> findAll() {
-		// TODO Auto-generated method stub
+		
 		return r.findAll();
 	}
 	
